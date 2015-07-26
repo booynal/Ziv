@@ -2,6 +2,7 @@ package data.view.homework.model;
 
 public class GctAnswer {
 
+	private int year;
 	private SingleGctAnswer chinese;
 	private SingleGctAnswer math;
 	private SingleGctAnswer logic;
@@ -9,14 +10,6 @@ public class GctAnswer {
 	
 	public GctAnswer() {
 		super();
-	}
-	public GctAnswer(SingleGctAnswer chinese, SingleGctAnswer math,
-			SingleGctAnswer logic, SingleGctAnswer english) {
-		super();
-		this.chinese = chinese;
-		this.math = math;
-		this.logic = logic;
-		this.english = english;
 	}
 	public SingleGctAnswer getChinese() {
 		return chinese;
@@ -41,6 +34,17 @@ public class GctAnswer {
 	}
 	public void setEnglish(SingleGctAnswer english) {
 		this.english = english;
+	}
+	public int getYear() {
+		return year;
+	}
+	public void setYear(int year) {
+		this.year = year;
+	}
+	@Override
+	public String toString() {
+		return "GctAnswer [year=" + year + ", chinese=" + chinese + ", math="
+				+ math + ", logic=" + logic + ", english=" + english + "]";
 	}
 	
 }
