@@ -1,6 +1,6 @@
 package data.view.homework.consts;
 
-public class GctAnswerConsts {
+public class ABCDConsts {
 	
 	public static final String A = "A";
 	public static final String B = "B";

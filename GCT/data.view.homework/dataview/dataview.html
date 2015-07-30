@@ -148,100 +148,115 @@
     </script>
 <script type="text/javascript" src="data.js"></script>
 <script type="text/javascript">
-    FusionCharts.ready(function () {
-    var salesHMChart = new FusionCharts({
-        type: 'heatmap',
-        renderAt: 'chartContainer',
-        width: '100%',
-        height: '270',
-        dataFormat: 'json',
-        dataSource:  {
-            "chart": {
-                "subcaption": "2013年",
-                //"xAxisName":"Features",
-                //"yAxisName":"Model",
-                "showplotborder": "1",
-                "xAxisLabelsOnTop": "1",
-                "plottooltext":"<div id='nameDiv' style='font-size: 12px; border-bottom: 1px dashed #666666; font-weight:bold; padding-bottom: 3px; margin-bottom: 5px; display: inline-block; color: #888888;' >$rowLabel :</div>{br}Rating : <b>$dataValue</b>{br}$columnLabel : <b>$tlLabel</b>{br}<b>$trLabel</b>",
-
-                 //Cosmetics
-                //"baseFontColor" : "#333333",
-                //"baseFont" : "Helvetica Neue,Arial",
-                //"captionFontSize" : "14",
-                //"subcaptionFontSize" : "14",
-                //"subcaptionFontBold" : "0",
-                "showBorder" : "1",
-                "showvalues" : "0",
-                "bgColor" : "#ffffff",
-                "showShadow" : "0",
-                "usePlotGradientColor" :"0",
-                "canvasBgColor" : "#ffffff",
-                "canvasBorderAlpha" : "0",
-                "legendBgAlpha" : "0",
-                "legendBorderAlpha" : "0",
-                "legendShadow" : "0",
-                "legendItemFontSize" : "10",
-                "legendItemFontColor" : "#666666",
-                "toolTipColor" : "#ffffff",
-                "toolTipBorderThickness" : "0",
-                "toolTipBgColor" : "#000000",
-                "toolTipBgAlpha" : "80",
-                "toolTipBorderRadius" : "2",
-                "toolTipPadding" : "5",
-                
-            },
-            "dataset": [
-                {
-                    "data": data_2013
-                }
-            ],
-            "colorrange": {
-                "gradient": "0",
-                "minvalue": "0",
-                "code": "E24B1A",
-                "startlabel": "A",
-                "endlabel": "B",
-                "color": [
-                    {
-                        "code": "5EA1FF",
-                        "minvalue": "1",
-                        "maxvalue": "19",
-                        "label": "A"
-                    },
-                    {
-                        "code": "F6BC33",
-                        "minvalue": "20",
-                        "maxvalue": "29",
-                        "label": "B"
-                    },
-                    {
-                        "code": "6DA81E",
-                        "minvalue": "30",
-                        "maxvalue": "39",
-                        "label": "C"
-                    },
-                    {
-                        "code": "CC99FF",
-                        "minvalue": "40",
-                        "maxvalue": "49",
-                        "label": "D"
-                    }
-                ]
-            }
-        }
-    });
-    salesHMChart.render();
-    chart = salesHMChart;
+function renderAt(id, data) {
+	var salesHMChart = new FusionCharts({
+	    type: 'heatmap',
+	    renderAt: id,
+	    width: '100%',
+	    height: '270',
+	    dataFormat: 'json',
+	    dataSource:  {
+	        "chart": {
+	            "subcaption": data.year+"年",
+	            //"xAxisName":"Features",
+	            //"yAxisName":"Model",
+	            "showplotborder": "1",
+	            "xAxisLabelsOnTop": "1",
+	            "plottooltext":"<div id='nameDiv' style='font-size: 12px; border-bottom: 1px dashed #666666; font-weight:bold; padding-bottom: 3px; margin-bottom: 5px; display: inline-block; color: #888888;' >$rowLabel :</div>{br}Rating : <b>$dataValue</b>{br}$columnLabel : <b>$tlLabel</b>{br}<b>$trLabel</b>",
+	
+	             //Cosmetics
+	            //"baseFontColor" : "#333333",
+	            //"baseFont" : "Helvetica Neue,Arial",
+	            //"captionFontSize" : "14",
+	            //"subcaptionFontSize" : "14",
+	            //"subcaptionFontBold" : "0",
+	            "showBorder" : "1",
+	            "showvalues" : "0",
+	            "bgColor" : "#ffffff",
+	            "showShadow" : "0",
+	            "usePlotGradientColor" :"0",
+	            "canvasBgColor" : "#ffffff",
+	            "canvasBorderAlpha" : "0",
+	            "legendBgAlpha" : "0",
+	            "legendBorderAlpha" : "0",
+	            "legendShadow" : "0",
+	            "legendItemFontSize" : "10",
+	            "legendItemFontColor" : "#666666",
+	            "toolTipColor" : "#ffffff",
+	            "toolTipBorderThickness" : "0",
+	            "toolTipBgColor" : "#000000",
+	            "toolTipBgAlpha" : "80",
+	            "toolTipBorderRadius" : "2",
+	            "toolTipPadding" : "5",
+	            
+	        },
+	        "dataset": [
+	            {
+	                "data": data.data
+	            }
+	        ],
+	        "colorrange": {
+	            "gradient": "0",
+	            "minvalue": "0",
+	            "code": "E24B1A",
+	            "startlabel": "A",
+	            "endlabel": "B",
+	            "color": [
+	                {
+	                    "code": "5EA1FF",
+	                    "minvalue": "1",
+	                    "maxvalue": "19",
+	                    "label": "A"
+	                },
+	                {
+	                    "code": "F6BC33",
+	                    "minvalue": "20",
+	                    "maxvalue": "29",
+	                    "label": "B"
+	                },
+	                {
+	                    "code": "6DA81E",
+	                    "minvalue": "30",
+	                    "maxvalue": "39",
+	                    "label": "C"
+	                },
+	                {
+	                    "code": "CC99FF",
+	                    "minvalue": "40",
+	                    "maxvalue": "49",
+	                    "label": "D"
+	                }
+	            ]
+	        }
+	    }
+	});
+	salesHMChart.render();
+}
+</script>
+<script type="text/javascript">
+FusionCharts.ready(function () {
+	var container = document.getElementById("chartContainer");
+	for (var i = 0; i <layoutData.data.length; i++) {
+		var chart = document.createElement("div");
+		var id = "chart" + i;
+		chart.setAttribute("id", id);
+		container.appendChild(chart);
+		var displayData = layoutData.data[i];
+		//console.log(displayData);
+		renderAt(id, displayData);
+	}
 });
 	function test() {
-		chart.width = "500";
-		chart.dataSource.dataset.data = data;
-		chart.render();
+		var displayData = layoutData.data[2];
+		console.log(displayData);
+		var id = "chartContainer2";
+		renderAt(id, displayData);
 	}
 </script>
 </head>
 <body>
-	<h1>GCT历年考试真题参考答案分布图</h1>
+	<h1 onclick="test()">GCT历年考试真题参考答案分布图</h1>
 	<div id="chartContainer"></div>
+	<div id="chartContainer2"></div>
 </body>
 </html>
