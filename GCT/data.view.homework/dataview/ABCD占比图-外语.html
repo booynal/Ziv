@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>历年GCT考试答案分布情况</title>
+<script type="text/javascript" src="fusioncharts/fusioncharts.js"></script>
+<script type="text/javascript"
+	src="fusioncharts/themes/fusioncharts.theme.fint.js"></script>
+<script type="text/javascript" src="data2.js"></script>
+<script type="text/javascript">
+function renderAt(id, caption, data) {
+	var salesHMChart = new FusionCharts({
+	    type: 'pie3d',
+	    renderAt: id,
+	    width: '100%',
+	    height: '270',
+	    dataFormat: 'json',
+	    dataSource:  {
+		    "chart": {
+		        "caption": caption,
+		        "plotgradientcolor": "",
+		        "bgcolor": "FFFFFF",
+		        "showalternatehgridcolor": "0",
+		        "showplotborder": "0",
+		        "divlinecolor": "CCCCCC",
+		        "showvalues": "1",
+		        "showborder": "1",
+		        "showcanvasborder": "1",
+		        "canvasbordercolor": "CCCCCC",
+		        "canvasborderthickness": "1",
+		        "yaxismaxvalue": "30000",
+		        "captionpadding": "30",
+		        "linethickness": "3",
+		        "sshowanchors": "0",
+		        "yaxisvaluespadding": "15",
+		        "showlegend": "1",
+		        "use3dlighting": "0",
+		        "showshadow": "0",
+		        "legendshadow": "0",
+		        "legendborderalpha": "0",
+		        "palettecolors": "#EED17F,#97CBE7,#074868,#B0D67A,#2C560A,#DD9D82"
+		    },
+		    "data": data
+		}
+	});
+	salesHMChart.render();
+}
+</script>
+<script type="text/javascript">
+FusionCharts.ready(function () {
+	var container = document.getElementById("chartsContainer");
+	var data = getPieChartData();
+	console.log(data)
+	for (var iyear in data) {
+		//console.log(iyear)
+		var yearDiv = document.createElement("div");
+		container.appendChild(yearDiv)
+		var year = data[iyear];
+		var charts = document.createElement("div");
+		var id = "charts" + iyear;
+		charts.setAttribute("id", id);
+		yearDiv.appendChild(charts);
+		var displayData = year[3].value;
+		renderAt(id, iyear+" 外语", displayData);
+	}
+});
+</script>
+</head>
+<body>
+	<h1 align="center">GCT考试历年真题 外语 ABCD占比图</h1>
+	<div id="chartsContainer"></div>
+</body>
+</html>

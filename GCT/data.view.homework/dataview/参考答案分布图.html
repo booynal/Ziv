@@ -6,7 +6,7 @@
 <script type="text/javascript" src="fusioncharts/fusioncharts.js"></script>
 <script type="text/javascript"
 	src="fusioncharts/themes/fusioncharts.theme.fint.js"></script>
-<script type="text/javascript" src="data.js"></script>
+<script type="text/javascript" src="data2.js"></script>
 <script type="text/javascript">
 function renderAt(id, data) {
 	var salesHMChart = new FusionCharts({
@@ -18,18 +18,10 @@ function renderAt(id, data) {
 	    dataSource:  {
 	        "chart": {
 	            "subcaption": data.year+"年",
-	            //"xAxisName":"Features",
-	            //"yAxisName":"Model",
 	            "showplotborder": "1",
 	            "xAxisLabelsOnTop": "1",
 	            "plottooltext":"<div id='nameDiv' style='font-size: 12px; border-bottom: 1px dashed #666666; font-weight:bold; padding-bottom: 3px; margin-bottom: 5px; display: inline-block; color: #888888;' >$rowLabel :</div>{br}Rating : <b>$dataValue</b>{br}$columnLabel : <b>$tlLabel</b>{br}<b>$trLabel</b>",
 	
-	             //Cosmetics
-	            //"baseFontColor" : "#333333",
-	            //"baseFont" : "Helvetica Neue,Arial",
-	            //"captionFontSize" : "14",
-	            //"subcaptionFontSize" : "14",
-	            //"subcaptionFontBold" : "0",
 	            "showBorder" : "1",
 	            "showvalues" : "0",
 	            "bgColor" : "#ffffff",
@@ -95,28 +87,23 @@ function renderAt(id, data) {
 </script>
 <script type="text/javascript">
 FusionCharts.ready(function () {
-	var container = document.getElementById("chartContainer");
-	for (var i = 0; i <layoutData.data.length; i++) {
+	var container = document.getElementById("chartsContainer");
+	var data = getDistributeChartData().data;
+	//console.log(data)
+	for (var i = 0; i < data.length; i++) {
 		var chart = document.createElement("div");
 		var id = "chart" + i;
 		chart.setAttribute("id", id);
 		container.appendChild(chart);
-		var displayData = layoutData.data[i];
+		var displayData = data[i];
 		//console.log(displayData);
 		renderAt(id, displayData);
 	}
 });
-	function test() {
-		var displayData = layoutData.data[2];
-		console.log(displayData);
-		var id = "chartContainer2";
-		renderAt(id, displayData);
-	}
 </script>
 </head>
 <body>
-	<h1 onclick="test()">GCT历年考试真题参考答案分布图</h1>
-	<div id="chartContainer"></div>
-	<div id="chartContainer2"></div>
+	<h1 align="center">GCT考试历年真题参考答案分布图</h1>
+	<div id="chartsContainer"></div>
 </body>
 </html>
