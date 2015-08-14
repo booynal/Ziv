@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.booynal</groupId>
+	<artifactId>tutorials</artifactId>
+	<version>${tutorials.version}</version>
+	<packaging>pom</packaging>
+
+	<name>tutorials</name>
+	<url>http://github.com/booynal/Ziv</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<tutorials.version>1.0-SNAPSHOT</tutorials.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Rabbit MQ -->
+			<dependency>
+				<groupId>com.rabbitmq</groupId>
+				<artifactId>amqp-client</artifactId>
+				<version>3.5.3</version>
+			</dependency>
+			<!-- JUnit -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.8.1</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<modules>
+		<module>test.junit</module>
+		<module>test.rabbitmq</module>
+	</modules>
+</project>
