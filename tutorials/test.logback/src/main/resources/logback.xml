@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration debug="true">
+
+	<!-- <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"> 
+		<resetJUL>true</resetJUL> </contextListener> -->
+
+	<!-- <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" /> -->
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoders are assigned by default the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+		<encoder>
+			<pattern>%msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	<appender name="file" class="ch.qos.logback.core.FileAppender">
+		<file>logs/test.logback.log</file>
+		<!-- encoders are assigned by default the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{10} [%file:%line] - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="rollFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>logs/test.logback_%d{yy-MM-dd_HH}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<!-- encoders are assigned by default the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{10} [%file:%line] - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com" level="trace"></logger>
+	<!-- <logger name="com.booynal" level="info" additivity="false"> -->
+	<logger name="com.booynal" level="info">
+	</logger>
+
+	<root level="debug">
+		<appender-ref ref="file" />
+		<appender-ref ref="rollFile" />
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>
+

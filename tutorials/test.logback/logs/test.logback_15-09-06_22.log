@@ -1,0 +1,3 @@
+22:44:09.877 [main] INFO  c.b.t.l.LogBackDemo [LogBackDemo.java:15] - 信息
+22:44:09.882 [main] WARN  c.b.t.l.LogBackDemo [LogBackDemo.java:16] - 警告
+22:44:09.882 [main] ERROR c.b.t.l.LogBackDemo [LogBackDemo.java:17] - 错误
