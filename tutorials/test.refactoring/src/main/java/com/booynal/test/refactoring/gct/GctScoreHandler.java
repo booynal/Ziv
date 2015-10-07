@@ -5,11 +5,16 @@ import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class GctScoreHandler {
 
+	List<Character> answerList = new ArrayList<Character>(Arrays.asList(new Character[] {'A', 'B', 'C', 'D'}));
+	List<String> messages = new ArrayList<String>();
+	
 	public static void main(String[] args) throws IOException, URISyntaxException {
 		List<String> standardAnswers = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("0").toURI()), Charset.defaultCharset());
 		List<String> myAnswers = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("1").toURI()), Charset.defaultCharset());
@@ -18,38 +23,13 @@ public class GctScoreHandler {
 		handler.calc(standardAnswers, myAnswers, wight);
 	}
 
-	public int[] calc(List<String> standardAnswers, List<String> myAnswers, int[] wight) {
-		String standardAnswer = "";
-		String myAnswer = "";
-		
+	public int[] calc(List<String> standardAnswers, List<String> myAnswers, int[] weight) {
 		int totalScore = 0;
 		int[] scores = new int[5];
-		try {
-			for (int i = 0; i < wight.length; i ++) {
-				int w = wight[i];
-				standardAnswer = standardAnswers.get(i);
-				myAnswer = myAnswers.get(i);
-				
-				StringBuilder sb = new StringBuilder();
-				int score = 0;
-				for (int j = 0; j < standardAnswer.length(); j ++) {
-					char aStandardAnswer = standardAnswer.charAt(j);
-					char aMyAnswer = myAnswer.charAt(j);
-					if (isAnswer(aStandardAnswer) == false || isAnswer(aMyAnswer) == false) {
-						continue;
-					}
-					if (aStandardAnswer == aMyAnswer) {
-						score += w;
-					} else {
-						sb.append(String.format("%d{%s|%s},", (j+1), aStandardAnswer, aMyAnswer));
-					}
-				}
-				System.out.println("score=" + score + ", w=" + w + "\t" + sb.toString());
-				totalScore += score;
-				scores[i] = score;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		for (int i = 0; i < weight.length; i ++) {
+			int w = weight[i];
+			scores[i] = calcOne(standardAnswers.get(i), myAnswers.get(i), w);
+			totalScore += scores[i];
 		}
 		
 		System.out.println("total score=" + totalScore);
@@ -57,11 +37,32 @@ public class GctScoreHandler {
 		return scores;
 	}
 
-	private boolean isAnswer(char answer) {
-		if ('A' == answer || 'B' == answer || 'C' == answer || 'D' == answer) {
-			return true;
+	private int calcOne(String standardAnswer, String myAnswer, int weight) {
+		StringBuilder message = new StringBuilder();
+		int score = 0;
+		for (int i = 0; i < standardAnswer.length(); i ++) {
+			char aStandardAnswer = standardAnswer.charAt(i);
+			char aMyAnswer = myAnswer.charAt(i);
+			if (isAnswer(aStandardAnswer) == false || isAnswer(aMyAnswer) == false) {
+				continue;
+			}
+			if (aStandardAnswer == aMyAnswer) {
+				score += weight;
+			} else {
+				message.append(String.format("%d{%s|%s},", (i+1), aStandardAnswer, aMyAnswer));
+			}
 		}
-		return false;
+		messages.add(message.toString());
+		System.out.println("score=" + score + ", w=" + weight + "\t" + message.toString());
+		return score;
+	}
+
+	private boolean isAnswer(char answer) {
+		return answerList.contains(Character.toUpperCase(answer));
+	}
+
+	public List<String> getMessages() {
+		return messages;
 	}
 
 }
