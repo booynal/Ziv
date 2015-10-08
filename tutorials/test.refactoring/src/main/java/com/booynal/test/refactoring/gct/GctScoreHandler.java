@@ -1,10 +1,5 @@
 package com.booynal.test.refactoring.gct;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,17 +7,10 @@ import java.util.List;
 
 public class GctScoreHandler {
 
-	List<Character> answerList = new ArrayList<Character>(Arrays.asList(new Character[] {'A', 'B', 'C', 'D'}));
-	List<String> messages = new ArrayList<String>();
+	public static final int[] WEIGHT = new int[] {2, 4, 2, 2};
+	private List<Character> answerList = new ArrayList<Character>(Arrays.asList(new Character[] {'A', 'B', 'C', 'D'}));
+	private List<String> messages = new ArrayList<String>();
 	
-	public static void main(String[] args) throws IOException, URISyntaxException {
-		List<String> standardAnswers = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("0").toURI()), Charset.defaultCharset());
-		List<String> myAnswers = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("1").toURI()), Charset.defaultCharset());
-		int[] wight = new int[] {2, 4, 2, 2};
-		GctScoreHandler handler = new GctScoreHandler();
-		handler.calc(standardAnswers, myAnswers, wight);
-	}
-
 	public int[] calc(List<String> standardAnswers, List<String> myAnswers, int[] weight) {
 		int totalScore = 0;
 		int[] scores = new int[5];
