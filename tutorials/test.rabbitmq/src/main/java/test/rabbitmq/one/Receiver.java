@@ -11,8 +11,7 @@ public class Receiver {
 
 	private final static String QUEUE_NAME = "hello";
 
-	public static void main(String[] argv) throws java.io.IOException,
-			java.lang.InterruptedException, TimeoutException {
+	public static void main(String[] argv) throws java.io.IOException, java.lang.InterruptedException, TimeoutException {
 		// 1
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setHost("localhost");
