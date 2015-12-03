@@ -1,0 +1,480 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0057)http://www.rabbitmq.com/tutorials/tutorial-five-java.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="googlebot" content="NOODP"><meta name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4"><meta name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0"><link rel="stylesheet" href="./resources_files/rabbit.css" type="text/css"><!--[if IE 6]>
+      <link rel="stylesheet" href="/css/rabbit-ie6.css" type="text/css" />
+      <![endif]--><link rel="icon" type="/image/vnd.microsoft.icon" href="http://www.rabbitmq.com/favicon.ico"><link rel="stylesheet" href="./resources_files/tutorial.css" type="text/css"><script type="text/javascript" async="" src="./resources_files/munchkin.js"></script><script type="text/javascript" async="" src="./resources_files/ga.js"></script><script type="text/javascript" src="./resources_files/site.js"></script><script type="text/javascript" src="./resources_files/ga-bootstrap.js"></script><script type="text/javascript" async="" src="./resources_files/munchkin(1).js"></script><title>RabbitMQ - RabbitMQ tutorial - Topics </title>
+    
+  </head>
+  <body><div id="outerContainer"><div id="rabbit-logo"><a href="http://www.rabbitmq.com/"><img src="./resources_files/rabbitmq_logo_strap.png" alt="RabbitMQ" width="253" height="53"></a></div><div id="pivotal-logo"><a href="http://pivotal.io/"><img src="./resources_files/logo-pivotal-118x25.png" alt="Pivotal" width="118" height="25"></a></div><div id="nav-search"><div id="search-box"><form action="http://www.rabbitmq.com/search.html" method="get"><input type="text" name="q" size="25" id="search-query" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();"><input type="submit" id="search-button" alt="Search" value=""></form></div><ul class="mainNav"><li><a href="http://www.rabbitmq.com/features.html">Features</a></li><li><a href="http://www.rabbitmq.com/download.html">Installation</a></li><li><a href="http://www.rabbitmq.com/documentation.html">Docs</a></li><li><a href="http://www.rabbitmq.com/getstarted.html" class="selected">Tutorials</a></li><li><a href="http://www.rabbitmq.com/services.html">Support</a></li><li><a href="http://www.rabbitmq.com/community.html">Community</a></li><li><a href="https://groups.google.com/forum/#!msg/rabbitmq-users/UuvnsOV7yS4/14b8pHcs8I0J">We're Hiring</a></li><li><a href="http://www.rabbitmq.com/blog/">Blog</a></li></ul></div><div class="nav-separator"></div>
+<div id="sidebar" class="tutorial-five">
+   <ul id="tutorials" xml:base="site/tutorials/tutorials-menu.xml.inc">
+
+        <li id="tutorial-one">
+          <h2><span class="tute-num">1</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-one-python.html">"Hello World!"</a></h2>
+          <p>
+            The simplest thing that does <em>something</em>
+          </p>
+          <p><img src="./resources_files/python-one.png" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-java.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-go.html">Go</a>
+          </p>
+        </li>
+
+        <li id="tutorial-two">
+          <h2><span class="tute-num">2</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-two-python.html">Work queues</a></h2>
+          <p>
+            Distributing tasks among workers
+          </p>
+          <p><img src="./resources_files/python-two.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-java.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-go.html">Go</a>
+          </p>
+        </li>
+
+        <li id="tutorial-three">
+          <h2><span class="tute-num">3</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-three-python.html">Publish/Subscribe</a></h2>
+          <p>
+            Sending messages to many consumers at once
+          </p>
+          <p><img src="./resources_files/python-three.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-java.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-go.html">Go</a>
+          </p>
+        </li>
+
+        <li id="tutorial-four">
+          <h2><span class="tute-num">4</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-four-python.html">Routing</a></h2>
+          <p>
+            Receiving messages selectively
+          </p>
+          <p><img src="./resources_files/python-four.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-java.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-go.html">Go</a>
+          </p>
+        </li>
+
+        <li id="tutorial-five">
+          <h2><span class="tute-num">5</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-five-python.html">Topics</a></h2>
+          <p>
+            Receiving messages based on a pattern
+          </p>
+          <p><img src="./resources_files/python-five.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-python.html">Python</a>
+          |
+          <a href="./resources_files/resources.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-go.html">Go</a>
+          </p>
+        </li>
+
+        <li id="tutorial-six">
+          <h2><span class="tute-num">6</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-six-python.html">RPC</a></h2>
+          <p>
+            Remote procedure call implementation
+          </p>
+          <p><img src="./resources_files/python-six.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-java.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-go.html">Go</a>
+          </p>
+        </li>
+      </ul>
+</div>
+
+<div id="tutorial">
+
+<h2>Topics</h2>
+<h3>(using the Java client)</h3>
+<p></p><div class="aside" xml:base="site/tutorials/tutorials-help.xml.inc">
+    <h3>Prerequisites</h3>
+    <p>
+      This tutorial assumes RabbitMQ is <a href="http://www.rabbitmq.com/download.html">installed</a> and running
+      on <span class="code ">localhost</span> on standard port (<span class="code ">5672</span>). In case you use
+      a different host, port or credentials, connections settings would require adjusting.
+    </p>
+
+    <h3>Where to get help</h3>
+    <p>
+        If you're having trouble going through this tutorial you can
+        <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">contact us</a> through the mailing list.
+    </p>
+  </div><p></p>
+<p>In the <a href="http://www.rabbitmq.com/tutorials/tutorial-four-java.html">previous tutorial</a> we improved our
+logging system. Instead of using a <span class="code ">fanout</span> exchange only capable of
+dummy broadcasting, we used a <span class="code ">direct</span> one, and gained a possibility
+of selectively receiving the logs.</p>
+<p>Although using the <span class="code ">direct</span> exchange improved our system, it still has
+limitations - it can't do routing based on multiple criteria.</p>
+<p>In our logging system we might want to subscribe to not only logs
+based on severity, but also based on the source which emitted the log.
+You might know this concept from the
+<a href="http://en.wikipedia.org/wiki/Syslog"><span class="code ">syslog</span></a> unix tool, which
+routes logs based on both severity (info/warn/crit...) and facility
+(auth/cron/kern...).</p>
+<p>That would give us a lot of flexibility - we may want to listen to
+just critical errors coming from 'cron' but also all logs from 'kern'.</p>
+<p>To implement that in our logging system we need to learn about a more
+complex <span class="code ">topic</span> exchange.</p>
+<h2>Topic exchange</h2>
+<p>Messages sent to a <span class="code ">topic</span> exchange can't have an arbitrary
+<span class="code ">routing_key</span> - it must be a list of words, delimited by dots. The
+words can be anything, but usually they specify some features
+connected to the message. A few valid routing key examples:
+"<span class="code ">stock.usd.nyse</span>", "<span class="code ">nyse.vmw</span>", "<span class="code ">quick.orange.rabbit</span>". There can be as
+many words in the routing key as you like, up to the limit of 255
+bytes.</p>
+<p>The binding key must also be in the same form. The logic behind the
+<span class="code ">topic</span> exchange is similar to a <span class="code ">direct</span> one - a message sent with a
+particular routing key will be delivered to all the queues that are
+bound with a matching binding key. However there are two important
+special cases for binding keys:</p>
+<ul>
+<li><span class="code ">*</span> (star) can substitute for exactly one word.</li>
+<li><span class="code ">#</span> (hash) can substitute for zero or more words.</li>
+</ul>
+<p>It's easiest to explain this in an example:</p>
+<div class="diagram">
+  <img src="./resources_files/python-five.png" height="170">
+  <div class="diagram_source">
+    digraph {
+      bgcolor=transparent;
+      truecolor=true;
+      rankdir=LR;
+      node [style="filled"];
+      //
+      P [label="P", fillcolor="#00ffff"];
+      subgraph cluster_X1 {
+        label="type=topic";
+    color=transparent;
+        X [label="X", fillcolor="#3333CC"];
+      };
+      subgraph cluster_Q1 {
+        label="Q1";
+    color=transparent;
+        Q1 [label="{||||}", fillcolor="red", shape="record"];
+      };
+      subgraph cluster_Q2 {
+        label="Q2";
+    color=transparent;
+        Q2 [label="{||||}", fillcolor="red", shape="record"];
+      };
+      C1 [label=&lt;C&lt;font point-size="7"&gt;1&lt;/font&gt;&gt;, fillcolor="#33ccff"];
+      C2 [label=&lt;C&lt;font point-size="7"&gt;2&lt;/font&gt;&gt;, fillcolor="#33ccff"];
+      //
+      P -&gt; X;
+      X -&gt; Q1 [label="*.orange.*"];
+      X -&gt; Q2 [label="*.*.rabbit"];
+      X -&gt; Q2 [label="lazy.#"];
+      Q1 -&gt; C1;
+      Q2 -&gt; C2;
+    }
+  </div>
+</div>
+
+<p>In this example, we're going to send messages which all describe
+animals. The messages will be sent with a routing key that consists of
+three words (two dots). The first word in the routing key
+will describe speed, second a colour and third a species:
+"<span class="code ">&lt;speed&gt;.&lt;colour&gt;.&lt;species&gt;</span>".</p>
+<p>We created three bindings: Q1 is bound with binding key "<span class="code ">*.orange.*</span>"
+and Q2 with "<span class="code ">*.*.rabbit</span>" and "<span class="code ">lazy.#</span>".</p>
+<p>These bindings can be summarised as:</p>
+<ul>
+<li>Q1 is interested in all the orange animals.</li>
+<li>Q2 wants to hear everything about rabbits, and everything about lazy
+    animals.</li>
+</ul>
+<p>A message with a routing key set to "<span class="code ">quick.orange.rabbit</span>"
+will be delivered to both queues. Message
+"<span class="code ">lazy.orange.elephant</span>" also will go to both of them. On the other hand
+"<span class="code ">quick.orange.fox</span>" will only go to the first queue, and
+"<span class="code ">lazy.brown.fox</span>" only to the second. "<span class="code ">lazy.pink.rabbit</span>" will
+be delivered to the second queue only once, even though it matches two bindings.
+"<span class="code ">quick.brown.fox</span>" doesn't match any binding so it will be discarded.</p>
+<p>What happens if we break our contract and send a message with one or
+four words, like "<span class="code ">orange</span>" or "<span class="code ">quick.orange.male.rabbit</span>"? Well,
+these messages won't match any bindings and will be lost.</p>
+<p>On the other hand "<span class="code ">lazy.orange.male.rabbit</span>", even though it has four
+words, will match the last binding and will be delivered to the second
+queue.</p>
+<blockquote>
+<h4>Topic exchange</h4>
+<p>Topic exchange is powerful and can behave like other exchanges.</p>
+<p>When a queue is bound with "<span class="code ">#</span>" (hash) binding key - it will receive
+all the messages, regardless of the routing key - like in <span class="code ">fanout</span> exchange.</p>
+<p>When special characters "<span class="code ">*</span>" (star) and "<span class="code ">#</span>" (hash) aren't used in bindings,
+the topic exchange will behave just like a <span class="code ">direct</span> one.</p>
+</blockquote>
+<h2>Putting it all together</h2>
+<p>We're going to use a <span class="code ">topic</span> exchange in our logging system. We'll
+start off with a working assumption that the routing keys of logs will
+have two words: "<span class="code ">&lt;facility&gt;.&lt;severity&gt;</span>".</p>
+<p>The code is almost the same as in the
+<a href="http://www.rabbitmq.com/tutorials/tutorial-four-java.html">previous tutorial</a>.</p>
+<p>The code for <span class="code ">EmitLogTopic.java</span>:</p>
+<table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td><td class="code"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">EmitLogTopic</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">EXCHANGE_NAME</span> <span class="o">=</span> <span class="s">"topic_logs"</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span>
+                  <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+
+        <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+        <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">"localhost"</span><span class="o">);</span>
+        <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+        <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+        <span class="n">channel</span><span class="o">.</span><span class="na">exchangeDeclare</span><span class="o">(</span><span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="s">"topic"</span><span class="o">);</span>
+
+        <span class="n">String</span> <span class="n">routingKey</span> <span class="o">=</span> <span class="n">getRouting</span><span class="o">(</span><span class="n">argv</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">getMessage</span><span class="o">(</span><span class="n">argv</span><span class="o">);</span>
+
+        <span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span><span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="n">routingKey</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">" [x] Sent '"</span> <span class="o">+</span> <span class="n">routingKey</span> <span class="o">+</span> <span class="s">"':'"</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">"'"</span><span class="o">);</span>
+
+        <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="c1">//...</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></tbody></table>
+
+<p>The code for <span class="code ">ReceiveLogsTopic.java</span>:</p>
+<table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.rabbitmq.client.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReceiveLogsTopic</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">EXCHANGE_NAME</span> <span class="o">=</span> <span class="s">"topic_logs"</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+    <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">"localhost"</span><span class="o">);</span>
+    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+    <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">exchangeDeclare</span><span class="o">(</span><span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="s">"topic"</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">queueName</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">().</span><span class="na">getQueue</span><span class="o">();</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">argv</span><span class="o">.</span><span class="na">length</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Usage: ReceiveLogsTopic [binding_key]..."</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">bindingKey</span> <span class="o">:</span> <span class="n">argv</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">channel</span><span class="o">.</span><span class="na">queueBind</span><span class="o">(</span><span class="n">queueName</span><span class="o">,</span> <span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="n">bindingKey</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">" [*] Waiting for messages. To exit press CTRL+C"</span><span class="o">);</span>
+
+    <span class="n">Consumer</span> <span class="n">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultConsumer</span><span class="o">(</span><span class="n">channel</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleDelivery</span><span class="o">(</span><span class="n">String</span> <span class="n">consumerTag</span><span class="o">,</span> <span class="n">Envelope</span> <span class="n">envelope</span><span class="o">,</span>
+                                 <span class="n">AMQP</span><span class="o">.</span><span class="na">BasicProperties</span> <span class="n">properties</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">body</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">body</span><span class="o">,</span> <span class="s">"UTF-8"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">" [x] Received '"</span> <span class="o">+</span> <span class="n">envelope</span><span class="o">.</span><span class="na">getRoutingKey</span><span class="o">()</span> <span class="o">+</span> <span class="s">"':'"</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">"'"</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="o">};</span>
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicConsume</span><span class="o">(</span><span class="n">queueName</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="n">consumer</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></tbody></table>
+
+<p>Run the following examples, including the classpath as in <a href="http://www.rabbitmq.com/tutorials/tutorial-one-java.html">Tutorial 1</a> - on Windows, use %CP%.<br>
+</p>
+<p>To receive all the logs:</p>
+<div class="highlight"><pre><span class="nv">$ </span>java -cp <span class="nv">$CP</span> ReceiveLogsTopic <span class="s2">"#"</span>
+</pre></div>
+
+
+<p>To receive all logs from the facility "<span class="code ">kern</span>":</p>
+<div class="highlight"><pre><span class="nv">$ </span>java -cp <span class="nv">$CP</span> ReceiveLogsTopic <span class="s2">"kern.*"</span>
+</pre></div>
+
+
+<p>Or if you want to hear only about "<span class="code ">critical</span>" logs:</p>
+<div class="highlight"><pre><span class="nv">$ </span>java -cp <span class="nv">$CP</span> ReceiveLogsTopic <span class="s2">"*.critical"</span>
+</pre></div>
+
+
+<p>You can create multiple bindings:</p>
+<div class="highlight"><pre><span class="nv">$ </span>java -cp <span class="nv">$CP</span> ReceiveLogsTopic <span class="s2">"kern.*"</span> <span class="s2">"*.critical"</span>
+</pre></div>
+
+
+<p>And to emit a log with a routing key "<span class="code ">kern.critical</span>" type:</p>
+<div class="highlight"><pre><span class="nv">$ </span>java -cp <span class="nv">$CP</span> EmitLogTopic <span class="s2">"kern.critical"</span> <span class="s2">"A critical kernel error"</span>
+</pre></div>
+
+
+<p>Have fun playing with these programs. Note that the code doesn't make
+any assumption about the routing or binding keys, you may want to play
+with more than two routing key parameters.</p>
+<p>Some teasers:</p>
+<ul>
+<li>Will "<span class="code ">*</span>" binding catch a message sent with an empty routing key?
+   <div class="teaser_answer">
+       No.
+       ./ReceiveLogsTopic "*"
+       ./EmitLogTopic ""
+   </div></li>
+<li>Will "<span class="code ">#.*</span>" catch a message with a string "<span class="code ">..</span>" as a key? Will
+   it catch a message with a single word key?
+   <div class="teaser_answer">
+       No. (but I don't know why!)
+       ./ReceiveLogsTopic "#.*"
+       ./EmitLogTopic ".."
+       Yes
+       ./ReceiveLogsTopic "#.*"
+       ./EmitLogTopic "a"
+   </div></li>
+<li>How different is "<span class="code ">a.*.#</span>" from "<span class="code ">a.#</span>"?
+   <div class="teaser_answer">
+       'a.*.#' matches anything that has two words or more, and the first
+       word is 'a'. But 'a.#' matches anything that has one word or more
+       with the first word set to 'a'.
+       ./ReceiveLogsTopic "a.*.#"
+       ./EmitLogTopic "a.b"
+       ./ReceiveLogsTopic "a.#"
+       ./EmitLogTopic "a.b"
+   </div></li>
+</ul>
+<p>(Full source code for <a href="https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLogTopic.java">EmitLogTopic.java</a>
+and <a href="https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsTopic.java">ReceiveLogsTopic.java</a>)</p>
+<p>Next, find out how to do a round trip message as a remote procedure call in <a href="http://www.rabbitmq.com/tutorials/tutorial-six-java.html">tutorial 6</a></p></div><div class="clear"></div><div class="pageFooter"><p class="righter"><a href="http://www.rabbitmq.com/sitemap.html">Sitemap</a> |
+        <a href="http://www.rabbitmq.com/contact.html">Contact</a></p><p id="copyright">
+        Copyright © 2015 Pivotal Software, Inc. All rights reserved
+        |&nbsp;<a href="http://pivotal.io/privacy-policy">Privacy Policy</a>
+        |&nbsp;<a href="https://github.com/rabbitmq/rabbitmq-website/">This Site is Open Source</a>        
+        |&nbsp;<a href="https://groups.google.com/forum/#!msg/rabbitmq-users/UuvnsOV7yS4/14b8pHcs8I0J">We're Hiring</a></p></div></div>
+
+</body></html>

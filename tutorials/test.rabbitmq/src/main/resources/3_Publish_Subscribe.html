@@ -1,0 +1,545 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0058)http://www.rabbitmq.com/tutorials/tutorial-three-java.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="googlebot" content="NOODP"><meta name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4"><meta name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0"><link rel="stylesheet" href="./resources_files/rabbit.css" type="text/css"><!--[if IE 6]>
+      <link rel="stylesheet" href="/css/rabbit-ie6.css" type="text/css" />
+      <![endif]--><link rel="icon" type="/image/vnd.microsoft.icon" href="http://www.rabbitmq.com/favicon.ico"><link rel="stylesheet" href="./resources_files/tutorial.css" type="text/css"><script type="text/javascript" async="" src="./resources_files/munchkin.js"></script><script type="text/javascript" async="" src="./resources_files/ga.js"></script><script type="text/javascript" src="./resources_files/site.js"></script><script type="text/javascript" src="./resources_files/ga-bootstrap.js"></script><script type="text/javascript" async="" src="./resources_files/munchkin(1).js"></script><title>RabbitMQ - RabbitMQ tutorial - Publish/Subscribe </title>
+    
+  </head>
+  <body><div id="outerContainer"><div id="rabbit-logo"><a href="http://www.rabbitmq.com/"><img src="./resources_files/rabbitmq_logo_strap.png" alt="RabbitMQ" width="253" height="53"></a></div><div id="pivotal-logo"><a href="http://pivotal.io/"><img src="./resources_files/logo-pivotal-118x25.png" alt="Pivotal" width="118" height="25"></a></div><div id="nav-search"><div id="search-box"><form action="http://www.rabbitmq.com/search.html" method="get"><input type="text" name="q" size="25" id="search-query" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();"><input type="submit" id="search-button" alt="Search" value=""></form></div><ul class="mainNav"><li><a href="http://www.rabbitmq.com/features.html">Features</a></li><li><a href="http://www.rabbitmq.com/download.html">Installation</a></li><li><a href="http://www.rabbitmq.com/documentation.html">Docs</a></li><li><a href="http://www.rabbitmq.com/getstarted.html" class="selected">Tutorials</a></li><li><a href="http://www.rabbitmq.com/services.html">Support</a></li><li><a href="http://www.rabbitmq.com/community.html">Community</a></li><li><a href="https://groups.google.com/forum/#!msg/rabbitmq-users/UuvnsOV7yS4/14b8pHcs8I0J">We're Hiring</a></li><li><a href="http://www.rabbitmq.com/blog/">Blog</a></li></ul></div><div class="nav-separator"></div>
+<div id="sidebar" class="tutorial-three">
+   <ul id="tutorials" xml:base="site/tutorials/tutorials-menu.xml.inc">
+
+        <li id="tutorial-one">
+          <h2><span class="tute-num">1</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-one-python.html">"Hello World!"</a></h2>
+          <p>
+            The simplest thing that does <em>something</em>
+          </p>
+          <p><img src="./resources_files/python-one.png" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-java.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-go.html">Go</a>
+          </p>
+        </li>
+
+        <li id="tutorial-two">
+          <h2><span class="tute-num">2</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-two-python.html">Work queues</a></h2>
+          <p>
+            Distributing tasks among workers
+          </p>
+          <p><img src="./resources_files/python-two.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-java.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-go.html">Go</a>
+          </p>
+        </li>
+
+        <li id="tutorial-three">
+          <h2><span class="tute-num">3</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-three-python.html">Publish/Subscribe</a></h2>
+          <p>
+            Sending messages to many consumers at once
+          </p>
+          <p><img src="./resources_files/python-three.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-python.html">Python</a>
+          |
+          <a href="./resources_files/resources.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-go.html">Go</a>
+          </p>
+        </li>
+
+        <li id="tutorial-four">
+          <h2><span class="tute-num">4</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-four-python.html">Routing</a></h2>
+          <p>
+            Receiving messages selectively
+          </p>
+          <p><img src="./resources_files/python-four.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-java.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-go.html">Go</a>
+          </p>
+        </li>
+
+        <li id="tutorial-five">
+          <h2><span class="tute-num">5</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-five-python.html">Topics</a></h2>
+          <p>
+            Receiving messages based on a pattern
+          </p>
+          <p><img src="./resources_files/python-five.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-java.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-go.html">Go</a>
+          </p>
+        </li>
+
+        <li id="tutorial-six">
+          <h2><span class="tute-num">6</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-six-python.html">RPC</a></h2>
+          <p>
+            Remote procedure call implementation
+          </p>
+          <p><img src="./resources_files/python-six.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-java.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-go.html">Go</a>
+          </p>
+        </li>
+      </ul>
+</div>
+
+<div id="tutorial">
+
+<h2>Publish/Subscribe</h2>
+<h3>(using the Java Client)</h3>
+<p></p><div class="aside" xml:base="site/tutorials/tutorials-help.xml.inc">
+    <h3>Prerequisites</h3>
+    <p>
+      This tutorial assumes RabbitMQ is <a href="http://www.rabbitmq.com/download.html">installed</a> and running
+      on <span class="code ">localhost</span> on standard port (<span class="code ">5672</span>). In case you use
+      a different host, port or credentials, connections settings would require adjusting.
+    </p>
+
+    <h3>Where to get help</h3>
+    <p>
+        If you're having trouble going through this tutorial you can
+        <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">contact us</a> through the mailing list.
+    </p>
+  </div><p></p>
+<p>In the <a href="http://www.rabbitmq.com/tutorials/tutorial-two-java.html">previous tutorial</a> we created a work
+queue. The assumption behind a work queue is that each task is
+delivered to exactly one worker. In this part we'll do something
+completely different -- we'll deliver a message to multiple
+consumers. This pattern is known as "publish/subscribe".</p>
+<p>To illustrate the pattern, we're going to build a simple logging
+system. It will consist of two programs -- the first will emit log
+messages and the second will receive and print them.</p>
+<p>In our logging system every running copy of the receiver program will
+get the messages. That way we'll be able to run one receiver and
+direct the logs to disk; and at the same time we'll be able to run
+another receiver and see the logs on the screen.</p>
+<p>Essentially, published log messages are going to be broadcast to all
+the receivers.</p>
+<h2>Exchanges</h2>
+<p>In previous parts of the tutorial we sent and received messages to and
+from a queue. Now it's time to introduce the full messaging model in
+Rabbit.</p>
+<p>Let's quickly go over what we covered in the previous tutorials:</p>
+<ul>
+<li>A <em>producer</em> is a user application that sends messages.</li>
+<li>A <em>queue</em> is a buffer that stores messages.</li>
+<li>A <em>consumer</em> is a user application that receives messages.</li>
+</ul>
+<p>The core idea in the messaging model in RabbitMQ is that the producer
+never sends any messages directly to a queue. Actually, quite often
+the producer doesn't even know if a message will be delivered to any
+queue at all.</p>
+<p>Instead, the producer can only send messages to an <em>exchange</em>. An
+exchange is a very simple thing. On one side it receives messages from
+producers and the other side it pushes them to queues. The exchange
+must know exactly what to do with a message it receives. Should it be
+appended to a particular queue? Should it be appended to many queues?
+Or should it get discarded. The rules for that are defined by the
+<em>exchange type</em>.</p>
+<div class="diagram">
+  <img src="./resources_files/exchanges.png" height="110">
+  <div class="diagram_source">
+    digraph {
+      bgcolor=transparent;
+      truecolor=true;
+      rankdir=LR;
+      node [style="filled"];
+      //
+      P1 [label="P", fillcolor="#00ffff"];
+      X [label="X", fillcolor="#3333CC"];
+      Q1 [label="{||||}", fillcolor="red", shape="record"];
+      Q2 [label="{||||}", fillcolor="red", shape="record"];
+      //
+      P1 -&gt; X;
+      X -&gt; Q1;
+      X -&gt; Q2;
+    }
+  </div>
+</div>
+
+<p>There are a few exchange types available: <span class="code ">direct</span>, <span class="code ">topic</span>, <span class="code ">headers</span>
+and <span class="code ">fanout</span>. We'll focus on the last one -- the fanout. Let's create
+an exchange of this type, and call it <span class="code ">logs</span>:</p>
+<div class="highlight"><pre><span class="n">channel</span><span class="o">.</span><span class="na">exchangeDeclare</span><span class="o">(</span><span class="s">"logs"</span><span class="o">,</span> <span class="s">"fanout"</span><span class="o">);</span>
+</pre></div>
+
+
+<p>The fanout exchange is very simple. As you can probably guess from the
+name, it just broadcasts all the messages it receives to all the
+queues it knows. And that's exactly what we need for our logger.</p>
+<blockquote>
+<h4>Listing exchanges</h4>
+<p>To list the exchanges on the server you can run the ever useful <span class="code ">rabbitmqctl</span>:</p>
+<div class="highlight"><pre>$ <span class="n">sudo</span> <span class="n">rabbitmqctl</span> <span class="n">list_exchanges</span>
+<span class="n">Listing</span> <span class="n">exchanges</span> <span class="p">...</span>
+        <span class="n">direct</span>
+<span class="n">amq</span><span class="p">.</span><span class="n">direct</span>      <span class="n">direct</span>
+<span class="n">amq</span><span class="p">.</span><span class="n">fanout</span>      <span class="n">fanout</span>
+<span class="n">amq</span><span class="p">.</span><span class="n">headers</span>     <span class="n">headers</span>
+<span class="n">amq</span><span class="p">.</span><span class="n">match</span>       <span class="n">headers</span>
+<span class="n">amq</span><span class="p">.</span><span class="n">rabbitmq</span><span class="p">.</span><span class="nb">log</span>        <span class="n">topic</span>
+<span class="n">amq</span><span class="p">.</span><span class="n">rabbitmq</span><span class="p">.</span><span class="n">trace</span>      <span class="n">topic</span>
+<span class="n">amq</span><span class="p">.</span><span class="n">topic</span>       <span class="n">topic</span>
+<span class="n">logs</span>    <span class="n">fanout</span>
+<span class="p">...</span><span class="n">done</span><span class="p">.</span>
+</pre></div>
+
+
+<p>In this list there are some <span class="code ">amq.*</span> exchanges and the default (unnamed)
+exchange. These are created by default, but it is unlikely you'll need to
+use them at the moment.</p>
+<h4>Nameless exchange</h4>
+<p>In previous parts of the tutorial we knew nothing about exchanges,
+but still were able to send messages to queues. That was possible
+because we were using a default exchange, which we identify by the empty string (<span class="code ">""</span>).</p>
+<p>Recall how we published a message before:</p>
+<div class="highlight"><pre><span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span><span class="s">""</span><span class="o">,</span> <span class="s">"hello"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+</pre></div>
+
+
+<p>The first parameter is the the name of the exchange.
+The empty string denotes the default or <em>nameless</em> exchange: messages are
+routed to the queue with the name specified by <span class="code ">routingKey</span>, if it exists.</p>
+</blockquote>
+<p>Now, we can publish to our named exchange instead:</p>
+<div class="highlight"><pre><span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span> <span class="s">"logs"</span><span class="o">,</span> <span class="s">""</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+</pre></div>
+
+
+<h2>Temporary queues</h2>
+<p>As you may remember previously we were using queues which had a
+specified name (remember <span class="code ">hello</span> and <span class="code ">task_queue</span>?). Being able to name
+a queue was crucial for us -- we needed to point the workers to the
+same queue.  Giving a queue a name is important when you
+want to share the queue between producers and consumers.</p>
+<p>But that's not the case for our logger. We want to hear about all
+log messages, not just a subset of them. We're
+also interested only in currently flowing messages not in the old
+ones. To solve that we need two things.</p>
+<p>Firstly, whenever we connect to Rabbit we need a fresh, empty queue.
+To do this we could create a queue with a random name, or,
+even better - let the server choose a random queue name for us.</p>
+<p>Secondly, once we disconnect the consumer the queue should be
+automatically deleted.</p>
+<p>In the Java client, when we supply no parameters to <span class="code ">queueDeclare()</span>
+we create a non-durable, exclusive, autodelete queue with a generated name:</p>
+<div class="highlight"><pre><span class="n">String</span> <span class="n">queueName</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">().</span><span class="na">getQueue</span><span class="o">();</span>
+</pre></div>
+
+
+<p>At that point <span class="code ">queueName</span> contains a random queue name. For example
+it may look like <span class="code ">amq.gen-JzTY20BRgKO-HjmUJj0wLg</span>.</p>
+<h2>Bindings</h2>
+<div class="diagram">
+  <img src="./resources_files/bindings.png" height="90">
+  <div class="diagram_source">
+    digraph {
+      bgcolor=transparent;
+      truecolor=true;
+      rankdir=LR;
+      node [style="filled"];
+      //
+      P1 [label="P", fillcolor="#00ffff"];
+      X [label="X", fillcolor="#3333CC"];
+      Q1 [label="{||||}", fillcolor="red", shape="record"];
+      Q2 [label="{||||}", fillcolor="red", shape="record"];
+      //
+      P1 -&gt; X;
+      X -&gt; Q1 [label="binding"];
+      X -&gt; Q2 [label="binding"];
+    }
+  </div>
+</div>
+
+<p>We've already created a fanout exchange and a queue. Now we need to
+tell the exchange to send messages to our queue. That relationship
+between exchange and a queue is called a <em>binding</em>.</p>
+<div class="highlight"><pre><span class="n">channel</span><span class="o">.</span><span class="na">queueBind</span><span class="o">(</span><span class="n">queueName</span><span class="o">,</span> <span class="s">"logs"</span><span class="o">,</span> <span class="s">""</span><span class="o">);</span>
+</pre></div>
+
+
+<p>From now on the <span class="code ">logs</span> exchange will append messages to our queue.</p>
+<blockquote>
+<h4>Listing bindings</h4>
+<p>You can list existing bindings using, you guessed it,
+<span class="code ">rabbitmqctl list_bindings</span>.</p>
+</blockquote>
+<h2>Putting it all together</h2>
+<div class="diagram">
+  <img src="./resources_files/python-three-overall.png" height="160">
+  <div class="diagram_source">
+    digraph {
+      bgcolor=transparent;
+      truecolor=true;
+      rankdir=LR;
+      node [style="filled"];
+      //
+      P [label="P", fillcolor="#00ffff"];
+      X [label="X", fillcolor="#3333CC"];
+      subgraph cluster_Q1 {
+        label="amq.gen-RQ6...";
+    color=transparent;
+        Q1 [label="{||||}", fillcolor="red", shape="record"];
+      };
+      subgraph cluster_Q2 {
+        label="amq.gen-As8...";
+    color=transparent;
+        Q2 [label="{||||}", fillcolor="red", shape="record"];
+      };
+      C1 [label=&lt;C&lt;font point-size="7"&gt;1&lt;/font&gt;&gt;, fillcolor="#33ccff"];
+      C2 [label=&lt;C&lt;font point-size="7"&gt;2&lt;/font&gt;&gt;, fillcolor="#33ccff"];
+      //
+      P -&gt; X;
+      X -&gt; Q1;
+      X -&gt; Q2;
+      Q1 -&gt; C1;
+      Q2 -&gt; C2;
+    }
+  </div>
+</div>
+
+<p>The producer program, which emits log messages, doesn't look much
+different from the previous tutorial. The most important change is that
+we now want to publish messages to our <span class="code ">logs</span> exchange instead of the
+nameless one. We need to supply a <span class="code ">routingKey</span> when sending, but its
+value is ignored for <span class="code ">fanout</span> exchanges. Here goes the code for
+<span class="code ">EmitLog.java</span> program:</p>
+<table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.ConnectionFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Channel</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EmitLog</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">EXCHANGE_NAME</span> <span class="o">=</span> <span class="s">"logs"</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span>
+                  <span class="kd">throws</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOException</span> <span class="o">{</span>
+
+        <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+        <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">"localhost"</span><span class="o">);</span>
+        <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+        <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+        <span class="n">channel</span><span class="o">.</span><span class="na">exchangeDeclare</span><span class="o">(</span><span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="s">"fanout"</span><span class="o">);</span>
+
+        <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">getMessage</span><span class="o">(</span><span class="n">argv</span><span class="o">);</span>
+
+        <span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span><span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="s">""</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">" [x] Sent '"</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">"'"</span><span class="o">);</span>
+
+        <span class="n">channel</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="c1">//...</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></tbody></table>
+
+<p><a href="http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLog.java">(EmitLog.java source)</a></p>
+<p>As you see, after establishing the connection we declared the
+exchange. This step is neccesary as publishing to a non-existing
+exchange is forbidden.</p>
+<p>The messages will be lost if no queue is bound to the exchange yet,
+but that's okay for us; if no consumer is listening yet we can safely discard the message.</p>
+<p>The code for <span class="code ">ReceiveLogs.java</span>:</p>
+<table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.rabbitmq.client.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReceiveLogs</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">EXCHANGE_NAME</span> <span class="o">=</span> <span class="s">"logs"</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+    <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">"localhost"</span><span class="o">);</span>
+    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+    <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">exchangeDeclare</span><span class="o">(</span><span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="s">"fanout"</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">queueName</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">().</span><span class="na">getQueue</span><span class="o">();</span>
+    <span class="n">channel</span><span class="o">.</span><span class="na">queueBind</span><span class="o">(</span><span class="n">queueName</span><span class="o">,</span> <span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="s">""</span><span class="o">);</span>
+
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">" [*] Waiting for messages. To exit press CTRL+C"</span><span class="o">);</span>
+
+    <span class="n">Consumer</span> <span class="n">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultConsumer</span><span class="o">(</span><span class="n">channel</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleDelivery</span><span class="o">(</span><span class="n">String</span> <span class="n">consumerTag</span><span class="o">,</span> <span class="n">Envelope</span> <span class="n">envelope</span><span class="o">,</span>
+                                 <span class="n">AMQP</span><span class="o">.</span><span class="na">BasicProperties</span> <span class="n">properties</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">body</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">body</span><span class="o">,</span> <span class="s">"UTF-8"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">" [x] Received '"</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">"'"</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="o">};</span>
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicConsume</span><span class="o">(</span><span class="n">queueName</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="n">consumer</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></tbody></table>
+
+<p><a href="http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogs.java">(ReceiveLogs.java source)</a></p>
+<p>Compile as before and we're done.</p>
+<div class="highlight"><pre><span class="nv">$ </span>javac -cp .:rabbitmq-client.jar EmitLog.java ReceiveLogs.java
+</pre></div>
+
+
+<p>If you want to save logs to a file, just open a console and type:</p>
+<div class="highlight"><pre><span class="nv">$ </span>java -cp .:rabbitmq-client.jar ReceiveLogs &gt; logs_from_rabbit.log
+</pre></div>
+
+
+<p>If you wish to see the logs on your screen, spawn a new terminal and run:</p>
+<div class="highlight"><pre><span class="nv">$ </span>java -cp .:rabbitmq-client.jar ReceiveLogs
+</pre></div>
+
+
+<p>And of course, to emit logs type:</p>
+<div class="highlight"><pre><span class="nv">$ </span>java -cp .:rabbitmq-client.jar EmitLog
+</pre></div>
+
+
+<p>Using <span class="code ">rabbitmqctl list_bindings</span> you can verify that the code actually
+creates bindings and queues as we want. With two <span class="code ">ReceiveLogs.java</span>
+programs running you should see something like:</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo rabbitmqctl list_bindings
+Listing bindings ...
+logs    exchange        amq.gen-JzTY20BRgKO-HjmUJj0wLg  queue           <span class="o">[]</span>
+logs    exchange        amq.gen-vso0PVvyiRIL2WoV3i48Yg  queue           <span class="o">[]</span>
+...done.
+</pre></div>
+
+
+<p>The interpretation of the result is straightforward: data from
+exchange <span class="code ">logs</span> goes to two queues with server-assigned names. And
+that's exactly what we intended.</p>
+<p>To find out how to listen for a subset of messages, let's move on to
+<a href="http://www.rabbitmq.com/tutorials/tutorial-four-java.html">tutorial 4</a></p></div><div class="clear"></div><div class="pageFooter"><p class="righter"><a href="http://www.rabbitmq.com/sitemap.html">Sitemap</a> |
+        <a href="http://www.rabbitmq.com/contact.html">Contact</a></p><p id="copyright">
+        Copyright © 2015 Pivotal Software, Inc. All rights reserved
+        |&nbsp;<a href="http://pivotal.io/privacy-policy">Privacy Policy</a>
+        |&nbsp;<a href="https://github.com/rabbitmq/rabbitmq-website/">This Site is Open Source</a>        
+        |&nbsp;<a href="https://groups.google.com/forum/#!msg/rabbitmq-users/UuvnsOV7yS4/14b8pHcs8I0J">We're Hiring</a></p></div></div>
+
+</body></html>

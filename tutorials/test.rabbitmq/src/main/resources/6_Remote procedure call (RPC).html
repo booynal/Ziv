@@ -1,0 +1,610 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0056)http://www.rabbitmq.com/tutorials/tutorial-six-java.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="googlebot" content="NOODP"><meta name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4"><meta name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0"><link rel="stylesheet" href="./resources_files/rabbit.css" type="text/css"><!--[if IE 6]>
+      <link rel="stylesheet" href="/css/rabbit-ie6.css" type="text/css" />
+      <![endif]--><link rel="icon" type="/image/vnd.microsoft.icon" href="http://www.rabbitmq.com/favicon.ico"><link rel="stylesheet" href="./resources_files/tutorial.css" type="text/css"><script type="text/javascript" async="" src="./resources_files/munchkin.js"></script><script type="text/javascript" async="" src="./resources_files/ga.js"></script><script type="text/javascript" src="./resources_files/site.js"></script><script type="text/javascript" src="./resources_files/ga-bootstrap.js"></script><script type="text/javascript" async="" src="./resources_files/munchkin(1).js"></script><title>RabbitMQ - RabbitMQ tutorial - Remote procedure call (RPC) </title>
+    
+  </head>
+  <body><div id="outerContainer"><div id="rabbit-logo"><a href="http://www.rabbitmq.com/"><img src="./resources_files/rabbitmq_logo_strap.png" alt="RabbitMQ" width="253" height="53"></a></div><div id="pivotal-logo"><a href="http://pivotal.io/"><img src="./resources_files/logo-pivotal-118x25.png" alt="Pivotal" width="118" height="25"></a></div><div id="nav-search"><div id="search-box"><form action="http://www.rabbitmq.com/search.html" method="get"><input type="text" name="q" size="25" id="search-query" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();"><input type="submit" id="search-button" alt="Search" value=""></form></div><ul class="mainNav"><li><a href="http://www.rabbitmq.com/features.html">Features</a></li><li><a href="http://www.rabbitmq.com/download.html">Installation</a></li><li><a href="http://www.rabbitmq.com/documentation.html">Docs</a></li><li><a href="http://www.rabbitmq.com/getstarted.html" class="selected">Tutorials</a></li><li><a href="http://www.rabbitmq.com/services.html">Support</a></li><li><a href="http://www.rabbitmq.com/community.html">Community</a></li><li><a href="https://groups.google.com/forum/#!msg/rabbitmq-users/UuvnsOV7yS4/14b8pHcs8I0J">We're Hiring</a></li><li><a href="http://www.rabbitmq.com/blog/">Blog</a></li></ul></div><div class="nav-separator"></div>
+<div id="sidebar" class="tutorial-six">
+   <ul id="tutorials" xml:base="site/tutorials/tutorials-menu.xml.inc">
+
+        <li id="tutorial-one">
+          <h2><span class="tute-num">1</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-one-python.html">"Hello World!"</a></h2>
+          <p>
+            The simplest thing that does <em>something</em>
+          </p>
+          <p><img src="./resources_files/python-one.png" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-java.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-one-go.html">Go</a>
+          </p>
+        </li>
+
+        <li id="tutorial-two">
+          <h2><span class="tute-num">2</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-two-python.html">Work queues</a></h2>
+          <p>
+            Distributing tasks among workers
+          </p>
+          <p><img src="./resources_files/python-two.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-java.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-two-go.html">Go</a>
+          </p>
+        </li>
+
+        <li id="tutorial-three">
+          <h2><span class="tute-num">3</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-three-python.html">Publish/Subscribe</a></h2>
+          <p>
+            Sending messages to many consumers at once
+          </p>
+          <p><img src="./resources_files/python-three.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-java.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-three-go.html">Go</a>
+          </p>
+        </li>
+
+        <li id="tutorial-four">
+          <h2><span class="tute-num">4</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-four-python.html">Routing</a></h2>
+          <p>
+            Receiving messages selectively
+          </p>
+          <p><img src="./resources_files/python-four.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-java.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-four-go.html">Go</a>
+          </p>
+        </li>
+
+        <li id="tutorial-five">
+          <h2><span class="tute-num">5</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-five-python.html">Topics</a></h2>
+          <p>
+            Receiving messages based on a pattern
+          </p>
+          <p><img src="./resources_files/python-five.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-python.html">Python</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-java.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-five-go.html">Go</a>
+          </p>
+        </li>
+
+        <li id="tutorial-six">
+          <h2><span class="tute-num">6</span> <a href="http://www.rabbitmq.com/tutorials/tutorial-six-python.html">RPC</a></h2>
+          <p>
+            Remote procedure call implementation
+          </p>
+          <p><img src="./resources_files/python-six.png" height="50" width="180"></p>
+          <p>
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-python.html">Python</a>
+          |
+          <a href="./resources_files/resources.html">Java</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-ruby.html">Ruby</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-php.html">PHP</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-dotnet.html">C#</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-javascript.html">Javascript</a>
+          |
+          <a href="http://www.rabbitmq.com/tutorials/tutorial-six-go.html">Go</a>
+          </p>
+        </li>
+      </ul>
+</div>
+
+<div id="tutorial">
+
+<h2>Remote procedure call (RPC)</h2>
+<h3>(using the Java client)</h3>
+<p></p><div class="aside" xml:base="site/tutorials/tutorials-help.xml.inc">
+    <h3>Prerequisites</h3>
+    <p>
+      This tutorial assumes RabbitMQ is <a href="http://www.rabbitmq.com/download.html">installed</a> and running
+      on <span class="code ">localhost</span> on standard port (<span class="code ">5672</span>). In case you use
+      a different host, port or credentials, connections settings would require adjusting.
+    </p>
+
+    <h3>Where to get help</h3>
+    <p>
+        If you're having trouble going through this tutorial you can
+        <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">contact us</a> through the mailing list.
+    </p>
+  </div><p></p>
+<p>In the <a href="http://www.rabbitmq.com/tutorials/tutorial-two-java.html">second tutorial</a> we learned how to
+use <em>Work Queues</em> to distribute time-consuming tasks among multiple
+workers.</p>
+<p>But what if we need to run a function on a remote computer and wait for
+the result?  Well, that's a different story. This pattern is commonly
+known as <em>Remote Procedure Call</em> or <em>RPC</em>.</p>
+<p>In this tutorial we're going to use RabbitMQ to build an RPC system: a
+client and a scalable RPC server. As we don't have any time-consuming
+tasks that are worth distributing, we're going to create a dummy RPC
+service that returns Fibonacci numbers.</p>
+<h3>Client interface</h3>
+<p>To illustrate how an RPC service could be used we're going to
+create a simple client class. It's going to expose a method named <span class="code ">call</span>
+which sends an RPC request and blocks until the answer is received:</p>
+<div class="highlight"><pre><span class="n">FibonacciRpcClient</span> <span class="n">fibonacciRpc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FibonacciRpcClient</span><span class="o">();</span>   
+<span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">fibonacciRpc</span><span class="o">.</span><span class="na">call</span><span class="o">(</span><span class="s">"4"</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span> <span class="s">"fib(4) is "</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
+</pre></div>
+
+
+<blockquote>
+<h4>A note on RPC</h4>
+<p>Although RPC is a pretty common pattern in computing, it's often criticised.
+The problems arise when a programmer is not aware
+whether a function call is local or if it's a slow RPC. Confusions
+like that result in an unpredictable system and adds unnecessary
+complexity to debugging. Instead of simplifying software, misused RPC
+can result in unmaintainable spaghetti code.</p>
+<p>Bearing that in mind, consider the following advice:</p>
+<ul>
+<li>Make sure it's obvious which function call is local and which is remote.</li>
+<li>Document your system. Make the dependencies between components clear.</li>
+<li>Handle error cases. How should the client react when the RPC server is
+   down for a long time?</li>
+</ul>
+<p>When in doubt avoid RPC. If you can, you should use an asynchronous
+pipeline - instead of RPC-like blocking, results are asynchronously
+pushed to a next computation stage.</p>
+</blockquote>
+<h3>Callback queue</h3>
+<p>In general doing RPC over RabbitMQ is easy. A client sends a request
+message and a server replies with a response message. In order to
+receive a response we need to send a 'callback' queue address with the
+request. We can use the default queue (which is exclusive in the Java client).
+Let's try it:</p>
+<div class="highlight"><pre><span class="n">callbackQueueName</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">().</span><span class="na">getQueue</span><span class="o">();</span>
+
+<span class="n">BasicProperties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BasicProperties</span>
+                            <span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+                            <span class="o">.</span><span class="na">replyTo</span><span class="o">(</span><span class="n">callbackQueueName</span><span class="o">)</span>
+                            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span><span class="s">""</span><span class="o">,</span> <span class="s">"rpc_queue"</span><span class="o">,</span> <span class="n">props</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+
+<span class="c1">// ... then code to read a response message from the callback_queue ...</span>
+</pre></div>
+
+
+<blockquote>
+<h4>Message properties</h4>
+<p>The AMQP protocol predefines a set of 14 properties that go with
+a message. Most of the properties are rarely used, with the exception of
+the following:</p>
+<ul>
+<li><span class="code ">deliveryMode</span>: Marks a message as persistent (with a value of <span class="code ">2</span>)
+   or transient (any other value). You may remember this property
+   from <a href="http://www.rabbitmq.com/tutorials/tutorial-two-java.html">the second tutorial</a>.</li>
+<li><span class="code ">contentType</span>: Used to describe the mime-type of the encoding.
+   For example for the often used JSON encoding it is a good practice
+   to set this property to: <span class="code ">application/json</span>.</li>
+<li><span class="code ">replyTo</span>: Commonly used to name a callback queue.</li>
+<li><span class="code ">correlationId</span>: Useful to correlate RPC responses with requests.</li>
+</ul>
+</blockquote>
+<p>We need this new import:</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.rabbitmq.client.AMQP.BasicProperties</span><span class="o">;</span>
+</pre></div>
+
+
+<h3>Correlation Id</h3>
+<p>In the method presented above we suggest creating a callback queue for
+every RPC request. That's pretty inefficient, but fortunately there is
+a better way - let's create a single callback queue per client.</p>
+<p>That raises a new issue, having received a response in that queue it's
+not clear to which request the response belongs. That's when the
+<span class="code ">correlationId</span> property is used. We're going to set it to a unique
+value for every request. Later, when we receive a message in the
+callback queue we'll look at this property, and based on that we'll be
+able to match a response with a request. If we see an unknown
+<span class="code ">correlationId</span> value, we may safely discard the message - it
+doesn't belong to our requests.</p>
+<p>You may ask, why should we ignore unknown messages in the callback
+queue, rather than failing with an error? It's due to a possibility of
+a race condition on the server side. Although unlikely, it is possible
+that the RPC server will die just after sending us the answer, but
+before sending an acknowledgment message for the request. If that
+happens, the restarted RPC server will process the request again.
+That's why on the client we must handle the duplicate responses
+gracefully, and the RPC should ideally be idempotent.</p>
+<h3>Summary</h3>
+<div class="diagram">
+  <img src="./resources_files/python-six.png" height="200">
+  <div class="diagram_source">
+    digraph {
+      bgcolor=transparent;
+      truecolor=true;
+      rankdir=LR;
+      node [style="filled"];
+      //
+      subgraph cluster_C {
+        label="Client";
+    color=transparent;
+        C [label="C", fillcolor="#00ffff"];
+      };
+      subgraph cluster_XXXa {
+    color=transparent;
+      subgraph cluster_Note {
+    color=transparent;
+        N [label="Request\nreplyTo=amqp.gen-Xa2...\ncorrelationId=abc",
+       fontsize=12,
+       shape=note];
+      };
+      subgraph cluster_Reply {
+    color=transparent;
+        R [label="Reply\ncorrelationId=abc",
+       fontsize=12,
+       shape=note];
+      };
+      };
+      subgraph cluster_XXXb {
+    color=transparent;
+      subgraph cluster_RPC {
+        label="rpc_queue";
+    color=transparent;
+        RPC [label="{&lt;s&gt;||||&lt;e&gt;}", fillcolor="red", shape="record"];
+      };
+      subgraph cluster_REPLY {
+        label="replyTo=amq.gen-Xa2...";
+    color=transparent;
+        REPLY [label="{&lt;s&gt;||||&lt;e&gt;}", fillcolor="red", shape="record"];
+      };
+      };
+      subgraph cluster_W {
+        label="Server";
+    color=transparent;
+        W [label="S", fillcolor="#00ffff"];
+      };
+      //
+      C -&gt; N;
+      N -&gt; RPC:s;
+      RPC:e -&gt; W;
+      W -&gt; REPLY:e;
+      REPLY:s -&gt; R;
+      R -&gt; C;
+    }
+  </div>
+</div>
+
+<p>Our RPC will work like this:</p>
+<ul>
+<li>When the Client starts up, it creates an anonymous exclusive
+    callback queue.</li>
+<li>For an RPC request, the Client sends a message with two properties:
+    <span class="code ">replyTo</span>, which is set to the callback queue and <span class="code ">correlationId</span>,
+    which is set to a unique value for every request.</li>
+<li>The request is sent to an <span class="code ">rpc_queue</span> queue.</li>
+<li>The RPC worker (aka: server) is waiting for requests on that queue.
+    When a request appears, it does the job and sends a message with the
+    result back to the Client, using the queue from the <span class="code ">replyTo</span> field.</li>
+<li>The client waits for data on the callback queue. When a message
+    appears, it checks the <span class="code ">correlationId</span> property. If it matches
+    the value from the request it returns the response to the
+    application.</li>
+</ul>
+<h2>Putting it all together</h2>
+<p>The Fibonacci task:</p>
+<div class="highlight"><pre><span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">fib</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span> <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="k">return</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>We declare our fibonacci function. It assumes only valid positive integer input.
+(Don't expect this one to work for big numbers,
+and it's probably the slowest recursive implementation possible).</p>
+<p>The code for our RPC server <a href="https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java">RPCServer.java</a> looks like this:</p>
+<table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre></div></td><td class="code"><div class="highlight"><pre><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">RPC_QUEUE_NAME</span> <span class="o">=</span> <span class="s">"rpc_queue"</span><span class="o">;</span>
+
+<span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+<span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">"localhost"</span><span class="o">);</span>
+
+<span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+<span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+<span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">(</span><span class="n">RPC_QUEUE_NAME</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+
+<span class="n">channel</span><span class="o">.</span><span class="na">basicQos</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+
+<span class="n">QueueingConsumer</span> <span class="n">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueueingConsumer</span><span class="o">(</span><span class="n">channel</span><span class="o">);</span>
+<span class="n">channel</span><span class="o">.</span><span class="na">basicConsume</span><span class="o">(</span><span class="n">RPC_QUEUE_NAME</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="n">consumer</span><span class="o">);</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">" [x] Awaiting RPC requests"</span><span class="o">);</span>
+
+<span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">QueueingConsumer</span><span class="o">.</span><span class="na">Delivery</span> <span class="n">delivery</span> <span class="o">=</span> <span class="n">consumer</span><span class="o">.</span><span class="na">nextDelivery</span><span class="o">();</span>
+
+    <span class="n">BasicProperties</span> <span class="n">props</span> <span class="o">=</span> <span class="n">delivery</span><span class="o">.</span><span class="na">getProperties</span><span class="o">();</span>
+    <span class="n">BasicProperties</span> <span class="n">replyProps</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BasicProperties</span>
+                                     <span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+                                     <span class="o">.</span><span class="na">correlationId</span><span class="o">(</span><span class="n">props</span><span class="o">.</span><span class="na">getCorrelationId</span><span class="o">())</span>
+                                     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+    <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">delivery</span><span class="o">.</span><span class="na">getBody</span><span class="o">());</span>
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">" [.] fib("</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">")"</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="s">""</span> <span class="o">+</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span> <span class="s">""</span><span class="o">,</span> <span class="n">props</span><span class="o">.</span><span class="na">getReplyTo</span><span class="o">(),</span> <span class="n">replyProps</span><span class="o">,</span> <span class="n">response</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicAck</span><span class="o">(</span><span class="n">delivery</span><span class="o">.</span><span class="na">getEnvelope</span><span class="o">().</span><span class="na">getDeliveryTag</span><span class="o">(),</span> <span class="kc">false</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></tbody></table>
+
+<p>The server code is rather straightforward:</p>
+<ul>
+<li>As usual we start by establishing the connection, channel and declaring
+    the queue.</li>
+<li>We might want to run more than one server process. In order
+    to spread the load equally over multiple servers we need to set the
+    <span class="code ">prefetchCount</span> setting in channel.basicQos.</li>
+<li>We use <span class="code ">basicConsume</span> to access the queue. Then we enter the while loop in which
+    we wait for request messages, do the work and send the response back.</li>
+</ul>
+<p>The code for our RPC client <a href="https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java">RPCClient.java</a>:</p>
+<table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43</pre></div></td><td class="code"><div class="highlight"><pre><span class="kd">private</span> <span class="n">Connection</span> <span class="n">connection</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">Channel</span> <span class="n">channel</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">String</span> <span class="n">requestQueueName</span> <span class="o">=</span> <span class="s">"rpc_queue"</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">String</span> <span class="n">replyQueueName</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">QueueingConsumer</span> <span class="n">consumer</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="nf">RPCClient</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+    <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">"localhost"</span><span class="o">);</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+    <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+    <span class="n">replyQueueName</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">().</span><span class="na">getQueue</span><span class="o">();</span> 
+    <span class="n">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueueingConsumer</span><span class="o">(</span><span class="n">channel</span><span class="o">);</span>
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicConsume</span><span class="o">(</span><span class="n">replyQueueName</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="n">consumer</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">call</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>     
+    <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">corrId</span> <span class="o">=</span> <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+
+    <span class="n">BasicProperties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BasicProperties</span>
+                                <span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+                                <span class="o">.</span><span class="na">correlationId</span><span class="o">(</span><span class="n">corrId</span><span class="o">)</span>
+                                <span class="o">.</span><span class="na">replyTo</span><span class="o">(</span><span class="n">replyQueueName</span><span class="o">)</span>
+                                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span><span class="s">""</span><span class="o">,</span> <span class="n">requestQueueName</span><span class="o">,</span> <span class="n">props</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+
+    <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">QueueingConsumer</span><span class="o">.</span><span class="na">Delivery</span> <span class="n">delivery</span> <span class="o">=</span> <span class="n">consumer</span><span class="o">.</span><span class="na">nextDelivery</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">delivery</span><span class="o">.</span><span class="na">getProperties</span><span class="o">().</span><span class="na">getCorrelationId</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">corrId</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">delivery</span><span class="o">.</span><span class="na">getBody</span><span class="o">());</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">response</span><span class="o">;</span> 
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></tbody></table>
+
+<p>The client code is slightly more involved:</p>
+<ul>
+<li>We establish a connection and channel and declare an
+    exclusive 'callback' queue for replies.</li>
+<li>We subscribe to the 'callback' queue, so that
+    we can receive RPC responses.</li>
+<li>Our <span class="code ">call</span> method makes the actual RPC request.</li>
+<li>Here, we first generate a unique <span class="code ">correlationId</span>
+    number and save it - the while loop will
+    use this value to catch the appropriate response.</li>
+<li>Next, we publish the request message, with two properties:
+    <span class="code ">replyTo</span> and <span class="code ">correlationId</span>.</li>
+<li>At this point we can sit back and wait until the proper
+    response arrives.</li>
+<li>The while loop is doing a very simple job,
+    for every response message it checks if the <span class="code ">correlationId</span>
+    is the one we're looking for. If so, it saves the response.  <br>
+</li>
+<li>Finally we return the response back to the user.</li>
+</ul>
+<p>Making the Client request:</p>
+<div class="highlight"><pre><span class="n">RPCClient</span> <span class="n">fibonacciRpc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RPCClient</span><span class="o">();</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">" [x] Requesting fib(30)"</span><span class="o">);</span>   
+<span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="n">fibonacciRpc</span><span class="o">.</span><span class="na">call</span><span class="o">(</span><span class="s">"30"</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">" [.] Got '"</span> <span class="o">+</span> <span class="n">response</span> <span class="o">+</span> <span class="s">"'"</span><span class="o">);</span>
+
+<span class="n">fibonacciRpc</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</pre></div>
+
+
+<p>Now is a good time to take a look at our full example source code (which includes basic exception handling) for
+<a href="https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java">RPCClient.java</a> and <a href="https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java">RPCServer.java</a>.</p>
+<p>Compile and set up the classpath as usual (see <a href="http://www.rabbitmq.com/tutorials/tutorial-one-java.html">tutorial one</a>):</p>
+<div class="highlight"><pre><span class="nv">$ </span>javac -cp rabbitmq-client.jar RPCClient.java RPCServer.java
+</pre></div>
+
+
+<p>Our RPC service is now ready. We can start the server:</p>
+<div class="highlight"><pre><span class="nv">$ </span>java -cp <span class="nv">$CP</span> RPCServer
+ <span class="o">[</span>x<span class="o">]</span> Awaiting RPC requests
+</pre></div>
+
+
+<p>To request a fibonacci number run the client:</p>
+<div class="highlight"><pre><span class="nv">$ </span>java -cp <span class="nv">$CP</span> RPCClient
+ <span class="o">[</span>x<span class="o">]</span> Requesting fib<span class="o">(</span>30<span class="o">)</span>
+</pre></div>
+
+
+<p>The design presented here is not the only possible implementation of a RPC
+service, but it has some important advantages:</p>
+<ul>
+<li>If the RPC server is too slow, you can scale up by just running
+   another one. Try running a second <span class="code ">RPCServer</span> in a new console.</li>
+<li>On the client side, the RPC requires sending and
+   receiving only one message. No synchronous calls like <span class="code ">queueDeclare</span>
+   are required. As a result the RPC client needs only one network
+   round trip for a single RPC request.</li>
+</ul>
+<p>Our code is still pretty simplistic and doesn't try to solve more
+complex (but important) problems, like:</p>
+<ul>
+<li>How should the client react if there are no servers running?</li>
+<li>Should a client have some kind of timeout for the RPC?</li>
+<li>If the server malfunctions and raises an exception, should it be
+   forwarded to the client?</li>
+<li>Protecting against invalid incoming messages
+   (eg checking bounds, type) before processing.</li>
+</ul>
+<blockquote>
+<p>If you want to experiment, you may find the <a href="http://www.rabbitmq.com/plugins.html">rabbitmq-management plugin</a> useful for viewing the queues.</p>
+</blockquote></div><div class="clear"></div><div class="pageFooter"><p class="righter"><a href="http://www.rabbitmq.com/sitemap.html">Sitemap</a> |
+        <a href="http://www.rabbitmq.com/contact.html">Contact</a></p><p id="copyright">
+        Copyright © 2015 Pivotal Software, Inc. All rights reserved
+        |&nbsp;<a href="http://pivotal.io/privacy-policy">Privacy Policy</a>
+        |&nbsp;<a href="https://github.com/rabbitmq/rabbitmq-website/">This Site is Open Source</a>        
+        |&nbsp;<a href="https://groups.google.com/forum/#!msg/rabbitmq-users/UuvnsOV7yS4/14b8pHcs8I0J">We're Hiring</a></p></div></div>
+
+</body></html>
