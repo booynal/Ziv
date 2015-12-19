@@ -1,0 +1,20 @@
+mvn 生成scala项目
+
+1. 使用scala工具和远程库
+mvn archetype:generate \
+      -DarchetypeGroupId=org.scala-tools.archetypes \
+      -DarchetypeArtifactId=scala-archetype-simple  \
+      -DremoteRepositories=http://scala-tools.org/repo-releases
+2. 使用scala工具和另一个远程库
+mvn archetype:generate \
+      -DarchetypeGroupId=org.scala-tools.archetypes \
+      -DarchetypeArtifactId=scala-archetype-simple  \
+      -DremoteRepositories=https://oss.sonatype.org/content/groups/scala-tools
+3. 使用scala工具并指定groupId和artifactId
+mvn archetype:generate \
+      -DarchetypeGroupId=org.scala-tools.archetypes \
+      -DarchetypeArtifactId=scala-archetype-simple  \
+      -DremoteRepositories=http://scala-tools.org/repo-releases \
+      -DgroupId=test.scala \
+      -DartifactId=test.scala.withmaven \
+      -Dversion=1.0-SNAPSHOT
