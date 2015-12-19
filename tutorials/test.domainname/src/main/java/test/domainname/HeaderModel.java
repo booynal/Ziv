@@ -93,4 +93,10 @@ public class HeaderModel {
 		this.acceptEncoding = acceptEncoding;
 	}
 
+	@Override
+	public String toString() {
+		return "HeaderModel [method=" + method + ", path=" + path + ", protocol=" + protocol + ", host=" + host + ", connection=" + connection + ", accept=" + accept + ", upgradeInsecureRequest="
+				+ upgradeInsecureRequest + ", userAgent=" + userAgent + ", acceptEncoding=" + acceptEncoding + ", acceptLanguange=" + acceptLanguange + "]";
+	}
+
 }

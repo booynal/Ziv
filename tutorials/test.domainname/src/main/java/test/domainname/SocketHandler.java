@@ -50,6 +50,13 @@ public class SocketHandler implements Runnable {
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();
+			} finally {
+				if (null != input) {
+					try {
+						input.close();
+					} catch (IOException e) {
+					}
+				}
 			}
 		}
 		try {
@@ -74,7 +81,7 @@ public class SocketHandler implements Runnable {
 	}
 
 	protected void parseHead() {
-		System.out.println("head: " + headerString);
+		logger.debug("head: " + headerString);
 		if (StringUtils.isEmpty(headerString)) {
 			return;
 		}
@@ -103,6 +110,7 @@ public class SocketHandler implements Runnable {
 				headerModel.setUserAgent(value);
 			}
 		}
+		logger.debug("parse done, model: " + headerModel.toString());
 	}
 
 	private String readHeadString(Socket socket) {
