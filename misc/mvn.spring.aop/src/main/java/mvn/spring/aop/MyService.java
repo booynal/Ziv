@@ -1,4 +1,4 @@
-package mvn.spring.aop.service;
+package mvn.spring.aop;
 
 /**
  * @author Booynal

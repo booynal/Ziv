@@ -1,4 +1,4 @@
-package mvn.spring.aop;
+package mvn.spring.aop.annotation;
 
 import junit.framework.Assert;
 
@@ -13,11 +13,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:mvn-spring-aop-test.xml")
-public class AopTest {
+@ContextConfiguration(locations = "classpath:mvn-spring-aop-annotation-test.xml")
+public class AopAnnotationTest {
 
 	@Autowired
-	private MyService service;
+	private MyAnnotationService service;
 
 	@Test
 	public void testSay() {
