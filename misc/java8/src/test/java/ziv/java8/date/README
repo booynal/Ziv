@@ -1,0 +1,7 @@
+Java 8 在包java.time下包含了一组全新的时间日期API。
+新的日期API和开源的Joda-Time库差不多，但又不完全一样，下面的例子展示了这组新API里最重要的一些部分：
+	Clock 时钟
+	Timezones 时区
+	LocalTime 本地时间
+	LocalDate 本地日期
+	LocalDateTime 本地日期时间

@@ -1,0 +1,602 @@
+<!DOCTYPE HTML>
+<!-- saved from url=(0035)http://m.jb51.net/article/48304.htm -->
+<!DOCTYPE html PUBLIC "" ""><HTML><HEAD><META content="IE=11.0000" 
+http-equiv="X-UA-Compatible">
+ 
+<META charset="gb2312"> 
+<META name="viewport" id="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+<META name="format-detection" content="telephone=no"> 
+<META http-equiv="Cache-Control" content="no-transform"> <TITLE>JAVA8 
+十大新特性详解_java_脚本之家</TITLE> 
+<META name="keywords" content="JAVA,JAVA8,新特性"> 
+<META name="description" content="本教程将Java8的新特新逐一列出，并将使用简单的代码示例来指导你如何使用默认接口方法，lambda表达式，方法引用以及多重Annotation，之后你将会学到最新的API上的改进，比如流，函数式接口，Map以及全新的日期API"> 
+<LINK href="JAVA8%20十大新特性详解_files/style.css" rel="stylesheet"> <LINK href="JAVA8%20十大新特性详解_files/nativeShare.css" 
+rel="stylesheet"> 
+<SCRIPT src="/skin/mobile/js/nativeShare.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="http://bstatic.jb51.net/cpro/ui/dm.js" type="text/javascript"></SCRIPT>
+ 
+<META name="GENERATOR" content="MSHTML 11.00.10240.16683"></HEAD> 
+<BODY id="alist"><HEADER class="top"><A id="logo" 
+href="http://m.jb51.net/">脚本之家</A></HEADER><NAV id="nav"><A href="http://m.jb51.net/">首页</A> 
+<A href="http://m.jb51.net/softs/list583_1.html">应用</A> <A href="http://m.jb51.net/game/list832_1.html">手游</A> 
+<A href="http://m.jb51.net/gonglue/list793_1.html">攻略</A> <A class="cur" href="http://m.jb51.net/softjc/">教程</A> 
+</NAV>
+<P class="toolbar white"><A class="back" 
+href="javascript:history.go(-1)">﹤</A><A href="http://m.jb51.net/">首页</A> → <A 
+title="软件编程" href="http://m.jb51.net/list/index_84.htm">软件编程</A> → <A title="java" 
+href="http://m.jb51.net/list/list_207_1.htm">java</A> → 正文内容 JAVA8</P>
+<DIV class="asd asd-article1">
+<SCRIPT src="/skin/mobile/js/asd-article1.js" type="text/javascript"></SCRIPT>
+</DIV><SECTION class="wzlist">
+<DIV class="wtitle" id="wen" cataid="120278">
+<H1>JAVA8 十大新特性详解</H1>
+<P><SPAN>作者：</SPAN></P></DIV>
+<DIV class="con">
+<DIV 
+id="art_demo">本教程将Java8的新特新逐一列出，并将使用简单的代码示例来指导你如何使用默认接口方法，lambda表达式，方法引用以及多重Annotation，之后你将会学到最新的API上的改进，比如流，函数式接口，Map以及全新的日期API</DIV></DIV>
+<DIV class="con" id="content">
+<P>“Java is still not dead—and people are starting to figure that out.”</P>
+<P>本教程将用带注释的简单代码来描述新特性，你将看不到大片吓人的文字。</P>
+<P><STRONG>一、接口的默认方法<BR><BR></STRONG>Java 8允许我们给接口添加一个非抽象的方法实现，只需要使用 
+default关键字即可，这个特征又叫做扩展方法，示例如下：<BR>
+<DIV class="codebody" id="code74277"><BR>interface Formula 
+{<BR>&nbsp;&nbsp;&nbsp; double calculate(int a);
+<P></P>
+<P>&nbsp;&nbsp;&nbsp; default double sqrt(int a) 
+{<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 
+Math.sqrt(a);<BR>&nbsp;&nbsp;&nbsp; 
+}<BR>}</P></DIV><BR>Formula接口在拥有calculate方法之外同时还定义了sqrt方法，实现了Formula接口的子类只需要实现一个calculate方法，默认方法sqrt将在子类上可以直接使用。<BR>
+<DIV class="codebody" id="code65991"><BR>Formula formula = new Formula() 
+{<BR>&nbsp;&nbsp;&nbsp; @Override<BR>&nbsp;&nbsp;&nbsp; public double 
+calculate(int a) {<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return sqrt(a * 
+100);<BR>&nbsp;&nbsp;&nbsp; }<BR>};
+<P></P>
+<P>formula.calculate(100);&nbsp;&nbsp;&nbsp;&nbsp; // 
+100.0<BR>formula.sqrt(16);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// 4.0</P></DIV><BR>文中的formula被实现为一个匿名类的实例，该代码非常容易理解，6行代码实现了计算 sqrt(a * 
+100)。在下一节中，我们将会看到实现单方法接口的更简单的做法。
+<P></P>
+<P>译者注： 
+在Java中只有单继承，如果要让一个类赋予新的特性，通常是使用接口来实现，在C++中支持多继承，允许一个子类同时具有多个父类的接口与功能，在其他语言中，让一个类同时具有其他的可复用代码的方法叫做mixin。新的Java 
+8 的这个特新在编译器实现的角度上来说更加接近Scala的trait。 在C#中也有名为扩展方法的概念，允许给已存在的类型扩展方法，和Java 
+8的这个在语义上有差别。<BR><BR><STRONG>二、Lambda 
+表达式<BR><BR></STRONG>首先看看在老版本的Java中是如何排列字符串的：<BR>
+<DIV class="codebody" id="code43965"><BR>List&lt;String&gt; names = 
+Arrays.asList("peter", "anna", "mike", "xenia");
+<P></P>
+<P>Collections.sort(names, new Comparator&lt;String&gt;() 
+{<BR>&nbsp;&nbsp;&nbsp; @Override<BR>&nbsp;&nbsp;&nbsp; public int 
+compare(String a, String b) {<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+return b.compareTo(a);<BR>&nbsp;&nbsp;&nbsp; }<BR>});</P></DIV><BR>只需要给静态方法 
+Collections.sort 传入一个List对象以及一个比较器来按指定顺序排列。通常做法都是创建一个匿名的比较器对象然后将其传递给sort方法。
+<P></P>
+<P>在Java 8 中你就没必要使用这种传统的匿名对象的方式了，Java 8提供了更简洁的语法，lambda表达式：<BR>
+<DIV class="codebody" id="code83486"><BR>Collections.sort(names, (String a, 
+String b) -&gt; {<BR>&nbsp;&nbsp;&nbsp; return 
+b.compareTo(a);<BR>});</DIV><BR>看到了吧，代码变得更段且更具有可读性，但是实际上还可以写得更短：<BR>
+<DIV class="codebody" id="code64923"><BR>Collections.sort(names, (String a, 
+String b) -&gt; 
+b.compareTo(a));</DIV><BR>对于函数体只有一行代码的，你可以去掉大括号{}以及return关键字，但是你还可以写得更短点：<BR>
+<DIV class="codebody" id="code47170"><BR>Collections.sort(names, (a, b) -&gt; 
+b.compareTo(a));</DIV><BR>Java编译器可以自动推导出参数类型，所以你可以不用再写一次类型。接下来我们看看lambda表达式还能作出什么更方便的东西来：<BR><BR><STRONG>三、函数式接口<BR></STRONG><BR>Lambda表达式是如何在java的类型系统中表示的呢？每一个lambda表达式都对应一个类型，通常是接口类型。而“函数式接口”是指仅仅只包含一个抽象方法的接口，每一个该类型的lambda表达式都会被匹配到这个抽象方法。因为 
+默认方法 不算抽象方法，所以你也可以给你的函数式接口添加默认方法。
+<P></P>
+<P>我们可以将lambda表达式当作任意只包含一个抽象方法的接口类型，确保你的接口一定达到这个要求，你只需要给你的接口添加 
+@FunctionalInterface 注解，编译器如果发现你标注了这个注解的接口有多于一个抽象方法的时候会报错的。</P>
+<P>示例如下：<BR>
+<DIV class="codebody" id="code73873"><BR>@FunctionalInterface<BR>interface 
+Converter&lt;F, T&gt; {<BR>&nbsp;&nbsp;&nbsp; T convert(F 
+from);<BR>}<BR>Converter&lt;String, Integer&gt; converter = (from) -&gt; 
+Integer.valueOf(from);<BR>Integer converted = 
+converter.convert("123");<BR>System.out.println(converted);&nbsp;&nbsp;&nbsp; // 
+123</DIV><BR>需要注意如果@FunctionalInterface如果没有指定，上面的代码也是对的。
+<P></P>
+<P>译者注 将lambda表达式映射到一个单方法的接口上，这种做法在Java 8之前就有别的语言实现，比如Rhino 
+JavaScript解释器，如果一个函数参数接收一个单方法的接口而你传递的是一个function，Rhino 
+解释器会自动做一个单接口的实例到function的适配器，典型的应用场景有 org.w3c.dom.events.EventTarget 
+的addEventListener 第二个参数 EventListener。</P>
+<P><STRONG>四、方法与构造函数引用<BR></STRONG><BR>前一节中的代码还可以通过静态方法引用来表示：<BR>
+<DIV class="codebody" id="code93763"><BR>Converter&lt;String, Integer&gt; 
+converter = Integer::valueOf;<BR>Integer converted = 
+converter.convert("123");<BR>System.out.println(converted);&nbsp;&nbsp; // 
+123</DIV><BR>Java 8 允许你使用 :: 
+关键字来传递方法或者构造函数引用，上面的代码展示了如何引用一个静态方法，我们也可以引用一个对象的方法：<BR>
+<DIV class="codebody" id="code60651"><BR>&nbsp;converter = 
+something::startsWith;<BR>String converted = 
+converter.convert("Java");<BR>System.out.println(converted);&nbsp;&nbsp;&nbsp; 
+// "J"</DIV><BR>接下来看看构造函数是如何使用::关键字来引用的，首先我们定义一个包含多个构造函数的简单类：<BR>
+<DIV class="codebody" id="code59987"><BR>class Person {<BR>&nbsp;&nbsp;&nbsp; 
+String firstName;<BR>&nbsp;&nbsp;&nbsp; String lastName;
+<P></P>
+<P>&nbsp;&nbsp;&nbsp; Person() {}</P>
+<P>&nbsp;&nbsp;&nbsp; Person(String firstName, String lastName) 
+{<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.firstName = 
+firstName;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.lastName = 
+lastName;<BR>&nbsp;&nbsp;&nbsp; 
+}<BR>}</P></DIV><BR>接下来我们指定一个用来创建Person对象的对象工厂接口：<BR>
+<DIV class="codebody" id="code35420"><BR>interface PersonFactory&lt;P extends 
+Person&gt; {<BR>&nbsp;&nbsp;&nbsp; P create(String firstName, String 
+lastName);<BR>}</DIV><BR>这里我们使用构造函数引用来将他们关联起来，而不是实现一个完整的工厂：<BR>
+<DIV class="codebody" id="code9121"><BR>PersonFactory&lt;Person&gt; 
+personFactory = Person::new;<BR>Person person = personFactory.create("Peter", 
+"Parker");</DIV><BR>我们只需要使用 Person::new 
+来获取Person类构造函数的引用，Java编译器会自动根据PersonFactory.create方法的签名来选择合适的构造函数。
+<P></P>
+<P><STRONG>五、Lambda 
+作用域<BR></STRONG><BR>在lambda表达式中访问外层作用域和老版本的匿名对象中的方式很相似。你可以直接访问标记了final的外层局部变量，或者实例的字段以及静态变量。</P>
+<P><STRONG>六、访问局部变量</STRONG></P>
+<P>我们可以直接在lambda表达式中访问外层的局部变量：<BR>
+<DIV class="codebody" id="code61460"><BR>final int num = 
+1;<BR>Converter&lt;Integer, String&gt; stringConverter 
+=<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (from) -&gt; String.valueOf(from 
++ num);
+<P></P>
+<P>stringConverter.convert(2);&nbsp;&nbsp;&nbsp;&nbsp; // 
+3</P></DIV><BR>但是和匿名对象不同的是，这里的变量num可以不用声明为final，该代码同样正确：<BR>
+<DIV class="codebody" id="code4444"><BR>int num = 1;<BR>Converter&lt;Integer, 
+String&gt; stringConverter =<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+(from) -&gt; String.valueOf(from + num);
+<P></P>
+<P>stringConverter.convert(2);&nbsp;&nbsp;&nbsp;&nbsp; // 
+3</P></DIV><BR>不过这里的num必须不可被后面的代码修改（即隐性的具有final的语义），例如下面的就无法编译：<BR>
+<DIV class="codebody" id="code28607"><BR>int num = 1;<BR>Converter&lt;Integer, 
+String&gt; stringConverter =<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+(from) -&gt; String.valueOf(from + num);<BR>num = 
+3;</DIV><BR>在lambda表达式中试图修改num同样是不允许的。<BR><BR><STRONG>七、访问对象字段与静态变量</STRONG>
+<P></P>
+<P>和本地变量不同的是，lambda内部对于实例的字段以及静态变量是即可读又可写。该行为和匿名对象是一致的：<BR>
+<DIV class="codebody" id="code56119">class Lambda4 {<BR>&nbsp;&nbsp;&nbsp; 
+static int outerStaticNum;<BR>&nbsp;&nbsp;&nbsp; int outerNum;
+<P></P>
+<P>&nbsp;&nbsp;&nbsp; void testScopes() 
+{<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Converter&lt;Integer, String&gt; 
+stringConverter1 = (from) -&gt; 
+{<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; outerNum 
+= 23;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+return String.valueOf(from);<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+};</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Converter&lt;Integer, String&gt; 
+stringConverter2 = (from) -&gt; 
+{<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+outerStaticNum = 
+72;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 
+String.valueOf(from);<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+};<BR>&nbsp;&nbsp;&nbsp; 
+}<BR>}</P></DIV><BR><BR><STRONG>八、访问接口的默认方法<BR></STRONG><BR>还记得第一节中的formula例子么，接口Formula定义了一个默认方法sqrt可以直接被formula的实例包括匿名对象访问到，但是在lambda表达式中这个是不行的。<BR>Lambda表达式中是无法访问到默认方法的，以下代码将无法编译：<BR>
+<DIV class="codebody" id="code20466"><BR>Formula formula = (a) -&gt; sqrt( a * 
+100);<BR>Built-in Functional Interfaces</DIV><BR>JDK 1.8 
+API包含了很多内建的函数式接口，在老Java中常用到的比如Comparator或者Runnable接口，这些接口都增加了@FunctionalInterface注解以便能用在lambda上。<BR>Java 
+8 API同样还提供了很多全新的函数式接口来让工作更加方便，有一些接口是来自Google 
+Guava库里的，即便你对这些很熟悉了，还是有必要看看这些是如何扩展到lambda上使用的。<BR><BR><STRONG>Predicate接口</STRONG>
+<P></P>
+<P>Predicate 
+接口只有一个参数，返回boolean类型。该接口包含多种默认方法来将Predicate组合成其他复杂的逻辑（比如：与，或，非）：<BR>
+<DIV class="codebody" id="code53983"><BR>Predicate&lt;String&gt; predicate = (s) 
+-&gt; s.length() &gt; 0;
+<P></P>
+<P>predicate.test("foo");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// true<BR>predicate.negate().test("foo");&nbsp;&nbsp;&nbsp;&nbsp; // false</P>
+<P>Predicate&lt;Boolean&gt; nonNull = 
+Objects::nonNull;<BR>Predicate&lt;Boolean&gt; isNull = Objects::isNull;</P>
+<P>Predicate&lt;String&gt; isEmpty = String::isEmpty;<BR>Predicate&lt;String&gt; 
+isNotEmpty = isEmpty.negate();</P></DIV><BR><BR><STRONG>Function 接口</STRONG>
+<P></P>
+<P>Function 接口有一个参数并且返回一个结果，并附带了一些可以和其他函数组合的默认方法（compose, andThen）：<BR>
+<DIV class="codebody" id="code26875"><BR>Function&lt;String, Integer&gt; 
+toInteger = Integer::valueOf;<BR>Function&lt;String, String&gt; backToString = 
+toInteger.andThen(String::valueOf);
+<P></P>
+<P>backToString.apply("123");&nbsp;&nbsp;&nbsp;&nbsp; // 
+"123"</P></DIV><BR><BR><STRONG>Supplier 接口<BR></STRONG><BR>Supplier 
+接口返回一个任意范型的值，和Function接口不同的是该接口没有任何参数<BR>
+<DIV class="codebody" id="code34756"><BR>Supplier&lt;Person&gt; personSupplier = 
+Person::new;<BR>personSupplier.get();&nbsp;&nbsp; // new 
+Person</DIV><BR><BR><STRONG>Consumer 接口<BR></STRONG><BR>Consumer 
+接口表示执行在单个参数上的操作。<BR>
+<DIV class="codebody" id="code84554"><BR>Consumer&lt;Person&gt; greeter = (p) 
+-&gt; System.out.println("Hello, " + p.firstName);<BR>greeter.accept(new 
+Person("Luke", "Skywalker"));</DIV><BR><BR><STRONG>Comparator 
+接口<BR></STRONG><BR>Comparator 是老Java中的经典接口， Java 8在此之上添加了多种默认方法：<BR>
+<DIV class="codebody" id="code61719"><BR>Comparator&lt;Person&gt; comparator = 
+(p1, p2) -&gt; p1.firstName.compareTo(p2.firstName);
+<P></P>
+<P>Person p1 = new Person("John", "Doe");<BR>Person p2 = new Person("Alice", 
+"Wonderland");</P>
+<P>comparator.compare(p1, 
+p2);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 
+&gt; 0<BR>comparator.reversed().compare(p1, p2);&nbsp; // &lt; 
+0</P></DIV><BR><BR><STRONG>Optional 接口</STRONG>
+<P></P>
+<P>Optional 
+不是函数是接口，这是个用来防止NullPointerException异常的辅助类型，这是下一届中将要用到的重要概念，现在先简单的看看这个接口能干什么：</P>
+<P>Optional 被定义为一个简单的容器，其值可能是null或者不是null。在Java 
+8之前一般某个函数应该返回非空对象但是偶尔却可能返回了null，而在Java 8中，不推荐你返回null而是返回Optional。<BR>
+<DIV class="codebody" id="code56783"><BR>Optional&lt;String&gt; optional = 
+Optional.of("bam");
+<P></P>
+<P>optional.isPresent();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// 
+true<BR>optional.get();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// "bam"<BR>optional.orElse("fallback");&nbsp;&nbsp;&nbsp; // "bam"</P>
+<P>optional.ifPresent((s) -&gt; 
+System.out.println(s.charAt(0)));&nbsp;&nbsp;&nbsp;&nbsp; // 
+"b"</P></DIV><BR><BR><STRONG>Stream 接口</STRONG>
+<P></P>
+<P>java.util.Stream 表示能应用在一组元素上一次执行的操作序列。Stream 
+操作分为中间操作或者最终操作两种，最终操作返回一特定类型的计算结果，而中间操作返回Stream本身，这样你就可以将多个操作依次串起来。Stream 
+的创建需要指定一个数据源，比如 java.util.Collection的子类，List或者Set， 
+Map不支持。Stream的操作可以串行执行或者并行执行。</P>
+<P>首先看看Stream是怎么用，首先创建实例代码的用到的数据List：<BR>
+<DIV class="codebody" id="code45033"><BR>List&lt;String&gt; stringCollection = 
+new 
+ArrayList&lt;&gt;();<BR>stringCollection.add("ddd2");<BR>stringCollection.add("aaa2");<BR>stringCollection.add("bbb1");<BR>stringCollection.add("aaa1");<BR>stringCollection.add("bbb3");<BR>stringCollection.add("ccc");<BR>stringCollection.add("bbb2");<BR>stringCollection.add("ddd1");</DIV><BR>Java 
+8扩展了集合类，可以通过 Collection.stream() 或者 Collection.parallelStream() 
+来创建一个Stream。下面几节将详细解释常用的Stream操作：
+<P></P>
+<P><STRONG>Filter 过滤</STRONG></P>
+<P>过滤通过一个predicate接口来过滤并只保留符合条件的元素，该操作属于中间操作，所以我们可以在过滤后的结果来应用其他Stream操作（比如forEach）。forEach需要一个函数来对过滤后的元素依次执行。forEach是一个最终操作，所以我们不能在forEach之后来执行其他Stream操作。<BR>
+<DIV class="codebody" id="code80282"><BR>stringCollection<BR>&nbsp;&nbsp;&nbsp; 
+.stream()<BR>&nbsp;&nbsp;&nbsp; .filter((s) -&gt; 
+s.startsWith("a"))<BR>&nbsp;&nbsp;&nbsp; .forEach(System.out::println);
+<P></P>
+<P>// "aaa2", "aaa1"</P></DIV><BR><BR><STRONG>Sort 排序</STRONG>
+<P></P>
+<P>排序是一个中间操作，返回的是排序好后的Stream。如果你不指定一个自定义的Comparator则会使用默认排序。<BR>
+<DIV class="codebody" id="code74537"><BR>stringCollection<BR>&nbsp;&nbsp;&nbsp; 
+.stream()<BR>&nbsp;&nbsp;&nbsp; .sorted()<BR>&nbsp;&nbsp;&nbsp; .filter((s) 
+-&gt; s.startsWith("a"))<BR>&nbsp;&nbsp;&nbsp; .forEach(System.out::println);
+<P></P>
+<P>// "aaa1", 
+"aaa2"</P></DIV><BR>需要注意的是，排序只创建了一个排列好后的Stream，而不会影响原有的数据源，排序之后原数据stringCollection是不会被修改的：<BR>
+<DIV class="codebody" 
+id="code18330"><BR>System.out.println(stringCollection);<BR>// ddd2, aaa2, bbb1, 
+aaa1, bbb3, ccc, bbb2, ddd1</DIV><BR><BR><STRONG>Map 
+映射<BR></STRONG><BR>中间操作map会将元素根据指定的Function接口来依次将元素转成另外的对象，下面的示例展示了将字符串转换为大写字符串。你也可以通过map来讲对象转换成其他类型，map返回的Stream类型是根据你map传递进去的函数的返回值决定的。<BR>
+<DIV class="codebody" id="code60392"><BR>stringCollection<BR>&nbsp;&nbsp;&nbsp; 
+.stream()<BR>&nbsp;&nbsp;&nbsp; .map(String::toUpperCase)<BR>&nbsp;&nbsp;&nbsp; 
+.sorted((a, b) -&gt; b.compareTo(a))<BR>&nbsp;&nbsp;&nbsp; 
+.forEach(System.out::println);
+<P></P>
+<P>// "DDD2", "DDD1", "CCC", "BBB3", "BBB2", "AAA2", 
+"AAA1"</P></DIV><BR><BR><STRONG>Match 匹配</STRONG>
+<P></P>
+<P>Stream提供了多种匹配操作，允许检测指定的Predicate是否匹配整个Stream。所有的匹配操作都是最终操作，并返回一个boolean类型的值。<BR>
+<DIV class="codebody" id="code7649"><BR>boolean anyStartsWithA = 
+<BR>&nbsp;&nbsp;&nbsp; 
+stringCollection<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+.stream()<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .anyMatch((s) -&gt; 
+s.startsWith("a"));
+<P></P>
+<P>System.out.println(anyStartsWithA);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // true</P>
+<P>boolean allStartsWithA = <BR>&nbsp;&nbsp;&nbsp; 
+stringCollection<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+.stream()<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .allMatch((s) -&gt; 
+s.startsWith("a"));</P>
+<P>System.out.println(allStartsWithA);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 
+false</P>
+<P>boolean noneStartsWithZ = <BR>&nbsp;&nbsp;&nbsp; 
+stringCollection<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+.stream()<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .noneMatch((s) -&gt; 
+s.startsWith("z"));</P>
+<P>System.out.println(noneStartsWithZ);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 
+true</P></DIV>
+<P></P>
+<P><STRONG>Count 计数<BR></STRONG><BR>计数是一个最终操作，返回Stream中元素的个数，返回值类型是long。<BR>
+<DIV class="codebody" id="code18994"><BR>long startsWithB = 
+<BR>&nbsp;&nbsp;&nbsp; 
+stringCollection<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+.stream()<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .filter((s) -&gt; 
+s.startsWith("b"))<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .count();
+<P></P>
+<P>System.out.println(startsWithB);&nbsp;&nbsp;&nbsp; // 
+3</P></DIV><BR><BR><STRONG>Reduce 规约</STRONG>
+<P></P>
+<P>这是一个最终操作，允许通过指定的函数来讲stream中的多个元素规约为一个元素，规越后的结果是通过Optional接口表示的：<BR>
+<DIV class="codebody" id="code11517"><BR>Optional&lt;String&gt; reduced 
+=<BR>&nbsp;&nbsp;&nbsp; 
+stringCollection<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+.stream()<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+.sorted()<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reduce((s1, s2) -&gt; 
+s1 + "#" + s2);
+<P></P>
+<P>reduced.ifPresent(System.out::println);<BR>// 
+"aaa1#aaa2#bbb1#bbb2#bbb3#ccc#ddd1#ddd2"</P></DIV><BR><BR><STRONG>并行Streams</STRONG>
+<P></P>
+<P>前面提到过Stream有串行和并行两种，串行Stream上的操作是在一个线程中依次完成，而并行Stream则是在多个线程上同时执行。</P>
+<P>下面的例子展示了是如何通过并行Stream来提升性能：</P>
+<P>首先我们创建一个没有重复元素的大表：<BR>
+<DIV class="codebody" id="code33947"><BR>int max = 
+1000000;<BR>List&lt;String&gt; values = new ArrayList&lt;&gt;(max);<BR>for (int 
+i = 0; i &lt; max; i++) {<BR>&nbsp;&nbsp;&nbsp; UUID uuid = 
+UUID.randomUUID();<BR>&nbsp;&nbsp;&nbsp; 
+values.add(uuid.toString());<BR>}</DIV><BR>然后我们计算一下排序这个Stream要耗时多久，<BR>串行排序：<BR>
+<DIV class="codebody" id="code40097"><BR>long t0 = System.nanoTime();
+<P></P>
+<P>long count = 
+values.stream().sorted().count();<BR>System.out.println(count);</P>
+<P>long t1 = System.nanoTime();</P>
+<P>long millis = TimeUnit.NANOSECONDS.toMillis(t1 - 
+t0);<BR>System.out.println(String.format("sequential sort took: %d ms", 
+millis));</P></DIV>
+<P></P>
+<P>// 串行耗时: 899 ms<BR>并行排序：<BR>
+<DIV class="codebody" id="code68532"><BR>long t0 = System.nanoTime();
+<P></P>
+<P>long count = 
+values.parallelStream().sorted().count();<BR>System.out.println(count);</P>
+<P>long t1 = System.nanoTime();</P>
+<P>long millis = TimeUnit.NANOSECONDS.toMillis(t1 - 
+t0);<BR>System.out.println(String.format("parallel sort took: %d ms", 
+millis));</P></DIV>
+<P></P>
+<P>// 并行排序耗时: 472 
+ms<BR>上面两个代码几乎是一样的，但是并行版的快了50%之多，唯一需要做的改动就是将stream()改为parallelStream()。</P>
+<P><STRONG>Map</STRONG></P>
+<P>前面提到过，Map类型不支持stream，不过Map提供了一些新的有用的方法来处理一些日常任务。<BR>
+<DIV class="codebody" id="code9785"><BR>Map&lt;Integer, String&gt; map = new 
+HashMap&lt;&gt;();
+<P></P>
+<P>for (int i = 0; i &lt; 10; i++) {<BR>&nbsp;&nbsp;&nbsp; map.putIfAbsent(i, 
+"val" + i);<BR>}</P></DIV>
+<P></P>
+<P>map.forEach((id, val) -&gt; System.out.println(val));<BR>以上代码很容易理解， 
+putIfAbsent 不需要我们做额外的存在性检查，而forEach则接收一个Consumer接口来对map里的每一个键值对进行操作。</P>
+<P>下面的例子展示了map上的其他有用的函数：<BR>
+<DIV class="codebody" id="code12585"><BR>map.computeIfPresent(3, (num, val) 
+-&gt; val + 
+num);<BR>map.get(3);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// val33
+<P></P>
+<P>map.computeIfPresent(9, (num, val) -&gt; 
+null);<BR>map.containsKey(9);&nbsp;&nbsp;&nbsp;&nbsp; // false</P>
+<P>map.computeIfAbsent(23, num -&gt; "val" + 
+num);<BR>map.containsKey(23);&nbsp;&nbsp;&nbsp; // true</P>
+<P>map.computeIfAbsent(3, num -&gt; 
+"bam");<BR>map.get(3);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// val33</P></DIV><BR>接下来展示如何在Map里删除一个键值全都匹配的项：<BR>
+<DIV class="codebody" id="code30743"><BR>map.remove(3, 
+"val3");<BR>map.get(3);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// val33
+<P></P>
+<P>map.remove(3, 
+"val33");<BR>map.get(3);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// null</P></DIV><BR>另外一个有用的方法：<BR>
+<DIV class="codebody" id="code49710"><BR>map.getOrDefault(42, "not 
+found");&nbsp; // not found</DIV><BR>对Map的元素做合并也变得很容易了：<BR>
+<DIV class="codebody" id="code39693"><BR>map.merge(9, "val9", (value, newValue) 
+-&gt; 
+value.concat(newValue));<BR>map.get(9);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// val9
+<P></P>
+<P>map.merge(9, "concat", (value, newValue) -&gt; 
+value.concat(newValue));<BR>map.get(9);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// val9concat</P></DIV><BR>Merge做的事情是如果键名不存在则插入，否则则对原键对应的值做合并操作并重新插入到map中。
+<P></P>
+<P><STRONG>九、Date API<BR></STRONG><BR>Java 8 
+在包java.time下包含了一组全新的时间日期API。新的日期API和开源的Joda-Time库差不多，但又不完全一样，下面的例子展示了这组新API里最重要的一些部分：<BR><BR><STRONG>Clock 
+时钟</STRONG></P>
+<P>Clock类提供了访问当前日期和时间的方法，Clock是时区敏感的，可以用来取代 System.currentTimeMillis() 
+来获取当前的微秒数。某一个特定的时间点也可以使用Instant类来表示，Instant类也可以用来创建老的java.util.Date对象。<BR>
+<DIV class="codebody" id="code96304"><BR>Clock clock = 
+Clock.systemDefaultZone();<BR>long millis = clock.millis();
+<P></P>
+<P>Instant instant = clock.instant();<BR>Date legacyDate = 
+Date.from(instant);&nbsp;&nbsp; // legacy 
+java.util.Date</P></DIV><BR><BR><STRONG>Timezones 时区</STRONG>
+<P></P>
+<P>在新API中时区使用ZoneId来表示。时区可以很方便的使用静态方法of来获取到。 
+时区定义了到UTS时间的时间差，在Instant时间点对象到本地日期对象之间转换的时候是极其重要的。<BR>
+<DIV class="codebody" 
+id="code26471"><BR>System.out.println(ZoneId.getAvailableZoneIds());<BR>// 
+prints all available timezone ids
+<P></P>
+<P>ZoneId zone1 = ZoneId.of("Europe/Berlin");<BR>ZoneId zone2 = 
+ZoneId.of("Brazil/East");<BR>System.out.println(zone1.getRules());<BR>System.out.println(zone2.getRules());</P>
+<P>// ZoneRules[currentStandardOffset=+01:00]<BR>// 
+ZoneRules[currentStandardOffset=-03:00]</P></DIV><BR><BR><STRONG>LocalTime 
+本地时间</STRONG>
+<P></P>
+<P>LocalTime 定义了一个没有时区信息的时间，例如 晚上10点，或者 
+17:30:15。下面的例子使用前面代码创建的时区创建了两个本地时间。之后比较时间并以小时和分钟为单位计算两个时间的时间差：<BR>
+<DIV class="codebody" id="code62528"><BR>LocalTime now1 = 
+LocalTime.now(zone1);<BR>LocalTime now2 = LocalTime.now(zone2);
+<P></P>
+<P>System.out.println(now1.isBefore(now2));&nbsp; // false</P>
+<P>long hoursBetween = ChronoUnit.HOURS.between(now1, now2);<BR>long 
+minutesBetween = ChronoUnit.MINUTES.between(now1, now2);</P>
+<P>System.out.println(hoursBetween);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 
+-3<BR>System.out.println(minutesBetween);&nbsp;&nbsp;&nbsp;&nbsp; // 
+-239</P></DIV><BR>LocalTime 提供了多种工厂方法来简化对象的创建，包括解析时间字符串。<BR>
+<DIV class="codebody" id="code1240"><BR>LocalTime late = LocalTime.of(23, 59, 
+59);<BR>System.out.println(late);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 
+23:59:59
+<P></P>
+<P>DateTimeFormatter germanFormatter =<BR>&nbsp;&nbsp;&nbsp; 
+DateTimeFormatter<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+.ofLocalizedTime(FormatStyle.SHORT)<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+.withLocale(Locale.GERMAN);</P>
+<P>LocalTime leetTime = LocalTime.parse("13:37", 
+germanFormatter);<BR>System.out.println(leetTime);&nbsp;&nbsp; // 
+13:37</P></DIV>
+<P></P>
+<P><BR><STRONG>LocalDate 本地日期</STRONG></P>
+<P>LocalDate 表示了一个确切的日期，比如 
+2014-03-11。该对象值是不可变的，用起来和LocalTime基本一致。下面的例子展示了如何给Date对象加减天/月/年。另外要注意的是这些对象是不可变的，操作返回的总是一个新实例。<BR>
+<DIV class="codebody" id="code38220"><BR>LocalDate today = 
+LocalDate.now();<BR>LocalDate tomorrow = today.plus(1, 
+ChronoUnit.DAYS);<BR>LocalDate yesterday = tomorrow.minusDays(2);
+<P></P>
+<P>LocalDate independenceDay = LocalDate.of(2014, Month.JULY, 4);<BR>DayOfWeek 
+dayOfWeek = 
+independenceDay.getDayOfWeek();</P></DIV><BR>System.out.println(dayOfWeek);&nbsp;&nbsp;&nbsp; 
+// FRIDAY<BR>从字符串解析一个LocalDate类型和解析LocalTime一样简单：<BR>
+<DIV class="codebody" id="code27280"><BR>DateTimeFormatter germanFormatter 
+=<BR>&nbsp;&nbsp;&nbsp; 
+DateTimeFormatter<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+.ofLocalizedDate(FormatStyle.MEDIUM)<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+.withLocale(Locale.GERMAN);
+<P></P>
+<P>LocalDate xmas = LocalDate.parse("24.12.2014", 
+germanFormatter);<BR>System.out.println(xmas);&nbsp;&nbsp; // 
+2014-12-24</P></DIV><BR><BR><STRONG>LocalDateTime 本地日期时间</STRONG>
+<P></P>
+<P>LocalDateTime 
+同时表示了时间和日期，相当于前两节内容合并到一个对象上了。LocalDateTime和LocalTime还有LocalDate一样，都是不可变的。LocalDateTime提供了一些能访问具体字段的方法。<BR>
+<DIV class="codebody" id="code6985"><BR>LocalDateTime sylvester = 
+LocalDateTime.of(2014, Month.DECEMBER, 31, 23, 59, 59);
+<P></P>
+<P>DayOfWeek dayOfWeek = 
+sylvester.getDayOfWeek();<BR>System.out.println(dayOfWeek);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// WEDNESDAY</P>
+<P>Month month = 
+sylvester.getMonth();<BR>System.out.println(month);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// DECEMBER</P>
+<P>long minuteOfDay = 
+sylvester.getLong(ChronoField.MINUTE_OF_DAY);<BR>System.out.println(minuteOfDay);&nbsp;&nbsp;&nbsp; 
+// 
+1439</P></DIV><BR>只要附加上时区信息，就可以将其转换为一个时间点Instant对象，Instant时间点对象可以很容易的转换为老式的java.util.Date。<BR>
+<DIV class="codebody" id="code67869"><BR>Instant instant = 
+sylvester<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+.atZone(ZoneId.systemDefault())<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+.toInstant();
+<P></P>
+<P>Date legacyDate = 
+Date.from(instant);<BR>System.out.println(legacyDate);&nbsp;&nbsp;&nbsp;&nbsp; 
+// Wed Dec 31 23:59:59 CET 
+2014</P></DIV><BR>格式化LocalDateTime和格式化时间和日期一样的，除了使用预定义好的格式外，我们也可以自己定义格式：<BR>
+<DIV class="codebody" id="code85218"><BR>DateTimeFormatter formatter 
+=<BR>&nbsp;&nbsp;&nbsp; 
+DateTimeFormatter<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ofPattern("MMM 
+dd, yyyy - HH:mm");
+<P></P>
+<P>LocalDateTime parsed = LocalDateTime.parse("Nov 03, 2014 - 07:13", 
+formatter);<BR>String string = 
+formatter.format(parsed);<BR>System.out.println(string);&nbsp;&nbsp;&nbsp;&nbsp; 
+// Nov 03, 2014 - 
+07:13</P></DIV><BR>和java.text.NumberFormat不一样的是新版的DateTimeFormatter是不可变的，所以它是线程安全的。<BR>关于时间日期格式的详细信息：http://download.java.net/jdk8/docs/api/java/time/format/DateTimeFormatter.html
+<P></P>
+<P><STRONG>十、Annotation 注解<BR><BR></STRONG>在Java 
+8中支持多重注解了，先看个例子来理解一下是什么意思。<BR>首先定义一个包装类Hints注解用来放置一组具体的Hint注解：<BR>
+<DIV class="codebody" id="code86286"><BR>@interface Hints 
+{<BR>&nbsp;&nbsp;&nbsp; Hint[] value();<BR>}
+<P></P>
+<P>@Repeatable(Hints.class)<BR>@interface Hint {<BR>&nbsp;&nbsp;&nbsp; String 
+value();<BR>}</P></DIV><BR>Java 8允许我们把同一个类型的注解使用多次，只需要给该注解标注一下@Repeatable即可。
+<P></P>
+<P>例 1: 使用包装类当容器来存多个注解（老方法）<BR>
+<DIV class="codebody" id="code83082"><BR>@Hints({@Hint("hint1"), 
+@Hint("hint2")})<BR>class Person {}</DIV><BR>例 2：使用多重注解（新方法）<BR>
+<DIV class="codebody" 
+id="code92695"><BR>@Hint("hint1")<BR>@Hint("hint2")<BR>class Person 
+{}</DIV><BR>第二个例子里java编译器会隐性的帮你定义好@Hints注解，了解这一点有助于你用反射来获取这些信息：<BR>
+<DIV class="codebody" id="code63855"><BR>Hint hint = 
+Person.class.getAnnotation(Hint.class);<BR>System.out.println(hint);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// null
+<P></P>
+<P>Hints hints1 = 
+Person.class.getAnnotation(Hints.class);<BR>System.out.println(hints1.value().length);&nbsp; 
+// 2</P>
+<P>Hint[] hints2 = 
+Person.class.getAnnotationsByType(Hint.class);<BR>System.out.println(hints2.length);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// 2</P></DIV><BR>即便我们没有在Person类上定义@Hints注解，我们还是可以通过 getAnnotation(Hints.class) 
+来获取 @Hints注解，更加方便的方法是使用 getAnnotationsByType 可以直接获取到所有的@Hint注解。<BR>另外Java 
+8的注解还增加到两种新的target上了：<BR>
+<DIV class="codebody" id="code50374"><BR>@Target({ElementType.TYPE_PARAMETER, 
+ElementType.TYPE_USE})<BR>@interface MyAnnotation {}</DIV><BR>关于Java 
+8的新特性就写到这了，肯定还有更多的特性等待发掘。JDK 1.8里还有很多很有用的东西，比如Arrays.parallelSort, 
+StampedLock和CompletableFuture等等。
+<P></P></DIV>
+<DIV class="con" id="content"></DIV>
+<DIV class="art_xg">
+<H4>您可能感兴趣的文章:</H4>
+<UL>
+  <LI><A title="Debian 7 和 Debian 8 用户安装 Java 8的方法" href="http://m.jb51.net/article/48384.htm" 
+  target="_blank">Debian 7 和 Debian 8 用户安装 Java 8的方法</A></LI></UL></DIV>
+<DIV class="j_shareBtn"><A href="javascript:show()">   点击分享</A></DIV>
+<DIV id="nativeShare" style="display: none;"></DIV></SECTION>
+<DIV class="asd asd-article2">
+<SCRIPT src="/skin/mobile/js/asd-article2.js" type="text/javascript"></SCRIPT>
+</DIV><SECTION class="xgwz"><B>相关文章</B>
+<UL>
+  <LI><SPAN>2014-02-02</SPAN><A title="Java把数字格式化为货币字符串实例代码" href="http://m.jb51.net/article/47203.htm" 
+  target="_blank">Java把数字格式化为货币字符串实例代码</A></LI>
+  <LI><SPAN>2014-04-04</SPAN><A title="java可变参数使用示例" href="http://m.jb51.net/article/49256.htm" 
+  target="_blank">java可变参数使用示例</A></LI>
+  <LI><SPAN>2015-06-06</SPAN><A title="JAVA获得域名IP地址的方法" href="http://m.jb51.net/article/68073.htm" 
+  target="_blank">JAVA获得域名IP地址的方法</A></LI>
+  <LI><SPAN>2015-07-07</SPAN><A title="Java实现数据库连接池的方法" href="http://m.jb51.net/article/69783.htm" 
+  target="_blank">Java实现数据库连接池的方法</A></LI>
+  <LI><SPAN>2014-01-01</SPAN><A title="最小树形图模板朱刘算法分享" href="http://m.jb51.net/article/46061.htm" 
+  target="_blank">最小树形图模板朱刘算法分享</A></LI>
+  <LI><SPAN>2015-12-12</SPAN><A title="如何利用JConsole观察分析Java程序的运行并进行排错调优" href="http://m.jb51.net/article/77130.htm" 
+  target="_blank">如何利用JConsole观察分析Java程序的运行并进行排错调优</A></LI>
+  <LI><SPAN>2014-01-01</SPAN><A title="使用游长编码对字符串压缩 Run Length编码示例" href="http://m.jb51.net/article/46278.htm" 
+  target="_blank">使用游长编码对字符串压缩 Run Length编码示例</A></LI>
+  <LI><SPAN>2014-03-03</SPAN><A title="java创建excel示例(jxl使用方法)" href="http://m.jb51.net/article/47821.htm" 
+  target="_blank">java创建excel示例(jxl使用方法)</A></LI>
+  <LI><SPAN>2013-03-03</SPAN><A title="java中tomcat的80端口被占用问题解决" href="http://m.jb51.net/article/34718.htm" 
+  target="_blank">java中tomcat的80端口被占用问题解决</A></LI>
+  <LI><SPAN>2014-03-03</SPAN><A title="java压缩多个文件并且返回流示例" href="http://m.jb51.net/article/48083.htm" 
+  target="_blank">java压缩多个文件并且返回流示例</A></LI></UL></SECTION>
+<DIV class="asd asd-article3">
+<SCRIPT src="/skin/mobile/js/asd-article3.js" type="text/javascript"></SCRIPT>
+</DIV><SECTION class="cont pl" id="comment"><B>网友评论</B>
+<DIV id="SOHUCS" sid="art_48304"></DIV>
+<SCRIPT>
+(function(){
+    var expire_time = parseInt((new Date()).getTime()/(5*60*1000));
+    var head = document.head || document.getElementsByTagName("head")[0] || document.documentElement;
+    var script_version = document.createElement("script"),script_cyan = document.createElement("script");
+    script_version.type = script_cyan.type = "text/javascript";
+    script_version.charset = script_cyan.charset = "utf-8";
+    script_version.onload = function(){
+        script_cyan.id = 'changyan_mobile_js';
+        script_cyan.src = 'http://changyan.itc.cn/upload/mobile/wap-js/changyan_mobile.js?client_id=cyrHH3dwi&'
+                        + 'conf=prod_1dc5dc80970106099d43fe242b7465fc&version=' + cyan_resource_version;
+        head.insertBefore(script_cyan, head.firstChild);
+    };
+    script_version.src = 'http://changyan.sohu.com/upload/mobile/wap-js/version.js?_='+expire_time;
+    head.insertBefore(script_version, head.firstChild);
+})();
+</SCRIPT>
+ </SECTION>     
+<SCRIPT>
+        var confign = {
+            url:'http://m.jb51.net/article/48304.htm',
+            title:'JAVA8 十大新特性详解',
+            desc:'本教程将Java8的新特新逐一列出，并将使用简单的代码示例来指导你如何使用默认接口方法，lambda表达式，方法引用以及多重Annotation，之后你将会学到最新的API上的改进，比如流，函数式接口，Map以及全新的日期API',
+            img:'http://files.jb51.net/file_images/article/201510/20151010121913902.jpg',
+            img_title:'JAVA8 十大新特性详解',
+            from:'脚本之家'
+        };
+        var share_obj = new nativeShare('nativeShare',confign);
+function show(){
+  var showDiv = document.getElementById("nativeShare");
+  showDiv.style.display="";
+ }
+function close(){
+  var showDiv = document.getElementById("nativeShare");
+  showDiv.style.display="none";
+ }
+    </SCRIPT>
+ 
+<SCRIPT src="http://v3.jiathis.com/code/jiathis_m.js" type="text/javascript" charset="utf-8"></SCRIPT>
+ <FOOTER class="bottom"><A id="goTop" href="javascript:void(0);">返回顶部</A>
+<P><A href="http://www.jb51.net/">访问电脑版</A>|<A 
+href="http://m.jb51.net/">返回首页</A></P></FOOTER>
+<SCRIPT src="/skin/mobile/js/jquery-1.7.1.min.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="/skin/mobile/js/app.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="/skin/mobile/js/main.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="/skin/mobile/js/asd-art-content.js" type="text/javascript"></SCRIPT>
+ 
+<DIV class="clearfix"></DIV>
+<DIV class="asd asd-footer">
+<SCRIPT src="/skin/mobile/js/asd_footer.js" type="text/javascript"></SCRIPT>
+</DIV>
+<DIV class="count">
+<SCRIPT src="/skin/mobile/js/count.js" type="text/javascript"></SCRIPT>
+</DIV></BODY></HTML><!-- published at 2016-2-22 22:29:37By dxycms qq:461478385  -->

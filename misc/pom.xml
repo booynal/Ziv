@@ -36,5 +36,6 @@
 	<modules>
 		<module>misc.personal.income.tax</module>
 		<module>mvn.spring.aop</module>
+		<module>java8</module>
 	</modules>
 </project>

@@ -1,0 +1,15 @@
+本教程将Java8的新特新逐一列出，并将使用简单的代码示例来指导你如何使用：
+	默认接口方法
+	lambda表达式
+	方法引用以及多重Annotation
+	之后你将会学到最新的API上的改进
+	比如流
+	函数式接口
+	Map
+	全新的日期API
+
+Ref:
+http://m.jb51.net/article/48304.htm
+
+LocalRef:
+"Doc/JAVA8 十大新特性详解.htm"
