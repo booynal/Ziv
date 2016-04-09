@@ -2,14 +2,14 @@ package test.rabbitmq.two;
 
 import java.util.concurrent.TimeoutException;
 
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.QueueingConsumer;
 
 public class Receiver {
 
-	private final static String QUEUE_NAME = "hello";
+	private final static String QUEUE_NAME = "task_quque";
 
 	public static void main(String[] argv) throws java.io.IOException, java.lang.InterruptedException, TimeoutException {
 		// 1
@@ -36,8 +36,9 @@ public class Receiver {
 
 	private static void doWork(String task) throws InterruptedException {
 		for (char ch : task.toCharArray()) {
-			if (ch == '.')
+			if (ch == '.') {
 				Thread.sleep(1000);
+			}
 		}
 	}
 
