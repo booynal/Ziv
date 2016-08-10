@@ -3,7 +3,7 @@ package ziv.java8.basic;
 import org.junit.Assert;
 import org.junit.Test;
 
-import ziv.java8.BaseTest;
+import test.junit.base.BaseTest;
 
 /**
  * <p>

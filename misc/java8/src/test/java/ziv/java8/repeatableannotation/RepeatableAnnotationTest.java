@@ -4,7 +4,7 @@ import java.lang.annotation.Repeatable;
 
 import org.junit.Test;
 
-import ziv.java8.BaseTest;
+import test.junit.base.BaseTest;
 
 /**
  * Java 8允许我们把同一个类型的注解使用多次，只需要给该注解标注一下@Repeatable即可。<br/>

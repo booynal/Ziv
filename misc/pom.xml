@@ -17,6 +17,12 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>com.booynal.misc</groupId>
+				<artifactId>test.junit.base</artifactId>
+				<version>${misc.version}</version>
+				<scope>test</scope>
+			</dependency>
 			<!-- JUnit -->
 			<dependency>
 				<groupId>junit</groupId>
@@ -40,5 +46,6 @@
 		<module>java8</module>
 		<module>test.locks</module>
 		<module>mvn.redis.java</module>
+		<module>test.junit.base</module>
 	</modules>
 </project>

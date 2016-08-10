@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import ziv.java8.BaseTest;
+import test.junit.base.BaseTest;
 
 /**
  * <p>

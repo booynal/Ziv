@@ -5,7 +5,7 @@ import java.util.function.Function;
 import org.junit.Assert;
 import org.junit.Test;
 
-import ziv.java8.BaseTest;
+import test.junit.base.BaseTest;
 
 /**
  * Function 接口有一个参数并且返回一个结果，并附带了一些可以和其他函数组合的默认方法（compose, andThen）

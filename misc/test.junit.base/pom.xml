@@ -8,16 +8,12 @@
 		<version>${misc.version}</version>
 	</parent>
 
-	<artifactId>ziv.java8</artifactId>
+	<artifactId>test.junit.base</artifactId>
 
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.booynal.misc</groupId>
-			<artifactId>test.junit.base</artifactId>
 		</dependency>
 	</dependencies>
 

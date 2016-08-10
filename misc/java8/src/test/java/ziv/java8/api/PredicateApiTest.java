@@ -8,7 +8,7 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import ziv.java8.BaseTest;
+import test.junit.base.BaseTest;
 
 /**
  * Predicate 接口只有一个参数，返回boolean类型。<br/>

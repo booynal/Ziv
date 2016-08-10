@@ -1,4 +1,4 @@
-package ziv.java8;
+package test.junit.base;
 
 import java.io.PrintStream;
 

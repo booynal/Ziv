@@ -13,6 +13,7 @@ import org.junit.runners.MethodSorters;
 import redis.clients.jedis.BinaryClient.LIST_POSITION;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.exceptions.JedisDataException;
+import test.junit.base.BaseTest;
 
 /**
  * Redis的list操作测试<br/>
@@ -23,7 +24,7 @@ import redis.clients.jedis.exceptions.JedisDataException;
  * <pre>
  *
  * list是一个链表结构，主要功能是push、pop
- *
+ * 
  * 1. lpush		增，在list的头部(队列的左边)添加元素(压入栈)
  * 2. rpush		增，在list的尾部(队列的右边)添加元素(压入栈)
  * 3. linsert	增，在list的指定元素(注意：是元素而不是下标)的前或后添加元素
@@ -36,7 +37,7 @@ import redis.clients.jedis.exceptions.JedisDataException;
  * 10. lindex	查，返回list的index位置的元素
  * 11. llen		查，返回list的长度
  * 12. lrange	查，查看list的元素，指定start和stop下标
- *
+ * 
  * 命令参数&格式：
  * 1. lpush key value [value ...]
  * 2. rpus key value [value ...]
@@ -57,7 +58,7 @@ import redis.clients.jedis.exceptions.JedisDataException;
  *
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class JedisListTest {
+public class JedisListTest extends BaseTest {
 
 	private static Jedis jedis;
 

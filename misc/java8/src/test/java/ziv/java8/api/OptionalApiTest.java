@@ -8,7 +8,7 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import ziv.java8.BaseTest;
+import test.junit.base.BaseTest;
 
 /**
  * Optional 不是函数式接口，这是个用来防止NullPointerException异常的辅助类型<br/>

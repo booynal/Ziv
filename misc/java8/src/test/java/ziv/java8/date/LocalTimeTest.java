@@ -11,7 +11,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import ziv.java8.BaseTest;
+import test.junit.base.BaseTest;
 
 /**
  * <p>

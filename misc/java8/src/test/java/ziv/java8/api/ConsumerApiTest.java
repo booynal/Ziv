@@ -4,7 +4,7 @@ import java.util.function.Consumer;
 
 import org.junit.Test;
 
-import ziv.java8.BaseTest;
+import test.junit.base.BaseTest;
 
 /**
  * Consumer 接口表示执行在单个参数上的操作
