@@ -39,5 +39,6 @@
 		<module>mvn.spring.mybatis</module>
 		<module>java8</module>
 		<module>test.locks</module>
+		<module>mvn.redis.java</module>
 	</modules>
 </project>
