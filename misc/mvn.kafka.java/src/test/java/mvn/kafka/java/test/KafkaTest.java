@@ -79,10 +79,17 @@ public class KafkaTest {
 		ConsumerIterator<String, String> it = stream.iterator();
 		System.out.println("准备进入取消息队列:(阻塞)");
 		while (it.hasNext()) { // hasNext()方法是一个阻塞性的方法，如果没有下一个元素了就等待
-			MessageAndMetadata<String, String> next = it.next();
-			String json = next.message();
-			System.out.println("message => " + json);
+			print(it.next());
 		}
+	}
+
+	private void print(MessageAndMetadata<String, String> messageObject) {
+		String topic = messageObject.topic();
+		int partition = messageObject.partition();
+		long offset = messageObject.offset();
+		String key = messageObject.key();
+		String message = messageObject.message();
+		System.out.println(String.format("topic: '%s', partition: '%s', offset: '%s', key: '%s', message: '%s'", topic, partition, offset, key, message));
 	}
 
 }
