@@ -8,7 +8,7 @@
 		<version>${misc.version}</version>
 	</parent>
 
-	<artifactId>redis.java</artifactId>
+	<artifactId>mvn.redis.java</artifactId>
 
 	<dependencies>
 		<dependency>
