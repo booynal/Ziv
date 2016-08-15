@@ -40,12 +40,13 @@
 	</dependencyManagement>
 
 	<modules>
+		<module>test.junit.base</module>
 		<module>misc.personal.income.tax</module>
 		<module>mvn.spring.aop</module>
 		<module>mvn.spring.mybatis</module>
 		<module>java8</module>
 		<module>test.locks</module>
 		<module>mvn.redis.java</module>
-		<module>test.junit.base</module>
+		<module>mvn.kafka.java</module>
 	</modules>
 </project>
