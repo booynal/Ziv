@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true" monitoring="autodetect"
+	dynamicConfig="true">
+	
+	<diskStore path="java.io.tmpdir" />
+	
+     <!--
+     maxEntriesLocalHeap堆内存中最大缓存对象数，0没有限制  
+     eternal:elements是否永久有效，如果为true，timeouts将被忽略，element将永不过期
+     diskSpoolBufferSizeMB:这个参数设置DiskStore（磁盘缓存）的缓存区大小。默认是30MB。每个Cache都应该有自己的一个缓冲区。
+     maxEntriesLocalDisk:磁盘中的最大对象数，默认为0不限制
+     -->
+    <defaultCache 
+        maxEntriesLocalHeap="0" 
+        eternal="true"
+        diskSpoolBufferSizeMB="1000"
+        maxEntriesLocalDisk="0" 
+        diskExpiryThreadIntervalSeconds="120"
+        memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap" />
+    </defaultCache>
+</ehcache>
