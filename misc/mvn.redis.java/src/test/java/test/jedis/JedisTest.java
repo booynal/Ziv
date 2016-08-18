@@ -33,6 +33,10 @@ public class JedisTest {
 
 	@Test
 	public void test() {
+		String notExists = jedis.get("key-not-exists");
+		System.out.println("获取一个不存在的key: " + notExists);
+		Assert.assertNull(notExists);
+
 		String key = "foo";
 		jedis.set(key, "bar");
 
