@@ -62,16 +62,20 @@ public class JedisTest {
 	 */
 	@Test
 	public void test_mset() {
+		// a=b, c=d
 		String mset = jedis.mset("a", "b", "c", "d");
 		System.out.println("mset: " + mset);
 
-		List<String> mget = jedis.mget("a", "c");
+		// 获取key为a、b、c和d的值，但是只有key=a, c的有值，key=b, d的值为null
+		List<String> mget = jedis.mget("a", "b", "c", "d");
 		System.out.println("获取a和c的值: " + mget);
-		Assert.assertTrue(mget.size() >= 2);
+		Assert.assertEquals(4, mget.size());
 		Assert.assertEquals("b", mget.get(0));
-		Assert.assertEquals("d", mget.get(1));
+		Assert.assertNull(mget.get(1));
+		Assert.assertEquals("d", mget.get(2));
+		Assert.assertNull(mget.get(3));
 
-		Long del = jedis.del("a", "c");
+		Long del = jedis.del("a", "b", "c", "d");
 		System.out.println("成功删除记录: " + del);
 		Assert.assertTrue("删除记录数应该为2", del == 2);
 	}
