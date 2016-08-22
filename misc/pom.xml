@@ -48,5 +48,7 @@
 		<module>test.locks</module>
 		<module>mvn.redis.java</module>
 		<module>mvn.kafka.java</module>
+		<module>mvn.ehcache.test</module>
+		
 	</modules>
 </project>
