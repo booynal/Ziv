@@ -19,7 +19,8 @@ public class BaseTest {
 					lineNumber = stackTrace[i].getLineNumber();
 					fileName = stackTrace[i].getFileName();
 				}
-				return "(" + fileName + ":" + lineNumber + ")\t" + x;
+				String threadName = Thread.currentThread().getName();
+				return String.format("[%s]\t(%s:%s)\t%s", threadName, fileName, lineNumber, x);
 			}
 
 			@Override
