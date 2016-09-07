@@ -19,7 +19,7 @@ public class C3p0DataSourcePoolTest extends BaseTest {
 	private static ComboPooledDataSource dataSource;
 
 	@BeforeClass
-	public static void createPool() throws PropertyVetoException {
+	public static void createPoo() throws PropertyVetoException {
 		String driverClass = "com.mysql.jdbc.Driver";
 		String jdbcUrl = "jdbc:mysql://localhost:3306/mysql";
 		String user = "root";
@@ -78,6 +78,9 @@ public class C3p0DataSourcePoolTest extends BaseTest {
 		System.out.println("并发测试。。。");
 		System.out.println("连接池最大只有3个，而这里用5个线程同时获取连接，那么必定有3个最先获取到，剩余2个线程需要等待前面的线程释放连接");
 		for (int i = 0; i < 5; i++) {
+			/**
+			 * 连接池最大只有3个，而这里用5个线程同时获取连接，那么必定有3个最先获取到，剩余2个线程需要等待前面的线程释放连接
+			 */
 			new Thread(() -> {
 				try {
 					Connection connection = dataSource.getConnection();

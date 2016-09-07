@@ -1,0 +1,51 @@
+thread_1 正在执行: task_1
+poolSize: '1', queueSize: '0', completeTask: '0'
+thread_2 正在执行: task_2
+poolSize: '2', queueSize: '0', completeTask: '0'
+thread_3 正在执行: task_3
+poolSize: '3', queueSize: '0', completeTask: '0'
+thread_4 正在执行: task_4
+poolSize: '4', queueSize: '0', completeTask: '0'
+thread_5 正在执行: task_5
+poolSize: '5', queueSize: '0', completeTask: '0'
+poolSize: '5', queueSize: '1', completeTask: '0'
+poolSize: '5', queueSize: '2', completeTask: '0'
+poolSize: '5', queueSize: '3', completeTask: '0'
+poolSize: '5', queueSize: '4', completeTask: '0'
+poolSize: '5', queueSize: '5', completeTask: '0'
+thread_6 正在执行: task_11
+poolSize: '6', queueSize: '5', completeTask: '0'
+thread_7 正在执行: task_12
+poolSize: '7', queueSize: '5', completeTask: '0'
+thread_8 正在执行: task_13
+poolSize: '8', queueSize: '5', completeTask: '0'
+thread_9 正在执行: task_14
+poolSize: '9', queueSize: '5', completeTask: '0'
+thread_10 正在执行: task_15
+poolSize: '10', queueSize: '5', completeTask: '0'
+main 正在执行: task_16
+task_1 执行完毕
+thread_1 正在执行: task_6
+task_2 执行完毕
+task_3 执行完毕
+thread_2 正在执行: task_7
+thread_3 正在执行: task_8
+task_4 执行完毕
+thread_4 正在执行: task_9
+task_5 执行完毕
+thread_5 正在执行: task_10
+task_11 执行完毕
+task_12 执行完毕
+task_13 执行完毕
+task_14 执行完毕
+task_15 执行完毕
+task_16 执行完毕
+poolSize: '10', queueSize: '0', completeTask: '10'
+thread_6 正在执行: task_17
+poolSize: '10', queueSize: '1', completeTask: '10'
+thread_7 正在执行: task_18
+poolSize: '10', queueSize: '1', completeTask: '10'
+thread_8 正在执行: task_19
+poolSize: '10', queueSize: '1', completeTask: '10'
+thread_9 正在执行: task_20
+poolSize: '10', queueSize: '1', completeTask: '10'

@@ -45,11 +45,11 @@
 		<module>mvn.spring.aop</module>
 		<module>mvn.spring.mybatis</module>
 		<module>java8</module>
+		<module>java.concurrent</module>
 		<module>test.locks</module>
 		<module>mvn.redis.java</module>
 		<module>mvn.kafka.java</module>
 		<module>mvn.ehcache.test</module>
 		<module>mvn.c3p0.test</module>
-
 	</modules>
 </project>
