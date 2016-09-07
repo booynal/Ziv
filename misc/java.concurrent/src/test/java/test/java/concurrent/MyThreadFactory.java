@@ -2,7 +2,7 @@ package test.java.concurrent;
 
 import java.util.concurrent.ThreadFactory;
 
-final class MyThreadFactory implements ThreadFactory {
+public class MyThreadFactory implements ThreadFactory {
 
 	private int count;
 

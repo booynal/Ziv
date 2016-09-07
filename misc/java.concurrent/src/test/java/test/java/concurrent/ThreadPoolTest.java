@@ -23,6 +23,7 @@ public class ThreadPoolTest {
 
 	@Test
 	public void test() {
+		// 该测试主要看打印出来的顺序
 		for (int i = 0; i < 20; i++) {
 			executor.execute(new MyTask(i + 1));
 			System.out.println(String.format("poolSize: '%s', queueSize: '%s', completeTask: '%s'", executor.getPoolSize(), executor.getQueue().size(), executor.getCompletedTaskCount()));

@@ -29,6 +29,7 @@ public class ThreadPoolIsReleaseIdleThreadTest {
 
 	@Test
 	public void test() throws InterruptedException {
+		// 该测试主要看空闲的线程是否有被释放掉
 		for (int i = 0; i < 20; i++) {
 			executor.execute(new MyTask(i + 1));
 			System.out.println(String.format("poolSize: '%s', queueSize: '%s', completeTask: '%s'", executor.getPoolSize(), executor.getQueue().size(), executor.getCompletedTaskCount()));
