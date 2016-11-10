@@ -25,3 +25,6 @@ hs_err_pid*
 # log
 logs
 
+# Mac book
+.DS_Store
+
