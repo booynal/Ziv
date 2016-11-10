@@ -1,0 +1,15 @@
+在jdk的5、7和8版本中，对线程池队列中的任务的执行顺序有如下特点：
+正常的流程是：
+	1. 任务加入线程池
+	2. 直到超过core大小
+	3. 继续加入任务(假设任务耗时很长)
+	4. 超过core部分就放入workQueue
+	5. 直到超过workQueue大小
+	6. 继续加入任务(假设前面的任务还没有执行完)
+	7. 队列满了就调用拒绝策略(假设采用等待策略)
+
+结论：
+他们的差异在于超过workQueue部分的处理方式不同：
+jdk5: workQueue之后的任务【晚于】在workQueue之中的任务被执行。即之后的任务会等待workQueue中任务被取走了才加入workQueue
+jdk7: workQueue之后的任务【早于】在workQueue之中的任务被执行。即之后的任务会创建备用(maxSize - coreSize)的线程执行，而workQueue之中的任务会等待core线程执行完毕才得以执行
+jdk8: 同jdk7
