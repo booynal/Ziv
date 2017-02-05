@@ -2,8 +2,7 @@ package ziv.java8.date;
 
 import java.time.ZoneId;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import test.junit.base.BaseTest;

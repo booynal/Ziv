@@ -3,8 +3,7 @@ package ziv.java8.api;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
