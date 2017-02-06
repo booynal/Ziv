@@ -37,9 +37,9 @@ public class InterfaceDefaultMethodTest extends BaseTest {
 		};
 
 		System.out.println(formula.calculate(100)); // 100.0
-		Assert.assertEquals(100.0d, formula.calculate(100));
+		Assert.assertEquals(100.0d, formula.calculate(100), 0d);
 		System.out.println(formula.sqrt(16)); // 4.0
-		Assert.assertEquals(4.0d, formula.sqrt(16));
+		Assert.assertEquals(4.0d, formula.sqrt(16), 0d);
 	}
 }
 
