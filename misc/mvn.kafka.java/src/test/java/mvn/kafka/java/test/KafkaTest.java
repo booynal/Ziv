@@ -63,13 +63,13 @@ public class KafkaTest {
 
 	/**
 	 * 测试方法：<br/>
-	 * 先启动本类中测试方法，再启动producer(见脚本:bin/producer.sh)，<br/>
+	 * 先启动本类中测试方法，再启动producer(见脚本:bin/5producer.sh)，<br/>
 	 * 然后再producer.sh的标准输入中输入消息， 将会在本程序中取到消息
 	 */
 	@Test
 	public void test() {
 		System.out.println("开始创建消息流");
-		Map<String, Integer> topicCountMap = new HashMap<String, Integer>();
+		Map<String, Integer> topicCountMap = new HashMap<>();
 		topicCountMap.put(TOPIC, new Integer(1));
 		Map<String, List<KafkaStream<String, String>>> consumerMap = consumer.createMessageStreams(topicCountMap, new StringDecoder(new VerifiableProperties()), new StringDecoder(
 				new VerifiableProperties()));

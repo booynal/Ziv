@@ -22,10 +22,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.booynal.misc</groupId>
-			<artifactId>test.junit.base</artifactId>
-		</dependency>
 	</dependencies>
 
 	<build>
