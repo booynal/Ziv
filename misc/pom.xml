@@ -15,6 +15,33 @@
 		<misc.version>1.0.0-SNAPSHOT</misc.version>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>nexus</id>
+			<name>aliyun private nexus</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>nexus</id>
+			<name>aliyun private nexus</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -50,6 +77,7 @@
 		<module>mvn.spring.helloworld</module>
 		<module>mvn.spring.aop</module>
 		<module>mvn.spring.mybatis</module>
+		<module>mvn.spring.boot</module>
 		<module>java8</module>
 		<module>java.concurrent</module>
 		<module>java.killsignal</module>
