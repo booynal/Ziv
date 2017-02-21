@@ -4,7 +4,6 @@ import sun.misc.Signal;
 import sun.misc.SignalHandler;
 
 /**
- * Signal在java8中才有
  *
  * @author ziv
  *
