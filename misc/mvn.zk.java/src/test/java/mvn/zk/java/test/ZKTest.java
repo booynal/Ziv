@@ -47,6 +47,9 @@ public class ZKTest implements Watcher {
 		// 创建一个持久化带计数后缀的节点
 		String path4 = zooKeeper.create(path, data, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT_SEQUENTIAL);
 		System.out.println("created: " + path4);
+
+		// 创建一个叶子节点（父节点不存在）时候会抛异常
+		// zooKeeper.create("/non-exists/targetNode", null, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
 	}
 
 	@Test
