@@ -90,6 +90,15 @@ public class ZKTest implements Watcher {
 		System.out.println(stat);
 	}
 
+	@Test
+	public void test_setNullData() throws KeeperException, InterruptedException {
+		Stat stat = zooKeeper.setData("/", null, -1); // 设置一个null值作为data的值是允许的
+		System.out.println("setNull: " + stat);
+
+		byte[] data = zooKeeper.getData("/", false, null);
+		System.out.println("getData: " + (null == data ? null : new String(data)));
+	}
+
 	@Override
 	public void process(WatchedEvent event) {
 		System.out.println("ZKTest.process " + event);
