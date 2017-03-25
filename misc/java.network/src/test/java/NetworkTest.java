@@ -1,4 +1,5 @@
 import org.junit.Test;
+import test.junit.base.BaseTest;
 
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * Created by ziv on 2017/3/25.
  */
-public class NetworkTest {
+public class NetworkTest extends BaseTest {
 
 	@Test
 	public void test_printAllIpv4() throws SocketException {
