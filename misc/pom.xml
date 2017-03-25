@@ -81,6 +81,7 @@
 		<module>java8</module>
 		<module>java.concurrent</module>
 		<module>java.killsignal</module>
+		<module>java.network</module>
 		<module>test.locks</module>
 		<module>mvn.redis.java</module>
 		<module>mvn.kafka.java</module>
