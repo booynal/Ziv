@@ -10,20 +10,6 @@
 
     <artifactId>alibaba.dbpool.druid</artifactId>
 
-    <repositories>
-        <repository>
-            <id>mymaven</id>
-            <name>MavenMirror</name>
-            <url>http://10.5.9.91:8089/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>com.alibaba</groupId>
