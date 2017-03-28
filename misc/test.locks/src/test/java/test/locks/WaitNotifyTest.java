@@ -1,6 +1,7 @@
 package test.locks;
 
 import org.junit.Test;
+import test.junit.base.BaseTest;
 
 public class WaitNotifyTest extends BaseTest {
 

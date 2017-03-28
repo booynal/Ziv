@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.junit.Test;
+import test.junit.base.BaseTest;
 
 /**
  * 1. wait和notify需要在synchronized内部使用，否则会抛出IllegalmonitorStateException<br>
