@@ -8,7 +8,7 @@
 		<version>${misc.version}</version>
 	</parent>
 
-	<artifactId>ziv.java8</artifactId>
+	<artifactId>java8</artifactId>
 
 	<dependencies>
 		<dependency>
