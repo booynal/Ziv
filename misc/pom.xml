@@ -89,5 +89,6 @@
 		<module>mvn.ehcache.test</module>
 		<module>mvn.c3p0.test</module>
 		<module>mvn.db.pool.druid.test</module>
+		<module>mvn.slf4j</module>
 	</modules>
 </project>
