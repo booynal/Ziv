@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;
 
@@ -14,11 +13,12 @@ import redis.clients.jedis.JedisPubSub;
  * 注意：订阅线程与发布线程他们不可以共用一个jedis客户端
  *
  * @author ziv
- *
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class JedisPubSubTest {
 
+	private static final String KEY_1 = "foo";
+	private static final String KEY_2 = "bar";
 	private Jedis jedis;
 
 	@Before
@@ -30,9 +30,6 @@ public class JedisPubSubTest {
 	public void tearDown() {
 		jedis.close();
 	}
-
-	String key1 = "foo";
-	String key2 = "bar";
 
 	@Test
 	public void test_1_subscribe() {
@@ -48,8 +45,8 @@ public class JedisPubSubTest {
 			};
 			System.out.println("subscribe begin");
 			// 阻塞方法
-				jedis.subscribe(jedisPubSub, key1, key2);
-			}).start();
+			jedis.subscribe(jedisPubSub, KEY_1, KEY_2);
+		}).start();
 	}
 
 	/**
@@ -68,8 +65,8 @@ public class JedisPubSubTest {
 			};
 			System.out.println("subscribe begin");
 			// 阻塞方法
-				jedis.subscribe(jedisPubSub, key1, key2);
-			}).start();
+			jedis.subscribe(jedisPubSub, KEY_1, KEY_2);
+		}).start();
 	}
 
 	@Test
@@ -79,7 +76,7 @@ public class JedisPubSubTest {
 		new Thread(() -> {
 			Jedis jedis = this.jedis;
 			for (int i = 0; i < 5; i++) {
-				jedis.publish(i % 2 == 0 ? key1 : key2, "message" + i);
+				jedis.publish(i % 2 == 0 ? KEY_1 : KEY_2, "message" + i);
 			}
 		}).start();
 		// 这里停顿一秒，以便订阅线程处理收到的数据
