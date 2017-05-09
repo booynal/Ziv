@@ -6,6 +6,7 @@ import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
 import org.junit.BeforeClass;
+import test.junit.base.BaseTest;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,11 +14,8 @@ import java.util.List;
 /**
  * Created by ziv on 2017/3/11.
  */
-public class ZkWatcherTest {
+public class ZkWatcherTest extends BaseTest {
 
-	private static final String path = "/node1";
-	private static final String path2 = "/node2_tmp";
-	private static final String path3 = "/node3_tmp_sequence";
 	private static ZooKeeper zooKeeper;
 
 	@BeforeClass
@@ -35,7 +33,7 @@ public class ZkWatcherTest {
 		String path = "/consumers";
 		Stat stat = new Stat();
 		// getData()可以获取该节点的值，并且注册data watch类型的事件
-		byte[] data = zooKeeper.getData(path, true, stat);
+		byte[] data = zooKeeper.getData(path, true, stat); // 如果watch参数为false，则可以取消已经注册的watch监听器
 		System.out.println("stat: " + stat);
 		if (null != data) {
 			System.out.println("data: " + new String(data));
@@ -47,6 +45,8 @@ public class ZkWatcherTest {
 
 		// setData()可以设置该节点的值，同时会触发data watch类型的事件
 		Stat stat1 = zooKeeper.setData(path, "newData".getBytes(), stat.getVersion());
+		zooKeeper.setData(path, "newData2".getBytes(), -1); // 多次设置该值，看console是否有多次的watch事件被触发
+		zooKeeper.setData(path, "newData3".getBytes(), -1);
 		//System.out.println("setData-stat: " + stat1);
 
 		zooKeeper.setData("/", "root".getBytes(), -1);
@@ -74,8 +74,8 @@ public class ZkWatcherTest {
 					case NodeDataChanged:
 						Stat stat = new Stat();
 						try {
-							byte[] data = zooKeeper.getData(path, false, stat);
-							System.out.println(String.format("data: '%s', stat: ", null == data ? null : new String(data), stat));
+							byte[] data = zooKeeper.getData(path, true, stat); // 如果此处的第二个参数为false，则就取消来监听path的变更了
+							System.out.println(String.format("data: '%s', stat: '%s'", null == data ? null : new String(data), stat));
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
