@@ -3,8 +3,11 @@ package mvn.zk.java.test;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Stat;
+import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import test.junit.base.BaseTest;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,7 +15,7 @@ import java.util.List;
 /**
  * Created by ziv on 2017/3/10.
  */
-public class ZKTest implements Watcher {
+public class ZKTest extends BaseTest {
 
 	private static final String path = "/node1";
 	private static final String path2 = "/node2_tmp";
@@ -21,11 +24,17 @@ public class ZKTest implements Watcher {
 
 	@BeforeClass
 	public static void setup() throws IOException {
-		zooKeeper = new ZooKeeper("localhost:2181", 3000, new ZKTest());
+		zooKeeper = new ZooKeeper("localhost:2181", 3000, new MyWatcher());
+	}
+
+	@AfterClass
+	public static void clean() throws InterruptedException {
+		zooKeeper.close();
 	}
 
 	@Test
-	public void test_newnode() throws KeeperException, InterruptedException {
+	public void test_newNode() throws KeeperException, InterruptedException {
+		System.out.println("测试点：创建各种类型的znode节点，期待创建成功");
 		byte[] data = "new".getBytes();
 
 		if (zooKeeper.exists(path, true) != null) {
@@ -53,54 +62,54 @@ public class ZKTest implements Watcher {
 	}
 
 	@Test
-	public void test() throws IOException, KeeperException, InterruptedException {
+	public void test_常规测试() throws IOException, KeeperException, InterruptedException {
+		System.out.println("测试点：测试设置数据和获取数据，期待设置的数据能够被再次获取出来");
+
 		long sessionId = zooKeeper.getSessionId();
 		System.out.println("sessionId: " + sessionId);
 
-		List<ACL> acl = zooKeeper.getACL("/consumers/eclipse/offsets", new Stat());
+		List<ACL> acl = zooKeeper.getACL("/", new Stat());
 		System.out.println("acl: " + acl);
-
-		String path = "/consumers/10.248.28.229/offsets/icc_inrecord_info/0";
 
 		Stat exists = zooKeeper.exists(path, true);
 		System.out.println("exists: " + exists);
 
-		if (null == exists) {
-			byte[] data = "new".getBytes();
-			CreateMode mode = CreateMode.PERSISTENT;
-			String s = zooKeeper.create("/consumers/10.248.28.229/offsets/icc_inrecord_info/0", data, acl, mode);
-			System.out.println("create: " + s);
-		}
-
 		List<String> children = zooKeeper.getChildren(path, true);
 		System.out.println("children: " + children);
 
-		System.out.println("get data: ");
-		Stat stat = new Stat();
-		System.out.println(new String(zooKeeper.getData(path, true, stat)));
-		System.out.println(stat);
-
-		String newData = "20";
-		System.out.println("set data: " + newData);
+		String newData = "10";
+		System.out.println(String.format("set '%s' = '%s'", path, newData));
 		System.out.println(zooKeeper.setData(path, newData.getBytes(), -1));
 
-		System.out.println("get data: ");
-		stat = new Stat();
-		System.out.println(new String(zooKeeper.getData(path, true, stat)));
-		System.out.println(stat);
+		Stat stat = new Stat();
+		String data = new String(zooKeeper.getData(path, true, stat));
+		System.out.println(String.format("get '%s': '%s', stat: '%s'", path, data, stat));
+		Assert.assertEquals(newData, data);
+
+		newData = "20";
+		System.out.println(String.format("set '%s' = '%s'", path, newData));
+		System.out.println(zooKeeper.setData(path, newData.getBytes(), -1));
+
+		data = new String(zooKeeper.getData(path, true, stat = new Stat()));
+		System.out.println(String.format("get '%s': '%s', stat: '%s'", path, data, stat));
+		Assert.assertEquals(newData, data);
 	}
 
 	@Test
 	public void test_setNullData() throws KeeperException, InterruptedException {
-		Stat stat = zooKeeper.setData("/", null, -1); // 设置一个null值作为data的值是允许的
+		System.out.println("测试点：设置一个null值作为data的值，期待不抛出异常");
+		Stat stat = zooKeeper.setData("/", null, -1);
 		System.out.println("setNull: " + stat);
 
 		byte[] data = zooKeeper.getData("/", false, null);
 		System.out.println("getData: " + (null == data ? null : new String(data)));
+		Assert.assertNull(data);
 	}
 
-	@Override
-	public void process(WatchedEvent event) {
-		System.out.println("ZKTest.process " + event);
+	private static class MyWatcher implements Watcher {
+		@Override
+		public void process(WatchedEvent event) {
+			System.out.println(getClass().getSimpleName() + ".process() " + event);
+		}
 	}
 }

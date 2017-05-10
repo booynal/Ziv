@@ -29,7 +29,7 @@ public class BaseTest {
 					maxThreadNameLength = Math.max(maxThreadNameLength, threadName.length());
 					sb.append('[');
 					sb.append(String.format("%" + maxThreadNameLength + "s", threadName));
-					sb.append("]\t");
+					sb.append("] ");
 				}
 				if (enableFileName) {
 					StackTraceElement[] stackTrace = new Exception().getStackTrace();
@@ -44,7 +44,7 @@ public class BaseTest {
 					maxFileNameLength = Math.max(maxFileNameLength, target.length());
 					sb.append('(');
 					sb.append(String.format("%" + maxFileNameLength + "s", target));
-					sb.append(")\t");
+					sb.append(") - ");
 				}
 				sb.append(x);
 				return sb.toString();
