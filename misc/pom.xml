@@ -91,5 +91,6 @@
 		<module>mvn.c3p0.test</module>
 		<module>mvn.db.pool.druid.test</module>
 		<module>mvn.slf4j</module>
+		<module>mvn.mockito</module>
 	</modules>
 </project>
