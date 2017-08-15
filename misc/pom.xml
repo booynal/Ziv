@@ -86,6 +86,7 @@
 		<module>mvn.redis.java</module>
 		<module>mvn.kafka.java</module>
 		<module>mvn.kafka.stream</module>
+		<module>mvn.storm.java</module>
 		<module>mvn.zk.java</module>
 		<module>mvn.ehcache.test</module>
 		<module>mvn.c3p0.test</module>
