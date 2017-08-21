@@ -2,6 +2,7 @@ package test.java.traintickets;
 
 import org.junit.Test;
 import test.junit.base.BaseTest;
+import test.junit.base.LogStreamWarpper;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,7 +19,7 @@ public class TrainTicketsTest extends BaseTest {
 	private static final int TICKET_COUNT = 100;
 
 	static {
-		enableFileName = false;
+		LogStreamWarpper.enableFileName = false;
 	}
 
 	private int remainder = TICKET_COUNT;
