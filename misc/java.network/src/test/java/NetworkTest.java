@@ -1,10 +1,7 @@
 import org.junit.Test;
 import test.junit.base.BaseTest;
 
-import java.net.InetAddress;
-import java.net.InterfaceAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
+import java.net.*;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
@@ -22,8 +19,7 @@ public class NetworkTest extends BaseTest {
 			Enumeration<InetAddress> inetAddresses = networkInterface.getInetAddresses();
 			while (inetAddresses.hasMoreElements()) {
 				InetAddress inetAddress = inetAddresses.nextElement();
-				byte[] address = inetAddress.getAddress();
-				if (null != address && address.length == 4) {
+				if (inetAddress instanceof Inet4Address) {
 					System.out.println(String.format("%s: '%s'", networkInterface.getDisplayName(), inetAddress.getHostAddress()));
 				}
 			}
