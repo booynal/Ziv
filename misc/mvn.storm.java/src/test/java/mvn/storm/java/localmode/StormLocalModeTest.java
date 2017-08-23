@@ -1,4 +1,4 @@
-package mvn.storm.java;
+package mvn.storm.java.localmode;
 
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;

@@ -1,0 +1,62 @@
+
+本地模式下，storm跑以下3个组件组成的Topology中，对生命周期的打印
+builder.setSpout("spout-1", new MyWordSpout(), 1);
+builder.setBolt("bolt-1", new Bolt1(), 1).shuffleGrouping("spout-1");
+builder.setBolt("bolt-2", new Bolt2()).shuffleGrouping("bolt-1");
+
+以下为部分打印日志：（体现各个组件生命周期）
+=======================================
+[main] Bolt1.declareOutputFields()
+[main] Bolt2.declareOutputFields()
+[main] Spout.declareOutputFields()
+[Thread-37-bolt-2-executor[5 5]] Bolt2.prepare()
+[Thread-36-bolt-1-executor[4 4]] Bolt1.prepare()
+[Thread-38-spout-1-executor[6 6]] Spout.open()
+[Thread-38-spout-1-executor[6 6]] Spout.activate()
+[Thread-38-spout-1-executor[6 6]] Spout.nextTuple()
+[Thread-38-spout-1-executor[6 6]] MyWordSpout.emit: 'seq-1'
+[Thread-38-spout-1-executor[6 6]] Spout.nextTuple()
+[ Thread-36-bolt-1-executor[4 4]] Bolt1.execute()
+[ Thread-36-bolt-1-executor[4 4]] Bolt1.emit: (seq-1, 1)
+[ Thread-37-bolt-2-executor[5 5]] Bolt2.execute()
+[ Thread-37-bolt-2-executor[5 5]] Bolt2 ack msg: source: bolt-1:4, stream: default, id: {-4959774041580110683=-2186014538791759473}, [seq-1, 1]
+[Thread-38-spout-1-executor[6 6]] MyWordSpout.emit: 'seq-2'
+[Thread-38-spout-1-executor[6 6]] Spout.fail(1)
+[Thread-38-spout-1-executor[6 6]] Spout.nextTuple()
+[ Thread-36-bolt-1-executor[4 4]] Bolt1.execute()
+[ Thread-36-bolt-1-executor[4 4]] Bolt1.emit: (seq-2, 1)
+[ Thread-37-bolt-2-executor[5 5]] Bolt2.execute()
+[ Thread-37-bolt-2-executor[5 5]] Bolt2 ack msg: source: bolt-1:4, stream: default, id: {5000501007799722368=5229364389901586609}, [seq-2, 1]
+[                      SLOT_1024] Bolt2.cleanup()
+[Thread-38-spout-1-executor[6 6]] MyWordSpout.emit: 'seq-3'
+[Thread-38-spout-1-executor[6 6]] Spout.ack(2)
+[Thread-38-spout-1-executor[6 6]] Spout.nextTuple()
+[ Thread-36-bolt-1-executor[4 4]] Bolt1.execute()
+[ Thread-36-bolt-1-executor[4 4]] Bolt1.emit: (seq-3, 1)
+[                      SLOT_1028] Spout.close()
+[                      SLOT_1027] Bolt1.cleanup()
+=======================================
+
+从以上结果可以看出：
+1. 整体顺序：
+    声明输出字段: declareOutputFields()
+    初始化: open(), prepare()
+    正常工作: nextTuple(), execute(), ack()
+    清理: clean()
+2. 各个组件之间的顺序：
+    Bolt声明字段
+    Spout声明字段
+    Bolt初始化
+    Spout初始化
+    Spout激活
+    数据流到Spout处理
+    数据流到Bolt处理
+    Bolt的ack或fail回馈到Spout
+    Topology停止时候各个组件同时清理资源
+3. 没有显示的调用Spout.deactivate()
+
+
+BaseRichSpout有3个必须实现的方法，共9个接口方法
+BaseRichBolt有3个必须实现的方法，共4个接口方法
+
+
