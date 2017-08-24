@@ -1,4 +1,4 @@
-package test.java.concurrent.taskorder;
+package test.java.concurrent.threadpool.taskorder;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import test.java.concurrent.MyTask;
-import test.java.concurrent.MyThreadFactory;
+import test.java.concurrent.threadpool.MyTask;
+import test.java.concurrent.threadpool.MyThreadFactory;
 
 /**
  * 测试点：线程池中线程只有1个的、队列容量只有1的情况下，如何保证加入进来的任务是按照进入进来的顺序执行<br/>

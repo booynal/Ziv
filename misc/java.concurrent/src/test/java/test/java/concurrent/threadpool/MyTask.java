@@ -1,4 +1,4 @@
-package test.java.concurrent;
+package test.java.concurrent.threadpool;
 
 public class MyTask implements Runnable {
 

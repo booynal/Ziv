@@ -1,4 +1,4 @@
-package test.java.concurrent.taskorder;
+package test.java.concurrent.threadpool.taskorder;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
