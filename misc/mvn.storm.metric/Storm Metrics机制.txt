@@ -1,0 +1,38 @@
+
+Storm提供的Metrics接口可以在topology中的任何位置上报统计指标，在storm内部也使用这个功能提供给Nimbus UI数值，如executes ack数、bolt平均延时、worker堆内存使用量等等。
+
+Metric Types:
+使用Metric只需要实现一个方法getValueAndReset
+
+storm提供了以下几种Metric:(实现了接口: org.apache.storm.metric.api.IMetric)
+AssignableMetric: 		指定设置metric的值
+CombinedMetric: 		可以对 metric 进行关联更新的通用接口
+CountMetric: 			返回 metric 的汇总结果。可以调用 incr() 方法来将结果加一；调用 incrBy(n) 方法来将结果加上给定值。
+	MultiCountMetric: 	返回包含一组 CountMetric 的 HashMap
+ReducedMetric 
+	MeanReducer: 		跟踪由它的 reduce() 方法提供的运行状态均值结果（可以接受 Double、Integer、Long 等类型，内置的均值结果是 Double 类型）。MeanReducer 确实是一个相当棒的家伙，实现了IReducer<T>接口。
+	MultiReducedMetric: 返回包含一组 ReducedMetric 的 HashMap
+
+
+常用的3个接口
+org.apache.storm.metric.api.IMetric
+org.apache.storm.metric.api.ICombiner<T>
+org.apache.storm.metric.api.IReducer<T>
+
+
+自定义Metric的步骤：
+1. 在创建topo的时候指定(没有缺省值)一个metric消费者（实现IMetricsConsumer接口）——这样后面步骤产生的指标才可以被处理
+	config.registerMetricsConsumer(LoggingMetricsConsumer.class, 2);
+	也可以直接修改storm.yaml配置文件，这两种方式二选一即可
+2. 在任何Spout或者Bolt中创建metric的生产者（实现IMetric接口）
+3. 在初始化时候注册这个metric生产者
+4. 在Spout的nextTuple方法活着Bolt的execute方法中去调用生产者的生产方法
+5. 去日志文件(如果指定的是LoggingMetricsConsumer)查看这些指标，日志文件路径：$STORM_HOME/logs/workers-artifacts/topologyName-1-1506581270/6700/worker.log.metric
+
+
+进阶：集群Metric消费
+只能在storm.yaml中增加两行：(不能通过代码方式)
+storm.cluster.metrics.register:
+  - class: "org.apache.storm.metrics.LoggingClusterMetricsConsumer"
+没有并发度，也没有参数；也无需更改spout或bolt中的metric生产方式
+日志文件路径: $STORM_HOME/logs/nimbus.log.metrics

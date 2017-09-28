@@ -26,6 +26,7 @@ public class WordcountTest {
 		LocalCluster localCluster = new LocalCluster();
 		localCluster.submitTopology("mytopology", config, builder.createTopology());
 		Utils.sleep(10000);
+		localCluster.killTopology("mytopology");
 		localCluster.shutdown();
 	}
 }

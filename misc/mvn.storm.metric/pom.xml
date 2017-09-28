@@ -8,7 +8,7 @@
         <version>${misc.version}</version>
     </parent>
 
-    <artifactId>mvn.storm.java</artifactId>
+    <artifactId>mvn.storm.metric</artifactId>
 
     <dependencies>
         <dependency>
@@ -16,14 +16,6 @@
             <artifactId>storm-core</artifactId>
             <version>1.1.1</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.booynal.misc</groupId>
-            <artifactId>test.junit.base</artifactId>
         </dependency>
     </dependencies>
 

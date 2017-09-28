@@ -1,5 +1,6 @@
 package mvn.storm.java.wordcount;
 
+import mvn.storm.java.LogUtil;
 import org.apache.storm.spout.SpoutOutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;

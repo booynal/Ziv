@@ -1,4 +1,4 @@
-package mvn.storm.java.wordcount;
+package mvn.storm.java;
 
 import test.junit.base.LogStreamWarpper;
 
