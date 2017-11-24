@@ -12,7 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<misc.version>1.0.0-SNAPSHOT</misc.version>
+		<misc.version>1.0</misc.version>
 	</properties>
 
 	<repositories>
@@ -48,7 +48,6 @@
 				<groupId>com.booynal.misc</groupId>
 				<artifactId>test.junit.base</artifactId>
 				<version>${misc.version}</version>
-				<scope>test</scope>
 			</dependency>
 			<!-- JUnit -->
 			<dependency>

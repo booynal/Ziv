@@ -1,6 +1,4 @@
-package mvn.storm.java;
-
-import test.junit.base.LogStreamWarpper;
+package com.ziv.mvn.storm.java;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -10,6 +8,7 @@ import java.io.PrintStream;
  * Created by ziv on 2017/8/21.
  */
 public class LogUtil {
+
 	private static final String logFileName = "logs/out.log";
 	private static PrintStream out;
 
@@ -20,8 +19,11 @@ public class LogUtil {
 	public static void init() {
 		File file = new File(logFileName);
 		try {
-			LogStreamWarpper.enableFileName = false;
-			out = LogStreamWarpper.warp(new FileOutputStream(file, true));
+			if (file.exists() == false) {
+				file.createNewFile();
+			}
+			System.out.println(String.format("将日志打印到: '%s'", file.getAbsolutePath()));
+			out = new PrintStream(new FileOutputStream(file, true), true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,6 +1,9 @@
-package mvn.storm.java.wordcount;
+package com.ziv.mvn.storm.java.wordcount;
 
-import mvn.storm.java.LogUtil;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
@@ -9,15 +12,14 @@ import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
 import org.apache.storm.utils.Utils;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+import com.ziv.mvn.storm.java.LogUtil;
 
 /**
  * Created by ziv on 2017/8/21.
  */
 public class Bolt1 extends BaseRichBolt {
 
+	private static final long serialVersionUID = 1L;
 	private Map<String, AtomicInteger> wordCountMap;
 	private OutputCollector collector;
 
@@ -28,7 +30,7 @@ public class Bolt1 extends BaseRichBolt {
 	}
 
 	@Override
-	public void prepare(Map stormConf, TopologyContext context, OutputCollector collector) {
+	public void prepare(@SuppressWarnings("rawtypes") Map stormConf, TopologyContext context, OutputCollector collector) {
 		LogUtil.log("Bolt1.prepare()");
 		wordCountMap = new HashMap<>();
 		this.collector = collector;

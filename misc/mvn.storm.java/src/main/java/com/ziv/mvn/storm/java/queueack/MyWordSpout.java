@@ -1,6 +1,9 @@
-package mvn.storm.java.wordcount;
+package com.ziv.mvn.storm.java.queueack;
 
-import mvn.storm.java.LogUtil;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.apache.storm.spout.SpoutOutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
@@ -8,19 +11,18 @@ import org.apache.storm.topology.base.BaseRichSpout;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.utils.Utils;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+import com.ziv.mvn.storm.java.LogUtil;
 
 /**
  * Created by ziv on 2017/8/21.
  */
 public class MyWordSpout extends BaseRichSpout {
 
+	private static final long serialVersionUID = 1L;
+
 	private static AtomicInteger seq = new AtomicInteger();
 
 	private SpoutOutputCollector collector;
-
 
 	@Override
 	public void declareOutputFields(OutputFieldsDeclarer declarer) {
@@ -28,9 +30,8 @@ public class MyWordSpout extends BaseRichSpout {
 		declarer.declare(new Fields("word"));
 	}
 
-
 	@Override
-	public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {
+	public void open(@SuppressWarnings("rawtypes") Map conf, TopologyContext context, SpoutOutputCollector collector) {
 		LogUtil.log("Spout.open()");
 		this.collector = collector;
 	}
@@ -43,7 +44,7 @@ public class MyWordSpout extends BaseRichSpout {
 	@Override
 	public void nextTuple() {
 		LogUtil.log("Spout.nextTuple()");
-		Utils.sleep(4000);
+		Utils.sleep(1000);
 		String word = String.format("seq-%s", seq.incrementAndGet());
 		collector.emit(Arrays.asList(word), seq.get());
 		LogUtil.log(String.format("MyWordSpout.emit: '%s'", word));
