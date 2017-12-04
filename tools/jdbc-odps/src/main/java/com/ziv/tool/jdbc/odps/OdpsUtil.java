@@ -1,4 +1,4 @@
-package com.ziv.tool.odps;
+package com.ziv.tool.jdbc.odps;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,4 +1,4 @@
-package com.ziv.tool.odps;
+package com.ziv.tool.jdbc.odps;
 
 import java.io.OutputStream;
 import java.io.PrintStream;

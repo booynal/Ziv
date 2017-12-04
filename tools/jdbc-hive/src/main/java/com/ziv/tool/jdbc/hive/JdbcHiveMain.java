@@ -1,45 +1,39 @@
 /**
- * OdpsMain.java
+ * JdbcHiveMain.java
  */
-package com.ziv.tool.odps;
+package com.ziv.tool.jdbc.hive;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.ziv.tool.jdbc.JdbcUtil;
+
 /**
  * @author ziv
- * @date 2017年12月1日 上午10:05:50
+ * @date 2017年12月4日 上午10:53:55
  */
-public class OdpsMain {
+public class JdbcHiveMain {
 
 	public static void main(String[] args) {
-		System.setOut(LogStreamWarpper.warp(System.out));
-		System.setErr(LogStreamWarpper.warp(System.err));
-		loadConfig();
-
 		if (args.length <= 0) {
-			System.err.println("Usage: " + OdpsMain.class.getName() + " sql");
+			System.err.println("Usage: " + JdbcHiveMain.class.getName() + " sql");
 			System.exit(-1);
 		}
+
 		String sql = StringUtils.join(args, ' ');
 		System.out.println(String.format("sql: '%s'", sql));
 		try {
 			if (sql.toLowerCase().startsWith("select")) {
-				print(OdpsUtil.executeQuery(sql));
+				print(JdbcUtil.executeQuery(sql));
 			} else if (sql.toLowerCase().startsWith("update")) {
-				System.out.println(OdpsUtil.executeUpdate(sql));
+				System.out.println(JdbcUtil.executeUpdate(sql));
 			} else {
-				print(OdpsUtil.execute(sql));
+				print(JdbcUtil.execute(sql));
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -90,30 +84,4 @@ public class OdpsMain {
 		return labelBuilder.toString();
 	}
 
-	private static void loadConfig() {
-		String fileName = "jdbc.odps.properties";
-		InputStream resourceAsStream = OdpsMain.class.getClassLoader().getResourceAsStream(fileName);
-		Properties properties = new Properties();
-		File file = new File(fileName);
-		try {
-			properties.load(resourceAsStream);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		if (file.exists()) {
-			try {
-				properties.load(new FileInputStream(file));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		System.out.println(String.format("加载到的配置: '%s'", properties));
-
-		OdpsConsts.ODPS_DRIVER_NAME = properties.getProperty("odps.driver_name");
-		OdpsConsts.ODPS_ACCESS_ID = properties.getProperty("odps.access_id");
-		OdpsConsts.ODPS_ACCESS_KEY = properties.getProperty("odps.access_key");
-		OdpsConsts.ODPS_JDBC_URL = properties.getProperty("odps.jdbc_url");
-		OdpsConsts.ODPS_PROJECT = properties.getProperty("odps.project");
-	}
 }

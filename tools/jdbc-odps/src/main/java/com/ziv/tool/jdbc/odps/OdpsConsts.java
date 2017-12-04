@@ -1,4 +1,4 @@
-package com.ziv.tool.odps;
+package com.ziv.tool.jdbc.odps;
 
 public class OdpsConsts {
 
