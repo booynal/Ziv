@@ -1,4 +1,4 @@
-package com.ziv.mvn.storm.java.wordcount;
+package com.ziv.misc.storm.wordcount;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -11,7 +11,7 @@ import org.apache.storm.topology.base.BaseRichSpout;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.utils.Utils;
 
-import com.ziv.mvn.storm.java.LogUtil;
+import com.ziv.misc.storm.LogUtil;
 
 /**
  * Created by ziv on 2017/8/21.

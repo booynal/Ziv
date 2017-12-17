@@ -1,4 +1,4 @@
-package com.ziv.mvn.storm.java.wordcount;
+package com.ziv.misc.storm.queueack;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
 
-import com.ziv.mvn.storm.java.LogUtil;
+import com.ziv.misc.storm.LogUtil;
 
 public class Bolt2 extends BaseRichBolt {
 

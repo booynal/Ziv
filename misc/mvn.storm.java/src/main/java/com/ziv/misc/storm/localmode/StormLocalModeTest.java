@@ -1,4 +1,4 @@
-package com.ziv.mvn.storm.java.localmode;
+package com.ziv.misc.storm.localmode;
 
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;

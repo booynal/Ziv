@@ -1,4 +1,4 @@
-package com.ziv.mvn.storm.java;
+package com.ziv.misc.storm;
 
 import java.io.File;
 import java.io.FileOutputStream;

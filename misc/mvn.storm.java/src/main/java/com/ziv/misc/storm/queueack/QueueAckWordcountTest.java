@@ -1,4 +1,4 @@
-package com.ziv.mvn.storm.java.queueack;
+package com.ziv.misc.storm.queueack;
 
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;
