@@ -14,4 +14,4 @@ cd $home/target
 chmod +x *.sh
 echo "head: $(git rev-parse HEAD)" > build
 echo "time: $(date +'%Y-%m-%d %H:%M:%S')" >> build
-tar -zcf jdbc-odps.tgz build *.sh *.jar lib/
+tar -zcf jdbc-odps.tgz build *.sh *.properties *.jar lib/

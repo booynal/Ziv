@@ -54,7 +54,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.ziv.tool.odps.OdpsMain</mainClass>
+							<mainClass>com.ziv.tool.jdbc.odps.OdpsMain</mainClass>
 						</manifest>
 						<manifestEntries>
 							<Class-Path>./</Class-Path>
