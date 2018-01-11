@@ -27,7 +27,7 @@ public class NumberBaseUtilTest {
 		System.out.println(string = NumberBaseUtil.convertDecimalToN(166, 62));
 		Assert.assertEquals("2g", string);
 
-		int decimal = NumberBaseUtil.convertNToDecimal(2, "001");
+		long decimal = NumberBaseUtil.convertNToDecimal(2, "001");
 		System.out.println(decimal);
 		Assert.assertEquals(1, decimal);
 		System.out.println(decimal = NumberBaseUtil.convertNToDecimal(2, "011"));
@@ -71,6 +71,16 @@ public class NumberBaseUtilTest {
 		Assert.assertEquals(125, decimal);
 		System.out.println(decimal = NumberBaseUtil.convertNToDecimal(62, "Aa"));
 		Assert.assertEquals(656, decimal);
+	}
+
+	@Test
+	public void test_taobao_short_url() {
+		// 短URL为：https://s.click.taobao.com/i8DE6Vw
+		// 长URL为：https://item.taobao.com/item.htm?id=546715479554&ali_trackid=2:mm_125292550_38616603_143002673:1515634260_324_281125427&pvid=10_61.148.52.74_515_1515633415397
+		// i8DE6Vw -> 2506734882356
+		long decimal;
+		System.out.println(decimal = NumberBaseUtil.convertNToDecimal(62, "i8DE6Vw"));
+		Assert.assertEquals(2506734882356L, decimal);
 	}
 
 	@Test

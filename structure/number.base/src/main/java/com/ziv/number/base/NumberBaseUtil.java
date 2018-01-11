@@ -30,11 +30,11 @@ public class NumberBaseUtil {
 	}
 
 	/** 从10进制转换为N进制 **/
-	public static String convertDecimalToN(final int decimalNumber, final int N) {
-		List<Integer> indices = convertDecimalToNIndex(decimalNumber, N);
+	public static String convertDecimalToN(final long decimalNumber, final int N) {
+		List<Byte> indices = convertDecimalToNIndex(decimalNumber, N);
 		if (null != indices && indices.isEmpty() == false) {
 			StringBuilder sb = new StringBuilder();
-			for (Integer integer : indices) {
+			for (Byte integer : indices) {
 				sb.append(CHARS_62[integer]);
 			}
 			return sb.toString();
@@ -43,23 +43,23 @@ public class NumberBaseUtil {
 	}
 
 	/** 从10进制转换为N进制 **/
-	public static List<Integer> convertDecimalToNIndex(final int decimalNumber, final int N) {
-		LinkedList<Integer> list = new LinkedList<>();
-		int tmp = decimalNumber;
+	public static List<Byte> convertDecimalToNIndex(final long decimalNumber, final int N) {
+		LinkedList<Byte> list = new LinkedList<>();
+		long tmp = decimalNumber;
 		while (tmp >= N) {
-			list.addFirst(tmp % N);
+			list.addFirst((byte) (tmp % N));
 			tmp /= N;
 		}
-		list.addFirst(tmp);
+		list.addFirst((byte) tmp);
 		return list;
 	}
 
 	/** 从N进制转换为10进制 **/
-	public static int convertNToDecimal(final int N, String number) {
+	public static long convertNToDecimal(final long N, String number) {
 		char[] charArray = number.toCharArray();
-		int sum = 0;
+		long sum = 0;
 		for (int pow = 0, index = charArray.length - 1; index >= 0; index--, pow++) {
-			sum += findIndex(charArray[index]) * (int) Math.pow(N, pow);
+			sum += findIndex(charArray[index]) * (long) Math.pow(N, pow);
 		}
 		return sum;
 	}
