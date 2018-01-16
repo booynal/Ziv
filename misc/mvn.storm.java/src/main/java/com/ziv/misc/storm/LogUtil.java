@@ -9,28 +9,34 @@ import java.io.PrintStream;
  */
 public class LogUtil {
 
-	private static final String logFileName = "logs/out.log";
-	private static PrintStream out;
+    private static final String logFileName = "logs/out.log";
+    private static PrintStream out;
+    public static boolean toFile = false;
 
-	static {
-		init();
-	}
+    static {
+        init();
+    }
 
-	public static void init() {
-		File file = new File(logFileName);
-		try {
-			if (file.exists() == false) {
-				file.createNewFile();
-			}
-			System.out.println(String.format("将日志打印到: '%s'", file.getAbsolutePath()));
-			out = new PrintStream(new FileOutputStream(file, true), true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    public static void init() {
+        File file = new File(logFileName);
+        try {
+            if (file.exists() == false) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            if (toFile) {
+                System.out.println(String.format("将日志打印到: '%s'", file.getAbsolutePath()));
+                out = new PrintStream(new FileOutputStream(file, true), true);
+            } else {
+                out = System.out;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	public static void log(String message) {
-		out.println(message);
-	}
+    public static void log(String message) {
+        out.println(message);
+    }
 
 }

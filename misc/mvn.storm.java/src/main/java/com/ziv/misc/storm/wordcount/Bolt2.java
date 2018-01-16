@@ -49,5 +49,14 @@ public class Bolt2 extends BaseRichBolt {
 	@Override
 	public void cleanup() {
 		LogUtil.log("Bolt2.cleanup()");
+		for (int i = 0; i < 10; i++) {
+			System.out.println("Bolt2等待停止: " + i);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 }

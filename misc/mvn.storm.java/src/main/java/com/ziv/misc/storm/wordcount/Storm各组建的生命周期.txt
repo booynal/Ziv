@@ -42,7 +42,7 @@ builder.setBolt("bolt-2", new Bolt2()).shuffleGrouping("bolt-1");
     声明输出字段: declareOutputFields()
     初始化: open(), prepare()
     正常工作: nextTuple(), execute(), ack()
-    清理: clean()
+    清理: close(), cleanup()
 2. 各个组件之间的顺序：
     Bolt声明字段
     Spout声明字段
@@ -53,7 +53,8 @@ builder.setBolt("bolt-2", new Bolt2()).shuffleGrouping("bolt-1");
     数据流到Bolt处理
     Bolt的ack或fail回馈到Spout
     Topology停止时候各个组件同时清理资源
-3. 没有显示的调用Spout.deactivate()
+3. 本地模式没有显示的调用Spout.deactivate()
+    集群模式测试发现：在kill -w 30拓扑图的时候，会首先调用Spout.deactivate()，然后等待指定的时间后，再清理各个组件的资源（调用close或cleanup方法）
 
 
 BaseRichSpout有3个必须实现的方法，共9个接口方法

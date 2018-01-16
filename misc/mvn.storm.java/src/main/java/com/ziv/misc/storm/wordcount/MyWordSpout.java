@@ -18,56 +18,64 @@ import com.ziv.misc.storm.LogUtil;
  */
 public class MyWordSpout extends BaseRichSpout {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private static AtomicInteger seq = new AtomicInteger();
+    private static AtomicInteger seq = new AtomicInteger();
 
-	private SpoutOutputCollector collector;
+    private SpoutOutputCollector collector;
 
-	@Override
-	public void declareOutputFields(OutputFieldsDeclarer declarer) {
-		LogUtil.log("Spout.declareOutputFields()");
-		declarer.declare(new Fields("word"));
-	}
+    @Override
+    public void declareOutputFields(OutputFieldsDeclarer declarer) {
+        LogUtil.log("Spout.declareOutputFields()");
+        declarer.declare(new Fields("word"));
+    }
 
-	@Override
-	public void open(@SuppressWarnings("rawtypes") Map conf, TopologyContext context, SpoutOutputCollector collector) {
-		LogUtil.log("Spout.open()");
-		this.collector = collector;
-	}
+    @Override
+    public void open(@SuppressWarnings("rawtypes") Map conf, TopologyContext context, SpoutOutputCollector collector) {
+        LogUtil.log("Spout.open()");
+        this.collector = collector;
+    }
 
-	@Override
-	public void activate() {
-		LogUtil.log("Spout.activate()");
-	}
+    @Override
+    public void activate() {
+        LogUtil.log("Spout.activate()");
+    }
 
-	@Override
-	public void nextTuple() {
-		LogUtil.log("Spout.nextTuple()");
-		Utils.sleep(4000);
-		String word = String.format("seq-%s", seq.incrementAndGet());
-		collector.emit(Arrays.asList(word), seq.get());
-		LogUtil.log(String.format("MyWordSpout.emit: '%s'", word));
-	}
+    @Override
+    public void nextTuple() {
+        LogUtil.log("Spout.nextTuple()");
+        Utils.sleep(4000);
+        String word = String.format("seq-%s", seq.incrementAndGet());
+        collector.emit(Arrays.asList(word), seq.get());
+        LogUtil.log(String.format("MyWordSpout.emit: '%s'", word));
+    }
 
-	@Override
-	public void ack(Object msgId) {
-		LogUtil.log(String.format("Spout.ack(%s)", msgId));
-	}
+    @Override
+    public void ack(Object msgId) {
+        LogUtil.log(String.format("Spout.ack(%s)", msgId));
+    }
 
-	@Override
-	public void fail(Object msgId) {
-		LogUtil.log(String.format("Spout.fail(%s)", msgId));
-	}
+    @Override
+    public void fail(Object msgId) {
+        LogUtil.log(String.format("Spout.fail(%s)", msgId));
+    }
 
-	@Override
-	public void deactivate() {
-		LogUtil.log("Spout.deactivate()");
-	}
+    @Override
+    public void deactivate() {
+        LogUtil.log("Spout.deactivate()");
+    }
 
-	@Override
-	public void close() {
-		LogUtil.log("Spout.close()");
-	}
+    @Override
+    public void close() {
+        LogUtil.log("Spout.close()");
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Spout等待停止: " + i);
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
