@@ -1,0 +1,65 @@
+java nio 3大核心部分：
+Channels	4个，有点儿像流，数据可以从Channel读到Buffer，也可以从Buffer写到Channel。
+Buffers		7个，（8大基本类型除了Boolean）
+Selectors	允许单线程处理多个Channel。
+
+====================================================
+java nio中最重要的通道（4个，涵盖了网络IO和文件IO）：
+FileChannel		从文件中读写数据
+DatagramChannel		通过UDP读写网络数据
+SocketChannel		通过TCP读写网络数据
+ServerSocketChanel	监听新进来的TCP连接，每个连接会创建一个SocketChannel
+-----------------------------------
+<I>Channel
+   <AC>AbstractInterruptibleChannel		implements Channel, InterruptibleChannel
+       <AC>FileChannel				implements SeekableByteChannel, ScatteringByteChannel, GatheringByteChannel
+       <AC>SelectableChannel
+           <AC>AbstractSelectableChannel
+               <AC>DatagramChannel		implements ByteChannel, ScatteringByteChannel, GatheringByteChannel, MulticastChannel
+               <AC>SocketChannel		implements ByteChannel, ScatteringByteChannel, GatheringByteChannel, NetworkChannel
+               <AC>ServerSocketChannel		implements NetworkChannel
+
+====================================================
+java中最重要的Buffer实现类：
+<AC>Buffer	(capacity(), limit(), position())(clear()|compact())
+    <C>ByteBuffer
+    <C>CharBuffer
+    <C>DoubleBuffer
+    <C>FloatBuffer
+    <C>IntBuffer
+    <C>LongBuffer
+    <C>ShortBuffer
+
+用Buffer读写数据一般遵循4个步骤：
+1.写入数据到Buffer
+2.调用flip()
+3.从Buffer中读取数据
+4.调用clear()或者compact()
+5.重复1步骤
+...
+
+capacity(), limit(), position()，capacity为容量，limit+position在从Buffer中读和写意义不同，
+  读：position为读取的指针，limit为最大可读数，初始时position=limit=0。
+  写：position为写入的指针，limit为最大可写入数，初始时position=0，limit=capacity。
+rewind() 将position设回0，可以重新读取读过的数据
+clear()|compact()，前者为清空，后者会保留没有读过(get())的数据
+put()|get(),hasRemaining()
+mark()|reset()
+====================================================
+Scatter	分散(<I>ScatteringByteChannel)，从Channel读取的数据分散到多个Buffer中，read(ByteBuffer[])，read(ByteBuffer[], int, int)
+Gather	聚集(<I>GatheringByteChannel)，Channel将多个Buufer中的数据聚集后发送到Channel，write(ByteBuffer[])，write(ByteBuffer[], int, int)
+家族继承图：
+<I>Channel
+   <I>ReadableByteChannel
+       <I>ByteChannel
+	      <I>SeekableByteChannel
+       <I>ScatteringByteChannelel
+   <I>WritableByteChannel
+       <I>ByteChannel
+	      <I>SeekableByteChannel
+       <I>GatheringByteChannel
+   <I>AsynchronousChannel
+      <I>AsynchronousByteChannel
+   <I>InterruptibleChannel
+   <I>NetworkChannel
+      <I>MulticastChannel
