@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   xmlns:context="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
 	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
      http://www.springframework.org/schema/aop 
      http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
      http://www.springframework.org/schema/context 
      http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+	<!-- 以下两个配置主要是通过注解(而非配置)的方式实现切面 -->
+	<context:component-scan base-package="mvn.spring.aop.annotation"/>
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+
+	<!-- 下面的配置主要是通过配置(而非注解)的方式实现切面 -->
 	<bean id="myAdvice" class="mvn.spring.aop.annotation.MyAnnotationAdvice" />
-	<bean id="myService" class="mvn.spring.aop.annotation.MyAnnotationService"></bean>
+	<bean id="myService" class="mvn.spring.aop.annotation.MyAnnotationService"/>
 
 	<aop:config>
 		<aop:aspect id="my-aspect1" ref="myAdvice">

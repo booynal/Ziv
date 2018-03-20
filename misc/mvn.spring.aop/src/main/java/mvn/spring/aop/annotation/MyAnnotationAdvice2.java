@@ -1,4 +1,4 @@
-package mvn.spring.aop.aspect;
+package mvn.spring.aop.annotation;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -8,22 +8,20 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 
 /**
- * @Aspect注解直接作用在切面类
- *
  * @author Booynal
- *
+ * @Aspect注解直接作用在切面类，同时切指定的注解(@EnableLogException)
  */
 @Component
 @Aspect
-public class MyAspectAnnotationAdvice {
+public class MyAnnotationAdvice2 {
 
 	/** 配置切入点,该方法无方法体,主要为方便同类中其他方法使用此处配置的切入点 **/
-	@Pointcut("execution(* mvn.spring.aop.aspect..*(..))")
-	public void aspect() {
+	@Pointcut("@annotation(EnableLogException)")
+	public void pointcutInThisClass() {
 	}
 
 	/** 配置前置通知,使用在方法aspect()上注册的切入点 同时接受JoinPoint切入点对象,可以没有该参数 **/
-	@Before("aspect()")
+	@Before("pointcutInThisClass()")
 	public void beforeMethod(JoinPoint jpoint) {
 		System.out.println("before method: " + jpoint.getSignature().toShortString());
 		System.err.println("kind: " + jpoint.getKind());
@@ -36,19 +34,19 @@ public class MyAspectAnnotationAdvice {
 	}
 
 	/** 配置后置通知,使用在方法aspect()上注册的切入点 **/
-	@After("aspect()")
+	@After("pointcutInThisClass()")
 	public void afterMethod(JoinPoint jpoint) {
 		System.out.println("after method: " + jpoint.getSignature().toShortString());
 	}
 
 	/** 配置后置返回通知,使用在方法aspect()上注册的切入点 **/
-	@AfterReturning("aspect()")
+	@AfterReturning("pointcutInThisClass()")
 	public void afterReturningMethod(JoinPoint jpoint) {
 		System.out.println("afterReturning method: " + jpoint.getSignature().toShortString());
 	}
 
 	/** 配置抛出异常后通知,使用在方法aspect()上注册的切入点 **/
-	@AfterThrowing(pointcut = "aspect()", throwing = "ex")
+	@AfterThrowing(pointcut = "pointcutInThisClass()", throwing = "ex")
 	public void afterThrowingMethod(JoinPoint jpoint, Exception ex) {
 		System.out.println("afterThrowing method: " + jpoint.getSignature().toShortString());
 	}
@@ -60,7 +58,7 @@ public class MyAspectAnnotationAdvice {
 	 * @return 返回所代理方法的返回值
 	 * @throws Throwable
 	 */
-	@Around("aspect()")
+	@Around("pointcutInThisClass()")
 	public Object aroundMethod(ProceedingJoinPoint jpoint) throws Throwable {
 		try {
 			System.out.println("around before method: " + jpoint.getSignature().toShortString());
