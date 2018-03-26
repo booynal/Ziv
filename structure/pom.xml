@@ -2,16 +2,15 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.ziv.structure</groupId>
-		<artifactId>structure-parent</artifactId>
-		<version>0.1</version>
-	</parent>
-
 	<groupId>com.ziv.structure</groupId>
-	<artifactId>number-base</artifactId>
+	<artifactId>structure-parent</artifactId>
 	<version>0.1</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>number.base</module>
+		<module>search</module>
+	</modules>
 
 	<dependencies>
 		<dependency>
