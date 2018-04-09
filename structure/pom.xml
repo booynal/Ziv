@@ -11,6 +11,7 @@
 		<module>number.base</module>
 		<module>search</module>
 		<module>palindrome</module>
+		<module>sort</module>
 	</modules>
 
 	<dependencies>
