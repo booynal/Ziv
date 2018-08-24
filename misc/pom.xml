@@ -7,7 +7,7 @@
 	<version>${misc.version}</version>
 	<packaging>pom</packaging>
 
-	<name>tutorials</name>
+    <name>misc</name>
 	<url>http://github.com/booynal/Ziv</url>
 
 	<properties>
@@ -94,6 +94,7 @@
 		<module>mvn.c3p0.test</module>
 		<module>mvn.db.pool.druid.test</module>
 		<module>mvn.slf4j</module>
+        <module>mvn.slf4j.logback</module>
 		<module>mvn.mockito</module>
 	</modules>
 </project>

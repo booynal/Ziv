@@ -1,0 +1,6 @@
+
+SLF4J官方手册
+https://www.slf4j.org/manual.html
+
+多个绑定如何解决？
+https://www.slf4j.org/codes.html#multiple_bindings
