@@ -96,5 +96,6 @@
 		<module>mvn.slf4j</module>
         <module>mvn.slf4j.logback</module>
 		<module>mvn.mockito</module>
+		<module>office-extractor</module>
 	</modules>
 </project>
