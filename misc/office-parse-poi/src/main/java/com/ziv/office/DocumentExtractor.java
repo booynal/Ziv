@@ -18,6 +18,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+/**
+ * 类描述:  文档内容解析工具类<br/>
+ *
+ * @auth 张黄江
+ * @date 2018/11/10 10:29
+ */
 public class DocumentExtractor {
 
 	/**
