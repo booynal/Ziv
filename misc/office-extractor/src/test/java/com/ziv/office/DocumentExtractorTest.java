@@ -38,10 +38,16 @@ public class DocumentExtractorTest {
 	}
 
 	@Test
-	public void getTextFromExcel() {
+	public void getTextFromExcel() throws FileNotFoundException {
+		InputStream input = new FileInputStream("/Users/ziv/Downloads/模块分配.xls");
+		String textFromExcel = DocumentExtractor.getTextFromExcel(input);
+		System.out.println("textFromExcel: " + textFromExcel);
 	}
 
 	@Test
-	public void getTextFromExcel2007() {
+	public void getTextFromExcel2007() throws FileNotFoundException {
+		InputStream input = new FileInputStream("/Users/ziv/Downloads/模块分配.xlsx");
+		String textFromExcel2007 = DocumentExtractor.getTextFromExcel2007(input);
+		System.out.println("textFromExcel2007: " + textFromExcel2007);
 	}
 }
