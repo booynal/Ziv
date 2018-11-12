@@ -4,7 +4,6 @@ import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
-import org.apache.tika.parser.ParseContext;
 import org.apache.tika.sax.BodyContentHandler;
 import org.junit.Test;
 
@@ -69,7 +68,8 @@ public class TikaParserTest {
 			// 据官方文档说此种方式稍复杂，但是效率比上面一种要高
 			BodyContentHandler handler = new BodyContentHandler();
 			//自动检测文档类型，自动创建相应的解析器
-			new AutoDetectParser().parse(is, handler, metadata, new ParseContext());
+//			new AutoDetectParser().parse(is, handler, metadata, new ParseContext());
+			new AutoDetectParser().parse(is, handler, metadata);
 			for (String name : metadata.names()) {
 				System.out.println(name + "\t= " + metadata.get(name));
 			}
@@ -82,7 +82,9 @@ public class TikaParserTest {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (is != null) is.close();
+				if (is != null) {
+					is.close();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
