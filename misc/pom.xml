@@ -70,6 +70,14 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<dependencies>
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+	</dependencies>
+
 	<modules>
 		<module>test.junit.base</module>
 		<module>misc.personal.income.tax</module>
@@ -98,5 +106,6 @@
 		<module>mvn.mockito</module>
 		<module>office-parse-poi</module>
 		<module>office-parse-tika</module>
+		<module>java-security-rsa</module>
 	</modules>
 </project>
