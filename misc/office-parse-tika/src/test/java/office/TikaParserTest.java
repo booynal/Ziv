@@ -49,7 +49,8 @@ public class TikaParserTest {
 
 	@Test
 	public void test2_高效的解析() {
-		String filename = "/Users/ziv/tmp/test.doc";
+//		String filename = "/Users/ziv/tmp/test.doc";
+		String filename = "/Users/ziv/百度云同步盘/Life/myDiary/diary.xlsx";
 //		String filename = "/Users/ziv/tmp/test.docx";
 //		String filename = "/Users/ziv/Downloads/猎你推荐报告-上海猎都网络科技有限公司-UI设计师-刘志楠.doc";
 //		String filename = "/Users/ziv/Downloads/国内三大通用搜索引擎的垂直搜索功能比较_余元秀.pdf";
@@ -66,7 +67,7 @@ public class TikaParserTest {
 			Metadata metadata = new Metadata();
 			is = new FileInputStream(filename);
 			// 据官方文档说此种方式稍复杂，但是效率比上面一种要高
-			BodyContentHandler handler = new BodyContentHandler();
+			BodyContentHandler handler = new BodyContentHandler(1000000);
 			//自动检测文档类型，自动创建相应的解析器
 //			new AutoDetectParser().parse(is, handler, metadata, new ParseContext());
 			new AutoDetectParser().parse(is, handler, metadata);
