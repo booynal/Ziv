@@ -106,6 +106,6 @@
 		<module>mvn.mockito</module>
 		<module>office-parse-poi</module>
 		<module>office-parse-tika</module>
-		<module>java-security-rsa</module>
+		<module>java-security</module>
 	</modules>
 </project>

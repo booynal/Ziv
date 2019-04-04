@@ -1,6 +1,5 @@
-package com.ziv.security.rsa;
+package com.ziv.security.util;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Base64;
@@ -11,7 +10,6 @@ import java.util.Base64;
  * @auth 张黄江
  * @date 2019/3/26 19:29
  */
-@Ignore
 public class Base64Test {
 
 	private String source = "ziv";
